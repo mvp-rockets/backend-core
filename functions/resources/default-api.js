@@ -8,7 +8,7 @@ async function get(req) {
     logInfo('Request to get default api ', {});
 
     const result = Result.Ok({
-        projectName: 'Postgress-aws-sm',
+        projectName: 'sample-api',
         apiPort: config.apiPort,
         env: config.env
     });
