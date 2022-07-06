@@ -17,8 +17,8 @@
         "coverage": "NODE_ENV=test env-cmd -f ./env/.env.test nyc --reporter=html ./node_modules/.bin/mocha --recursive --exit --config ./test/.mocharc.js",
         "coverageBitBucket": "NODE_ENV=test env-cmd -f ./env/.env.test nyc --reporter=lcov ./node_modules/.bin/mocha --recursive --exit --config ./test/.mocharc.js"
     },
-    "author": "",
-    "license": "",
+    "author": "Yashjeet Luthar <yash@napses.com>",
+    "license": "Napses",
     "dependencies": {
         "app-module-path": "^2.2.0",
         "aws-sdk": "^2.1168.0",
