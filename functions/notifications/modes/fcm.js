@@ -1,5 +1,6 @@
 const { logInfo, logError } = require('lib');
-const FcmNotification = require('fcm-notification');
+// const FcmNotification = require('fcm-notification');
+// TODO: We need to use alternate of fcm-notification(it has 24 vulnerabilities (6 moderate, 18 high))
 const config = require('config/config.js');
 
 // const FCM = new FcmNotification(require(config.fcm.path));
