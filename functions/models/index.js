@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+require('pg').defaults.parseInt8 = true;
 const Sequelize = require('sequelize');
 
 const basename = path.basename(__filename);
@@ -35,7 +36,6 @@ Object.keys(db).forEach((modelName) => {
 });
 
 sequelize.options.logging = false;
-
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 module.exports = db;
