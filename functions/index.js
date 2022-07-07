@@ -22,48 +22,39 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-server.listen(config.apiPort, async () => {
-    try {
-        require('./api-routes');
+require('./api-routes');
 
-        app.use((req, res, next) => {
-            const err = new ApiError(404, 'Not Found', 'Resource Not Found!');
-            next(err);
+app.use((req, res, next) => {
+    const err = new ApiError(404, 'Not Found', 'Resource Not Found!');
+    next(err);
+});
+
+app.use((error, request, response, next) => {
+    if (error.constructor === ApiError) {
+        logError('Failed to execute the operation', { error });
+        if (error.code) { response.status(error.code); }
+        response.send({
+            status: false,
+            errorType: 'api',
+            message: error.errorMessage
         });
-
-        app.use((error, request, response, next) => {
-            if (error.constructor === ApiError) {
-                logError('Failed to execute the operation', { error });
-                if (error.code) { response.status(error.code); }
-
-                response.send({
-                    status: false,
-                    errorType: 'api',
-                    message: error.errorMessage
-                });
-            } else if (error.constructor === ValidationError) {
-                logError('Failed to execute the operation', error.errorMessage);
-                response.send({
-                    status: false,
-                    errorType: 'validation',
-                    message: error.errorMessage
-                });
-            } else {
-                console.error(error);
-                response.status(501);
-                logError('Failed to execute the operation', error);
-                response.send({
-                    status: false,
-                    errorType: 'unhandled',
-                    message: 'Something went wrong!'
-                });
-            }
+    } else if (error.constructor === ValidationError) {
+        logInfo('Validation Error', error.errorMessage);
+        response.send({
+            status: false,
+            errorType: 'validation',
+            message: error.errorMessage
         });
-    } catch (error) {
-        console.log(error);
+    } else {
+        console.error(error);
+        response.status(501);
+        logError('Failed to execute the operation', error);
+        response.send({
+            status: false,
+            errorType: 'unhandled',
+            message: 'Something went wrong!'
+        });
     }
-
-    console.log(`Express server listening on port ${config.apiPort}`);
 });
 
 process.on('unhandledRejection', (error) => {
@@ -73,6 +64,9 @@ process.on('unhandledRejection', (error) => {
 
 process.on('uncaughtException', (error) => {
     console.log(error);
-
     logError('uncaughtException', { error });
+});
+
+server.listen(config.port, () => {
+    console.log(`Express server listening on port ${config.port}`);
 });

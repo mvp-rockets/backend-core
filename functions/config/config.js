@@ -1,7 +1,7 @@
 const config = require('config');
 
 const secretVariable = {
-    apiPort: process.env.API_PORT,
+    port: process.env.API_PORT,
     env: process.env.ENVIRONMENT,
     host: process.env.DB_HOST,
     username: process.env.DB_USERNAME,
