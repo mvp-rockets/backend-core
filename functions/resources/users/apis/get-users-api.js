@@ -9,7 +9,6 @@ async function get(req) {
     logInfo('Request to get users api ', {});
 
     const result = await db.find(new GetUsersQuery());
-    console.log(result)
     return respond(result, 'Successfully get users!', 'Failed to get users!');
 }
 

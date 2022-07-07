@@ -24,7 +24,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 app.use((req, res, next) => {
     const namespace = cls.getNamespace(config.clsNameSpace);
     const platform = req.headers['x-platform'] || 'unknown-platform';
@@ -49,7 +48,8 @@ app.use((error, request, response, next) => {
         logError('Failed to execute the operation', {
             error: {
                 value: error.error, stack: error.error ? error.error.stack : []
-            }, platform
+            },
+            platform
         });
         if (error.code) { response.status(error.code); }
 
@@ -87,6 +87,6 @@ process.on('uncaughtException', (error) => {
     logError('uncaughtException', { error });
 });
 
-server.listen(config.port, () => {
-    console.log(`Express server listening on port ${config.port}`);
+server.listen(config.apiPort, () => {
+    console.log(`Express server listening on Port :- ${config.apiPort}`);
 });

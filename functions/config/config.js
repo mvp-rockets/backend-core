@@ -1,7 +1,7 @@
 const config = require('config');
 
 const secretVariable = {
-    port: process.env.API_PORT,
+    apiPort: process.env.API_PORT,
     env: process.env.ENVIRONMENT,
     host: process.env.DB_HOST,
     username: process.env.DB_USERNAME,
@@ -28,5 +28,4 @@ const secretVariable = {
 };
 
 const variables = { ...secretVariable, ...config };
-
 module.exports = variables;
