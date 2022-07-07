@@ -17,7 +17,7 @@ if (config.enableAwsLogger) {
         awsAccessKeyId: config.AwsCloudwatch.awsAccessKeyId,
         awsSecretKey: config.AwsCloudwatch.awsSecretKey,
         awsRegion: config.AwsCloudwatch.region,
-        messageFormatter: ({ level, message, body }) => `[${level}] : ${message} \nBody: ${JSON.stringify(body)}}`
+        messageFormatter: ({ level, message, body, traceId }) => `[${level}] : ${'traceId : ' + traceId} ${message} \nBody: ${JSON.stringify(body)}}`
     }));
 } else if (!logger) {
     let logFile = './logs/log';

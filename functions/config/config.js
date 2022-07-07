@@ -23,7 +23,8 @@ const secretVariable = {
         arn: process.env.AWS_SQS_ARN,
         deadLetterQueue: process.env.AWS_SQS_DEAD_LETTER_QUEUE
 
-    }
+    },
+    clsNameSpace: process.env.CLS_NAMESPACE
 };
 
 const variables = { ...secretVariable, ...config };

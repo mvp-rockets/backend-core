@@ -5,11 +5,9 @@ const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 
 const cls = require('cls-hooked');
-
-const namespace = cls.createNamespace('amplywealth');
-Sequelize.useCLS(namespace);
-
 const config = require('config/config');
+const namespace = cls.createNamespace(config.clsNameSpace);
+Sequelize.useCLS(namespace);
 
 const db = {};
 const dbConfig = {
