@@ -8,15 +8,14 @@
 3. NPM: v8.13.2
 4. Nodejs: v16.15.1
 5. docker and docker-compose latest
-### Installation
-
-#### steps to start api
+### steps to start api
 1. After cloning update name, description and version with your project details in package.json
 2. .env.dev and .env.test should be updated with your configuration.
 3. from the root directory execute ./start_api.sh dev
 
-#### db commands.
-1. Create database for dev & test environment: open cmd prompt go inside the functions and run ./create-db.sh :env \n
-   example:  ./create-db.sh dev
+### db commands.
+1. Create database for dev & test environment: open cmd prompt go inside the functions and run ./create-db.sh :env <br />
+   example: <br />  ./create-db.sh dev <br />
+   ./create-db.sh test
 
-###### Maintainers : yash@napses.com
+### Maintainers : yash@napses.com
