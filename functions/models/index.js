@@ -1,15 +1,14 @@
 const fs = require('fs');
 const path = require('path');
+require('pg').defaults.parseInt8 = true;
 const Sequelize = require('sequelize');
 
 const basename = path.basename(__filename);
 
 const cls = require('cls-hooked');
-
-const namespace = cls.createNamespace('amplywealth');
-Sequelize.useCLS(namespace);
-
 const config = require('config/config');
+const namespace = cls.createNamespace(config.clsNameSpace);
+Sequelize.useCLS(namespace);
 
 const db = {};
 const dbConfig = {
@@ -37,7 +36,6 @@ Object.keys(db).forEach((modelName) => {
 });
 
 sequelize.options.logging = false;
-
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 module.exports = db;

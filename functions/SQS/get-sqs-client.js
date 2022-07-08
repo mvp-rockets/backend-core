@@ -1,11 +1,11 @@
 const AWS = require('aws-sdk');
-const config = require('config/config.js');
+const config = require('config/config');
 
 AWS.config.update({
     apiVersion: '2012-11-05',
-    region: config.SQS.region,
-    accessKeyId: config.SQS.accessKeyId,
-    secretAccessKey: config.SQS.secretAccessKey
+    region: config.awsSQS.region,
+    accessKeyId: config.awsSQS.accessKeyId,
+    secretAccessKey: config.awsSQS.secretAccessKey
 });
 
 const SQS = new AWS.SQS();
