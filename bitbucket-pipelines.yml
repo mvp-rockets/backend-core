@@ -10,9 +10,8 @@ pipelines:
             - apt-get install postgresql-client -y
             - cd functions
             - npm install
-            - sh reset_db.sh test
-            # - sh create-db.sh test
-            # - sh run_migration.sh test
+            - sh create-db.sh test
+            - sh run_migration.sh test
             - echo "Completed"
           services:
             - postgres
