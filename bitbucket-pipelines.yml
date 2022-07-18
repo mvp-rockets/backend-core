@@ -12,7 +12,7 @@ pipelines:
             - npm install
             - sh create-db.sh test
             - sh run_migration.sh test
-            - echo "Completed"
+            - npm run autoTest
           services:
             - postgres
 definitions:
