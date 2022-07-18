@@ -2,7 +2,7 @@ version: '3'
 services:
   api:
     image: node:16.15.1
-    command: sh -c 'npm install && npm run devServer'     
+    command: sh -c 'npm install && npm run server:dev'     
     container_name: api
     working_dir: /app
     volumes:
