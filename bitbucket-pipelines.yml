@@ -9,7 +9,7 @@ pipelines:
             - apt-get update
             - apt-get install postgresql-client -y
             - cd functions
-            - npm install
+            - npm ci
             - npm run db:create --env=ci
             - npm run db:migrate --env=ci
             - npm run test:ci

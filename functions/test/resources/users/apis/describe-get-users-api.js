@@ -36,7 +36,7 @@ describe('Get users api', () => {
         };
     });
 
-    it('Should return users for a valid request', async () => {
+    it('should return users for a valid request', async () => {
         sandbox
             .mock(db)
             .expects('find')
@@ -55,7 +55,7 @@ describe('Get users api', () => {
         );
     });
 
-    it('Should return error when something goes wrong', async () => {
+    it('should return error when something goes wrong', async () => {
         sandbox.stub(db, 'find').returns(resolveError('Something went wrong'));
         const response = await TestRoutes.executeWithError('/users', 'Get', req, res);
         expect(response).to.eql(new ApiError(0, 'Something went wrong', 'Failed to get users!'));

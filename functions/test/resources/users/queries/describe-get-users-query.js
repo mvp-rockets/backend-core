@@ -6,7 +6,7 @@ const GetUsersQuery = require('resources/users/queries/get-users-query');
 
 const { expect } = chai;
 
-describe('Get users query', () => {
+describe('get users query', () => {
     let user1;
     let user2;
 
@@ -15,7 +15,7 @@ describe('Get users query', () => {
         user2 = await ds.createSingle(ds.user);
     });
 
-    it('Should get all users', async () => {
+    it('should get all users', async () => {
         const fetchedUsers = await db.find(new GetUsersQuery());
         
         verifyResultOk(() => {
