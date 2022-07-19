@@ -1,12 +1,9 @@
-# Backend Core
-
-- [Backend Core](#backend-core)
-  - [1. Introduction](#1-introduction)
-  - [2. Pre-requirement](#2-pre-requirement)
-  - [3. Running the project](#3-running-the-project)
-  - [4. Connect to container](#4-connect-to-container)
-  - [4. Db operations](#4-db-operations)
-  - [5. Authors/maintainer/contributor](#5-authorsmaintainercontributor)
+- [1. Introduction](#1-introduction)
+- [2. Pre-requirement](#2-pre-requirement)
+- [3. Running the project](#3-running-the-project)
+- [4. Connect to container](#4-connect-to-container)
+- [4. Db operations](#4-db-operations)
+- [5. Authors/maintainer/contributor](#5-authorsmaintainercontributor)
 
 ## 1. Introduction
 
