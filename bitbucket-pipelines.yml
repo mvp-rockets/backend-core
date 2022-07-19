@@ -10,14 +10,14 @@ pipelines:
             - apt-get install postgresql-client -y
             - cd functions
             - npm install
-            - sh create-db.sh test
-            - sh run_migration.sh test
-            - npm test
+            - npm run db:create --env=ci
+            - npm run db:migrate --env=ci
+            - npm run test:ci
           services:
-            - postgres
+            - db
 definitions:
   services:
-    postgres:
+    db:
       image: postgres:latest
       variables:
         POSTGRES_USER: 'root'
