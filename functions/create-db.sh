@@ -1,5 +1,3 @@
-set -x
-
 if [ -z "$1" ]
   then
     echo "Which env do you want to restore for?"
