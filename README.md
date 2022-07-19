@@ -18,7 +18,6 @@ It's backend project build on nodejs. which can be used as a reference/based for
 ## 3. Running the project
   
    ```
-   cd functions
    docker-compose up
    
    ```
@@ -26,7 +25,6 @@ It's backend project build on nodejs. which can be used as a reference/based for
 ## 4. Connect to container
 
    ```
-   cd functions
    ./connect.sh 
    ```
 

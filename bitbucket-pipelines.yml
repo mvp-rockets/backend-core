@@ -8,7 +8,6 @@ pipelines:
           script:
             - apt-get update
             - apt-get install postgresql-client -y
-            - cd functions
             - npm ci
             - npm run db:create --env=ci
             - npm run db:migrate --env=ci
