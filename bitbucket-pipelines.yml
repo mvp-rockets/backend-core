@@ -14,10 +14,10 @@ pipelines:
             - npm run db:migrate --env=ci
             - npm run test:ci
           services:
-            - db
+            - postgres
 definitions:
   services:
-    db:
+    postgres:
       image: postgres:latest
       variables:
         POSTGRES_USER: 'root'
