@@ -16,6 +16,7 @@
         "db:create": "NODE_ENV=${npm_config_env} sequelize-cli db:create --env=${npm_config_env}",
         "db:migrate": "NODE_ENV=${npm_config_env} sequelize-cli db:migrate --env=${npm_config_env}",
         "db:migrate:undo": "NODE_ENV=${npm_config_env} sequelize-cli db:migrate:undo --env=${npm_config_env}",
+        "db:drop": "NODE_ENV=${npm_config_env} sequelize-cli db:drop --env=${npm_config_env}",
         "coverage": "NODE_ENV=test nyc --reporter=html ./node_modules/.bin/mocha --recursive --exit --config ./test/.mocharc.js",
         "coverage:bitbucket": "NODE_ENV=test nyc --reporter=lcov ./node_modules/.bin/mocha --recursive --exit --config ./test/.mocharc.js",
         "build:env": "node build-env-index.js"
