@@ -34,6 +34,12 @@ app.use((req, res, next) => {
     });
 });
 
+app.get('/healthcheck', (req, res, next) => {
+    res.json({
+        isHealthy: true
+    })
+});
+
 require('./api-routes');
 
 app.use((req, res, next) => {
