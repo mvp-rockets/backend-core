@@ -5,7 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
-dotenv.config();
+dotenv.config({ path: `./env/.env.${process.env.NODE_ENV}` });
 const cls = require('cls-hooked');
 const config = require('config/config');
 const bodyParser = require('body-parser');

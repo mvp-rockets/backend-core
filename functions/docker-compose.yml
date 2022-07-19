@@ -1,7 +1,19 @@
 version: '3'
 services:
+  api:
+    image: node:16.15.1
+    command: sh -c 'npm install && npm run server:dev'     
+    container_name: api
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - sqs
   db:
-    container_name: pg_container
+    container_name: db
     image: postgres:13
     restart: always
     environment:
@@ -13,7 +25,7 @@ services:
       - pg-dataset:/var/lib/postgresql/data
   
   pgadmin:
-    container_name: pgadmin4_container
+    container_name: pgadmin
     image: dpage/pgadmin4
     restart: always
     environment:
@@ -22,8 +34,9 @@ services:
     ports:
       - "5050:80"
 
-  queue:
+  sqs:
     image: s12v/elasticmq
+    container_name: sqs
     volumes:
       - ./elasticmq/custom.conf:/etc/elasticmq/elasticmq.conf
     ports:

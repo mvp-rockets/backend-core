@@ -18,4 +18,4 @@
    example: <br />  ./create-db.sh dev <br />
    ./create-db.sh test
 
-### Maintainers : yash@napses.com
+### Maintainers : yash@napses.com , hitesh.bhati@napses.com
