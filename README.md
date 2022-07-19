@@ -1,21 +1,50 @@
-## About The Project
----------------------
-### Introduction 
- It is a sample project for nodejs. which can be used as a based for new project
-### Requirements 
-1. OS: Ubuntu 20.04.4 LTS
-2. NVM: v0.38.0
-3. NPM: v8.13.2
-4. Nodejs: v16.15.1
-5. docker and docker-compose latest
-### steps to start api
-1. After cloning update name, description and version with your project details in package.json
-2. .env.dev and .env.test should be updated with your configuration.
-3. from the root directory execute ./start_api.sh dev
+# Backend Core
 
-### db commands.
-1. Create database for dev & test environment: open cmd prompt go inside the functions and run ./create-db.sh :env <br />
-   example: <br />  ./create-db.sh dev <br />
-   ./create-db.sh test
+- [Backend Core](#backend-core)
+  - [1. Introduction](#1-introduction)
+  - [2. Pre-requirement](#2-pre-requirement)
+  - [3. Running the project](#3-running-the-project)
+  - [4. Connect to container](#4-connect-to-container)
+  - [4. Db operations](#4-db-operations)
+  - [5. Authors/maintainer/contributor](#5-authorsmaintainercontributor)
 
-### Maintainers : yash@napses.com , hitesh.bhati@napses.com
+## 1. Introduction
+
+It's backend project build on nodejs. which can be used as a reference/based for new/existing project.
+
+## 2. Pre-requirement
+
+- Ubuntu 20.04.4 LTS
+- docker(19.xx)
+- docker-compose(1.28.xx)
+  
+## 3. Running the project
+  
+   ```
+   cd functions
+   docker-compose up
+   
+   ```
+
+## 4. Connect to container
+
+   ```
+   cd functions
+   ./connect.sh 
+   ```
+
+## 4. Db operations
+
+```
+Commands:
+  npm run db:create  --env=env                         Create database specified by configuration
+  npm run db:migrate --env=env                         Run pending migrations
+  npm run db:migrate:undo --env=env                    Reverts a migration
+  npm run db:drop --env=env                            Drop database specified by configuration(make sure all connections are closed)
+
+```
+
+## 5. Authors/maintainer/contributor
+
+- Yashjeet Luthra (yash@napses.com)
+- Hitesh Bhati (hitesh.bhati@napses.com)
