@@ -24,7 +24,8 @@ const secretVariable = {
         deadLetterQueue: process.env.AWS_SQS_DEAD_LETTER_QUEUE
 
     },
-    clsNameSpace: process.env.CLS_NAMESPACE
+    clsNameSpace: process.env.CLS_NAMESPACE,
+    croniterSecretKey: process.env.CRONITER_SECRET_KEY
 };
 
 const variables = { ...secretVariable, ...config };
