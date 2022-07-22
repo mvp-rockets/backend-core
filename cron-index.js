@@ -6,7 +6,7 @@ dotenv.config({ path: `./env/.env.${process.env.NODE_ENV}` });
 const { logError } = require('lib/functional/logger');
 
 require('crons/heartbeat')
-require('crons/test-cron')
+require('crons/jobs/test-cron')
 
 process.on('unhandledRejection', (error) => {
     console.log('unhandledRejection');

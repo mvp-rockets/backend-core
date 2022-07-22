@@ -1,4 +1,4 @@
-const cronitor = require('crons/crontier-client.js');
+const cronitor = require('crons/cronitor-client.js');
 const monitor = new cronitor.Monitor('important-heartbeat-monitor');
 
 // send a heartbeat event with a message

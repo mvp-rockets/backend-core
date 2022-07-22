@@ -25,7 +25,7 @@ const secretVariable = {
 
     },
     clsNameSpace: process.env.CLS_NAMESPACE,
-    croniterSecretKey: process.env.CRONITER_SECRET_KEY
+    cronitorSecretKey: process.env.CRONITOR_SECRET_KEY
 };
 
 const variables = { ...secretVariable, ...config };
