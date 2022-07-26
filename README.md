@@ -3,7 +3,10 @@
 - [3. Running the project](#3-running-the-project)
 - [4. Connect to container](#4-connect-to-container)
 - [4. Db operations](#4-db-operations)
-- [5. Authors/maintainer/contributor](#5-authorsmaintainercontributor)
+- [5. Cron](#5-cron)
+    - [cron](#cron)
+    - [cronitor](#cronitor)
+- [6. Authors/maintainer/contributor](#6-authorsmaintainercontributor)
 
 ## 1. Introduction
 
@@ -39,7 +42,25 @@ Commands:
 
 ```
 
-## 5. Authors/maintainer/contributor
+## 5. Cron
+
+For cron related works, Project use cron package for running your code and cronitor package to monitoring your cron.
+
+#### cron
+
+cron installation `npm i cron`
+
+How to use : <https://www.npmjs.com/package/cron>
+
+#### cronitor
+
+Pre-requirement: Create account in cronitor portal (<https://cronitor.io/>)
+
+cronitor installation `npm i cronitor`
+
+How to use <https://github.com/cronitorio/cronitor-js>
+
+## 6. Authors/maintainer/contributor
 
 - Yashjeet Luthra (yash@napses.com)
 - Hitesh Bhati (hitesh.bhati@napses.com)
