@@ -13,6 +13,9 @@ const ApiError = require('lib/functional/api-error');
 const ValidationError = require('lib/validation-error');
 const { logError, logInfo } = require('lib/functional/logger');
 
+const healthcheckDbStatus = require('resources/healthcheck-db-api');
+const healthcheckApiStatus = require('resources/healthcheck-server-api');
+
 const app = express();
 const server = require('http').createServer(app);
 const Route = require('route');
@@ -34,11 +37,8 @@ app.use((req, res, next) => {
     });
 });
 
-app.get('/healthcheck', (req, res, next) => {
-    res.json({
-        isHealthy: true
-    })
-});
+app.get('/healthcheck-db', healthcheckDbStatus);
+app.get('/healthcheck-api', healthcheckApiStatus);
 
 require('./api-routes');
 
@@ -93,6 +93,13 @@ process.on('uncaughtException', (error) => {
     logError('uncaughtException', { error });
 });
 
+process.on('SIGTERM', () => {
+    logInfo('SIGTERM signal received: closing HTTP server');
+    server.close(() => {
+      logInfo('HTTP server closed');
+    })
+  })
+  
 server.listen(config.apiPort, () => {
     console.log(`Express server listening on Port :- ${config.apiPort}`);
 });
