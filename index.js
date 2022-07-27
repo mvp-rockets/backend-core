@@ -13,9 +13,6 @@ const ApiError = require('lib/functional/api-error');
 const ValidationError = require('lib/validation-error');
 const { logError, logInfo } = require('lib/functional/logger');
 
-const healthcheckDbStatus = require('resources/healthcheck-db-api');
-const healthcheckApiStatus = require('resources/healthcheck-server-api');
-
 const app = express();
 const server = require('http').createServer(app);
 const Route = require('route');
@@ -36,6 +33,9 @@ app.use((req, res, next) => {
         next();
     });
 });
+
+const healthcheckDbStatus = require('resources/healthcheck-db-api');
+const healthcheckApiStatus = require('resources/healthcheck-server-api');
 
 app.get('/healthcheck-db', healthcheckDbStatus);
 app.get('/healthcheck-api', healthcheckApiStatus);
