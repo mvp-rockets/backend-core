@@ -2,12 +2,14 @@
 - [2. Pre-requirement](#2-pre-requirement)
 - [3. Running the project](#3-running-the-project)
 - [4. Connect to container](#4-connect-to-container)
-- [4. Db operations](#4-db-operations)
-- [5. Cron](#5-cron)
+- [5. Db operations](#5-db-operations)
+- [6. Test Cases](#6-test-cases)
+- [7. Health check apis](#7-health-check-apis)
+- [8. Cron](#8-cron)
     - [cron](#cron)
     - [cronitor](#cronitor)
-- [6. Cors](#6-cors)
-- [7. Authors/maintainer/contributor](#7-authorsmaintainercontributor)
+    - [cors](#cors)
+- [9. Authors/maintainers/contributors](#9-authorsmaintainerscontributors)
 
 ## 1. Introduction
 
@@ -18,21 +20,26 @@ It's backend project build on nodejs. which can be used as a reference/based for
 - Ubuntu 20.04.4 LTS
 - docker(19.xx)
 - docker-compose(1.28.xx)
-  
+
 ## 3. Running the project
-  
-   ```
-   docker-compose up
-   
-   ```
+
+```
+docker-compose up
+
+```
 
 ## 4. Connect to container
 
-   ```
-   ./connect.sh 
-   ```
+To perform db operations, installing new packages and running test cases. You need to connect to the container.
+use below cmd to connect.
 
-## 4. Db operations
+```
+./connect.sh
+```
+
+## 5. Db operations
+
+To perform db operations connect to the container and execute below commends
 
 ```
 Commands:
@@ -43,7 +50,28 @@ Commands:
 
 ```
 
-## 5. Cron
+## 6. Test Cases
+
+To execute test cases connect to the container and execute below commends
+
+```
+npm run test:watch                            Run all the test cases and wait for the changes
+npm run test                                  Run all the test cases and exit
+
+```
+
+## 7. Health check apis
+
+Project contain two health-check api end-points.
+
+```
+/health-check-api                            To check the health of api instance.
+/health-check-db                             To check the connection between api instance and db.
+
+```
+Note: check index.js for code implementation.
+
+## 8. Cron
 
 For cron related works, Project use cron package for running your code and cronitor package to monitoring your cron.
 
@@ -61,13 +89,14 @@ cronitor installation `npm i cronitor`
 
 How to use <https://github.com/cronitorio/cronitor-js>
 
-## 6. Cors
+#### cors
 
-cors installation `npm i cors`
+cron installation `npm i cors`
 
 How to use : <https://www.npmjs.com/package/cors>
 
-## 7. Authors/maintainer/contributor
+
+## 9. Authors/maintainers/contributors
 
 - Yashjeet Luthra (yash@napses.com)
 - Hitesh Bhati (hitesh.bhati@napses.com)

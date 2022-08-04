@@ -38,11 +38,12 @@ app.use((req, res, next) => {
     });
 });
 
-const healthcheckDbStatus = require('resources/healthcheck-db-api');
-const healthcheckApiStatus = require('resources/healthcheck-server-api');
+//HealthCheck endpoints
+const healthCheckApi = require('resources/health-check-api');
+const healthCheckDbAPi = require('resources/health-check-db-api');
 
-app.get('/healthcheck-db', healthcheckDbStatus);
-app.get('/healthcheck-api', healthcheckApiStatus);
+app.get('/health-check-api', healthCheckApi);
+app.get('/health-check-db', healthCheckDbAPi);
 
 require('./api-routes');
 
