@@ -6,7 +6,8 @@
 - [5. Cron](#5-cron)
     - [cron](#cron)
     - [cronitor](#cronitor)
-- [6. Authors/maintainer/contributor](#6-authorsmaintainercontributor)
+- [6. Cors](#6-cors)
+- [7. Authors/maintainer/contributor](#7-authorsmaintainercontributor)
 
 ## 1. Introduction
 
@@ -60,7 +61,13 @@ cronitor installation `npm i cronitor`
 
 How to use <https://github.com/cronitorio/cronitor-js>
 
-## 6. Authors/maintainer/contributor
+## 6. Cors
+
+cors installation `npm i cors`
+
+How to use : <https://www.npmjs.com/package/cors>
+
+## 7. Authors/maintainer/contributor
 
 - Yashjeet Luthra (yash@napses.com)
 - Hitesh Bhati (hitesh.bhati@napses.com)
