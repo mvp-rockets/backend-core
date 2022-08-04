@@ -8,8 +8,8 @@
 - [8. Cron](#8-cron)
     - [cron](#cron)
     - [cronitor](#cronitor)
-    - [cors](#cors)
-- [9. Authors/maintainers/contributors](#9-authorsmaintainerscontributors)
+- [9. cors](#9-cors)
+- [10. Authors/maintainers/contributors](#10-authorsmaintainerscontributors)
 
 ## 1. Introduction
 
@@ -69,6 +69,7 @@ Project contain two health-check api end-points.
 /health-check-db                             To check the connection between api instance and db.
 
 ```
+
 Note: check index.js for code implementation.
 
 ## 8. Cron
@@ -89,14 +90,14 @@ cronitor installation `npm i cronitor`
 
 How to use <https://github.com/cronitorio/cronitor-js>
 
-#### cors
+## 9. cors
 
 cors installation `npm i cors`
 
 How to use : <https://www.npmjs.com/package/cors>
 
-
-## 9. Authors/maintainers/contributors
+## 10. Authors/maintainers/contributors
 
 - Yashjeet Luthra (yash@napses.com)
 - Hitesh Bhati (hitesh.bhati@napses.com)
+- Priyansh (priyansh.jain@napses.com)
