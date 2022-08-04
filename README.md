@@ -43,10 +43,12 @@ To perform db operations connect to the container and execute below commends
 
 ```
 Commands:
-  npm run db:create  --env=env                         Create database specified by configuration
-  npm run db:migrate --env=env                         Run pending migrations
-  npm run db:migrate:undo --env=env                    Reverts a migration
-  npm run db:drop --env=env                            Drop database specified by configuration(make sure all connections are closed)
+  npm run db:create  --env=env                                                  Create database specified by configuration
+  npm run db:migrate --env=env                                                  Run pending migrations
+  npm run db:migrate:undo --env=env                                             Reverts a migration
+  npm run model:generate --name=<modelName> --attributes=<listOfAttributes>     Generates a new migration file
+  npm run migration:generate --name=<migrationName>                             Generates a model and its migration
+  npm run db:drop --env=env                                                     Drop database specified by configuration(Note: all connections are closed)
 
 ```
 
