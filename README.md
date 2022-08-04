@@ -91,7 +91,7 @@ How to use <https://github.com/cronitorio/cronitor-js>
 
 #### cors
 
-cron installation `npm i cors`
+cors installation `npm i cors`
 
 How to use : <https://www.npmjs.com/package/cors>
 
