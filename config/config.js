@@ -25,7 +25,13 @@ const secretVariable = {
 
     },
     clsNameSpace: process.env.CLS_NAMESPACE,
-    cronitorSecretKey: process.env.CRONITOR_SECRET_KEY
+    cronitorSecretKey: process.env.CRONITOR_SECRET_KEY,
+    cors: {
+        whiteListOrigins: process.env.WHITE_LIST_ORIGINS
+        ? process.env.WHITE_LIST_ORIGINS.split(',')
+        : [],
+        
+    }
 };
 
 const variables = { ...secretVariable, ...config };

@@ -20,7 +20,11 @@ const uuid = require('uuid');
 
 Route.setApp(app);
 
-app.use(cors());
+const allowedOrigins = config.cors.whiteListOrigins;
+const allowedOriginsRegularExpression = allowedOrigins.map((origin) => new RegExp(origin + "$"));
+console.log(allowedOriginsRegularExpression);
+app.use(cors({ origin: allowedOriginsRegularExpression }));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

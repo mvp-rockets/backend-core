@@ -8,6 +8,7 @@
 - [8. Cron](#8-cron)
     - [cron](#cron)
     - [cronitor](#cronitor)
+    - [cors](#cors)
 - [9. Authors/maintainers/contributors](#9-authorsmaintainerscontributors)
 
 ## 1. Introduction
@@ -87,6 +88,13 @@ Pre-requirement: Create account in cronitor portal (<https://cronitor.io/>)
 cronitor installation `npm i cronitor`
 
 How to use <https://github.com/cronitorio/cronitor-js>
+
+#### cors
+
+cors installation `npm i cors`
+
+How to use : <https://www.npmjs.com/package/cors>
+
 
 ## 9. Authors/maintainers/contributors
 
