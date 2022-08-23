@@ -18,6 +18,7 @@
         "db:create": "NODE_ENV=${npm_config_env} sequelize-cli db:create --env=${npm_config_env}",
         "db:migrate": "NODE_ENV=${npm_config_env} sequelize-cli db:migrate --env=${npm_config_env}",
         "db:migrate:undo": "NODE_ENV=${npm_config_env} sequelize-cli db:migrate:undo --env=${npm_config_env}",
+        "db:seed:all": "NODE_ENV=${npm_config_env} sequelize-cli db:seed:all --env=${npm_config_env}",
         "model:generate": "sequelize-cli model:generate --name=${npm_config_name} --attributes=${npm_config_attributes}",
         "migration:generate": "sequelize-cli migration:generate --name=${npm_config_name}",
         "db:drop": "NODE_ENV=${npm_config_env} sequelize-cli db:drop --env=${npm_config_env}",

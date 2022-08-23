@@ -9,6 +9,13 @@ const secretVariable = {
     database: process.env.DB_DATABASE_NAME,
     dialect: process.env.DB_DIALECT,
     seederStorage: process.env.DB_SEEDER_STORAGE,
+    awsCloudwatch: {
+        logGroupName: process.env.AWS_LOG_GROUP_NAME,
+        logStreamName: process.env.AWS_LOG_STREAM_NAME,
+        accessKeyId: process.env.AWS_LOG_ACCESS_KEY_ID,
+        secretKey: process.env.AWS_LOG_SECRET_KEY,
+        region: process.env.AWS_LOG_REGION
+    },
     awsS3: {
         access_key_id: process.env.AWS_S3_ACCESS_KEY_ID,
         secret_access_key: process.env.AWS_S3_SECRET_ACCESS_KEY,
@@ -28,9 +35,9 @@ const secretVariable = {
     cronitorSecretKey: process.env.CRONITOR_SECRET_KEY,
     cors: {
         whiteListOrigins: process.env.WHITE_LIST_ORIGINS
-        ? process.env.WHITE_LIST_ORIGINS.split(',')
-        : [],
-        
+            ? process.env.WHITE_LIST_ORIGINS.split(',')
+            : [],
+
     }
 };
 
