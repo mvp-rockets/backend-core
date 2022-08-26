@@ -8,6 +8,7 @@
 - [8. Cron](#8-cron)
     - [cron](#cron)
     - [cronitor](#cronitor)
+        - [How to use](#how-to-use)
 - [9. cors](#9-cors)
 - [10. Authors/maintainers/contributors](#10-authorsmaintainerscontributors)
 
@@ -39,7 +40,7 @@ use below cmd to connect.
 
 ## 5. Db operations
 
-To perform db operations connect to the container and execute below commends. 
+To perform db operations connect to the container and execute below commends.
 Note: <:env> should be your environment name like dev,test or qa etc
 
 ```
@@ -47,7 +48,7 @@ Commands:
   npm run db:create  --env=<:env>                                                  Create database specified by configuration
   npm run db:migrate --env=<:env>                                                  Run pending migrations
   npm run db:migrate:undo --env=<:env>                                             Reverts a migration
-  npm run db:seed:all --env=<:env>                                                 Run every seeder
+  npm run db:seed:all --env=<:env>                                                 Run every **seeder**
   npm run model:generate --name=<modelName> --attributes=<listOfAttributes>        Generates a new migration file
   npm run migration:generate --name=<migrationName>                                Generates a model and its migration
   npm run db:drop --env=<:env>                                                     Drop database specified by configuration(Note: all connections are closed)
@@ -92,7 +93,10 @@ Pre-requirement: Create account in cronitor portal (<https://cronitor.io/>)
 
 cronitor installation `npm i cronitor`
 
-How to use <https://github.com/cronitorio/cronitor-js>
+###### How to use
+
+- Site url: https://github.com/cronitorio/cronitor-js
+- Implementation Walkthrough video: https://drive.google.com/file/d/1mVzH_NAFFLWvkebK6v2ce8ADQOB8KCtO/view?usp=drivesdku
 
 ## 9. cors
 
