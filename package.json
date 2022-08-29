@@ -1,7 +1,7 @@
 {
-    "name": "open-sample-api-api",
+    "name": "open-sample-api",
     "version": "1.0.0",
-    "description": "open-sample-api-api",
+    "description": "open-sample-api",
     "main": "index.js",
     "directories": {
         "test": "test"
@@ -58,7 +58,7 @@
         "uuid": "^8.3.2",
         "uuid-validate": "^0.0.3",
         "winston": "^3.8.1",
-        "winston-cloudwatch": "^6.0.1",
+        "winston-cloudwatch": "^6.1.1",
         "winston-daily-rotate-file": "^4.7.1",
         "ws": "^8.8.0"
     },
