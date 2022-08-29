@@ -2,8 +2,8 @@
 /* eslint-disable guard-for-in */
 const R = require('ramda');
 const db = require('db/repository');
-const lib = require('lib');
 const common = require('helpers/common');
+const { utilities: { whenResult, doNothing }, validations: { notEmpty } } = require('@napses/namma-lib')
 const data = require('./data');
 const dataValueUpdater = require('./update-data-value');
 
@@ -76,7 +76,7 @@ const create = (entity, value, name, changeDependency) => {
             return data;
         }
 
-        if (lib.notEmpty(entity.dependency)) {
+        if (notEmpty(entity.dependency)) {
             await createAssociatedEntities(
                 entity.name,
                 data,
@@ -88,9 +88,9 @@ const create = (entity, value, name, changeDependency) => {
         const promises = R.map(db.execute, entity.create(R.head(data)[name]));
         const result = await Promise.all(promises);
 
-        lib.whenResult(createdEntity => R.head(data)[name].created_by_factory = true)(result[0]);
-        lib.whenResult(lib.doNothing, e => console.trace(entity.name, e))(result[0]);
-        lib.whenResult(lib.doNothing, (e) => {
+        whenResult(createdEntity => R.head(data)[name].created_by_factory = true)(result[0]);
+        whenResult(doNothing, e => console.trace(entity.name, e))(result[0]);
+        whenResult(doNothing, (e) => {
             throw e;
         })(result[0]);
 

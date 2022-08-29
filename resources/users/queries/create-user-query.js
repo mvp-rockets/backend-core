@@ -7,7 +7,6 @@ module.exports = class CreateUserQuery {
     }
 
     get() {
-        console.log(this.id, this.name);
         return Models.User.create({ id: this.id, name: this.name });
     }
 };

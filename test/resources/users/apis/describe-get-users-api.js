@@ -1,4 +1,4 @@
-const ApiError = require('lib/functional/api-error');
+const { utilities: { ApiError }, HTTP_CONSTANT } = require('@napses/namma-lib');
 const chai = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
@@ -58,7 +58,7 @@ describe('Get users api', () => {
     it('should return error when something goes wrong', async () => {
         sandbox.stub(db, 'find').returns(resolveError('Something went wrong'));
         const response = await TestRoutes.executeWithError('/users', 'Get', req, res);
-        expect(response).to.eql(new ApiError(0, 'Something went wrong', 'Failed to get users!'));
+        expect(response).to.eql(new ApiError('Something went wrong', 'Failed to get users!', HTTP_CONSTANT.INTERNAL_SERVER_ERROR));
     });
 
     afterEach(() => {

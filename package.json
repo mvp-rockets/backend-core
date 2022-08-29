@@ -29,7 +29,7 @@
     "author": "Yashjeet Luthra <yash@napses.com>",
     "license": "Napses",
     "dependencies": {
-        "@napses/namma-lib": "^1.0.3",
+        "@napses/namma-lib": "^1.0.4",
         "app-module-path": "^2.2.0",
         "aws-sdk": "^2.1168.0",
         "axios": "^0.27.2",
