@@ -10,6 +10,7 @@ const secretVariable = {
     dialect: process.env.DB_DIALECT,
     seederStorage: process.env.DB_SEEDER_STORAGE,
     awsCloudwatch: {
+        enableAwsLogger: process.env.AWS_LOG_ENABLE === 'true',
         logGroupName: process.env.AWS_LOG_GROUP_NAME,
         logStreamName: process.env.AWS_LOG_STREAM_NAME,
         accessKeyId: process.env.AWS_LOG_ACCESS_KEY_ID,
