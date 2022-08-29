@@ -1,8 +1,5 @@
 const Route = require('route');
-const { logInfo } = require('lib/functional/logger');
-const { respond } = require('lib');
-const Result = require('folktale/result');
-const config = require('config/config');
+const { utilities: { respond, logInfo } } = require('@napses/namma-lib');
 const GetUsersQuery = require('resources/users/queries/get-users-query');
 const db = require('db/repository.js');
 async function get(req) {

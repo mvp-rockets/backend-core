@@ -1,6 +1,6 @@
 const Route = require('route');
-const { logInfo } = require('lib/functional/logger');
-const { respond } = require('lib');
+const { utilities: { logInfo, respond } } = require('@napses/namma-lib');
+
 const Result = require('folktale/result');
 const config = require('config/config');
 
@@ -10,7 +10,7 @@ async function get(req) {
     const result = Result.Ok({
         projectName: 'sample-api',
         apiPort: config.apiPort,
-        env: config
+        env: config.env
     });
 
     return respond(result, 'Successfully get default api!', 'Failed to get default api!');

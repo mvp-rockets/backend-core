@@ -11,7 +11,7 @@ services:
       - "3000:3000"
     depends_on:
       - db
-      - sqs
+      # - sqs
   db:
     container_name: db
     image: postgres:13
@@ -33,13 +33,13 @@ services:
       PGADMIN_DEFAULT_PASSWORD: root
     ports:
       - "5050:80"
-  sqs:
-    image: s12v/elasticmq
-    container_name: sqs
-    volumes:
-      - ./elasticmq/custom.conf:/etc/elasticmq/elasticmq.conf
-    ports:
-      - "9324:9324"
+  # sqs:
+  #   image: s12v/elasticmq
+  #   container_name: sqs
+  #   volumes:
+  #     - ./elasticmq/custom.conf:/etc/elasticmq/elasticmq.conf
+  #   ports:
+  #     - "9324:9324"
   # cron:
   #   image: node:16.16.0
   #   command: sh -c 'npm install && npm run cron --env=dev'

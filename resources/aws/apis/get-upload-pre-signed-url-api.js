@@ -1,6 +1,5 @@
 const Route = require('route');
-const { logInfo } = require('lib/functional/logger');
-const { respond } = require('lib');
+const { utilities: { logInfo, respond } } = require('@napses/namma-lib');
 const AWS = require('../s3-bucket');
 
 const post = async (req) => {

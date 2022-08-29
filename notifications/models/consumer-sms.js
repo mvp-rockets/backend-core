@@ -1,4 +1,4 @@
-const { logError } = require('lib/functional/logger');
+const { utilities: { logError } } = require('@napses/namma-lib');
 const config = require('config/config.js');
 
 const standardize = (mobile) => {

@@ -1,7 +1,7 @@
 {
-    "name": "open-edx-sso-api",
+    "name": "open-sample-api-api",
     "version": "1.0.0",
-    "description": "open-edx-sso-api",
+    "description": "open-sample-api-api",
     "main": "index.js",
     "directories": {
         "test": "test"
@@ -29,6 +29,7 @@
     "author": "Yashjeet Luthra <yash@napses.com>",
     "license": "Napses",
     "dependencies": {
+        "@napses/namma-lib": "^1.0.3",
         "app-module-path": "^2.2.0",
         "aws-sdk": "^2.1168.0",
         "axios": "^0.27.2",

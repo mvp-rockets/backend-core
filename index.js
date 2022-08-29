@@ -9,10 +9,7 @@ dotenv.config({ path: `./env/.env.${process.env.NODE_ENV}` });
 const cls = require('cls-hooked');
 const config = require('config/config');
 const bodyParser = require('body-parser');
-const ApiError = require('lib/functional/api-error');
-const ValidationError = require('lib/validation-error');
-const { logError, logInfo } = require('lib/functional/logger');
-
+const { utilities: { ApiError, logInfo, logError }, HTTP_CONSTANT } = require('@napses/namma-lib');
 const app = express();
 const server = require('http').createServer(app);
 const Route = require('route');
@@ -47,7 +44,7 @@ app.get('/health-check-db', healthCheckDbAPi);
 require('./api-routes');
 
 app.use((req, res, next) => {
-    const err = new ApiError(404, 'Not Found', 'Resource Not Found!');
+    const err = new ApiError('Not Found', 'Resource Not Found!', HTTP_CONSTANT.NOT_FOUND);
     next(err);
 });
 
@@ -66,13 +63,6 @@ app.use((error, request, response, next) => {
         response.send({
             status: false,
             errorType: 'api',
-            message: error.errorMessage
-        });
-    } else if (error.constructor === ValidationError) {
-        logInfo('Failed to execute the operation', { error: error.errorMessage, platform });
-        response.send({
-            status: false,
-            errorType: 'validation',
             message: error.errorMessage
         });
     } else {
@@ -100,10 +90,10 @@ process.on('uncaughtException', (error) => {
 process.on('SIGTERM', () => {
     logInfo('SIGTERM signal received: closing HTTP server');
     server.close(() => {
-      logInfo('HTTP server closed');
+        logInfo('HTTP server closed');
     })
-  })
-  
+})
+
 server.listen(config.apiPort, () => {
     console.log(`Express server listening on Port :- ${config.apiPort}`);
 });

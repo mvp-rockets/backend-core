@@ -2,9 +2,7 @@ const async = require('async');
 const jwt = require('jsonwebtoken');
 const config = require('config/config.js');
 
-const logger = require('lib/functional/logger');
-const ApiError = require('lib/functional/api-error');
-
+const { utilities: { ApiError, logError }, HTTP_CONSTANT } = require('@napses/namma-lib');
 class Route {
     constructor() {
         this.handlers = {};
@@ -148,7 +146,7 @@ class Route {
                                 result1,
                                 (error, result) => {
                                     if (error) {
-                                        logger.error(error);
+                                        logError("Failed in route", error);
                                     }
                                 }
                             );
@@ -158,7 +156,7 @@ class Route {
                                 result1,
                                 (error, result) => {
                                     if (error) {
-                                        logger.logError(error);
+                                        logError('Failed in route', error);
                                     }
                                 }
                             );
@@ -258,15 +256,15 @@ function security(req, res, next) {
     if (token) {
         jwt.verify(token, config.jwt_secret, (err, decoded) => {
             if (err) {
-                next(new ApiError(401, 'unauthorized', 'Failed to authenticate token.'));
+                next(new ApiError('unauthorized', 'Failed to authenticate token.', HTTP_CONSTANT.UNAUTHORIZED));
             } else {
                 req.decoded = decoded;
                 next();
             }
         });
     } else {
-        logger.logError('No Token provided', +req.originalUrl);
-        next(new ApiError(403, 'Forbidden', 'No token provided.'));
+        logError('No Token provided', +req.originalUrl);
+        next(new ApiError('Forbidden', 'No token provided.', HTTP_CONSTANT.FORBIDDEN));
     }
 }
 module.exports = new Route();

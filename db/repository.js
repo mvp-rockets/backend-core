@@ -1,7 +1,6 @@
 const Result = require('folktale/result');
 const db = require('models/index');
-const { logError } = require('lib/functional/logger');
-
+const { utilities: { logError } } = require('@napses/namma-lib');
 module.exports.execute = async (query) => new Promise((resolve) => {
     query
         .get()
