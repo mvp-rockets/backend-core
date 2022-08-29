@@ -10,7 +10,7 @@ async function get(req) {
     const result = Result.Ok({
         projectName: 'sample-api',
         apiPort: config.apiPort,
-        env: config
+        env: config.env
     });
 
     return respond(result, 'Successfully get default api!', 'Failed to get default api!');
