@@ -1,4 +1,4 @@
-const { utilities: { logInfo } } = require('@napses/namma-lib');
+const { logInfo } = require('@napses/namma-lib/utilities');
 
 const { sequelize } = require('models');
 

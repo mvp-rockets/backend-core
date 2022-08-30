@@ -1,4 +1,4 @@
-const { utilities: { logInfo } } = require('@napses/namma-lib');
+const { logInfo } = require('@napses/namma-lib/utilities');
 
 module.exports = function (req, res) {
     logInfo('Request to get server health-check api', {});

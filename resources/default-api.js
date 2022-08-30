@@ -1,5 +1,5 @@
 const Route = require('route');
-const { utilities: { logInfo, respond } } = require('@napses/namma-lib');
+const { logInfo, respond } = require('@napses/namma-lib/utilities');
 
 const Result = require('folktale/result');
 const config = require('config/config');

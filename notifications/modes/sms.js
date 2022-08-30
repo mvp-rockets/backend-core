@@ -1,6 +1,6 @@
 const Result = require('folktale/result');
 const config = require('config/config.js');
-const { utilities: { logError, logInfo } } = require('@napses/namma-lib');
+const { logError, logInfo } = require('@napses/namma-lib/utilities');
 const ConsumerSms = require('notifications/models/consumer-sms');
 const ProxyService = require('proxy/services/proxy-service.js');
 

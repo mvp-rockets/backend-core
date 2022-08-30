@@ -2,7 +2,8 @@ const async = require('async');
 const jwt = require('jsonwebtoken');
 const config = require('config/config.js');
 
-const { utilities: { ApiError, logError }, HTTP_CONSTANT } = require('@napses/namma-lib');
+const { HTTP_CONSTANT } = require('@napses/namma-lib');
+const { ApiError, logError } = require('@napses/namma-lib/utilities')
 class Route {
     constructor() {
         this.handlers = {};

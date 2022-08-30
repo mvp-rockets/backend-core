@@ -1,7 +1,7 @@
 const SQS = require('SQS/get-sqs-client.js')();
 const config = require('config/config.js');
 const Result = require('folktale/result');
-const { utilities: { logInfo, logError } } = require('@napses/namma-lib');
+const { logInfo, logError } = require('@napses/namma-lib/utilities');
 
 module.exports.perform = async (data, queueName) => new Promise((resolve) => {
     const messageBody = {

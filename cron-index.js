@@ -3,7 +3,7 @@ require('app-module-path').addPath(__dirname);
 const dotenv = require('dotenv');
 
 dotenv.config({ path: `./env/.env.${process.env.NODE_ENV}` });
-const { utilities: { logError }, } = require('@napses/namma-lib');
+const { logError } = require('@napses/namma-lib/utilities')
 
 require('crons/heartbeat')
 require('crons/jobs/test-cron')

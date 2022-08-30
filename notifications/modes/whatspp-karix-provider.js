@@ -1,5 +1,5 @@
 const config = require("config-handler");
-const { utilities: { logInfo, logError } } = require('@napses/namma-lib');
+const { logInfo, logError } = require('@napses/namma-lib/utilities');
 
 const { standardizeMobile } = require("lib/standardize-mobile");
 const request = require("request");

@@ -1,4 +1,5 @@
-const { utilities: { ApiError }, HTTP_CONSTANT } = require('@napses/namma-lib');
+const { HTTP_CONSTANT } = require('@napses/namma-lib');
+const { ApiError } = require('@napses/namma-lib/utilities')
 const chai = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');

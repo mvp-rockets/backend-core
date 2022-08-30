@@ -9,7 +9,8 @@ dotenv.config({ path: `./env/.env.${process.env.NODE_ENV}` });
 const cls = require('cls-hooked');
 const config = require('config/config');
 const bodyParser = require('body-parser');
-const { utilities: { ApiError, logInfo, logError }, HTTP_CONSTANT } = require('@napses/namma-lib');
+const { HTTP_CONSTANT } = require('@napses/namma-lib');
+const { ApiError, logInfo, logError } = require('@napses/namma-lib/utilities')
 const app = express();
 const server = require('http').createServer(app);
 const Route = require('route');

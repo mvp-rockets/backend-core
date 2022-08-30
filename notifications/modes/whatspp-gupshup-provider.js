@@ -1,5 +1,5 @@
 const config = require('config-handler');
-const { utilities: { logInfo, logError } } = require('@napses/namma-lib');
+const { logInfo, logError } = require('@napses/namma-lib/utilities');
 const Result = require('folktale/result');
 const axios = require('axios');
 const qs = require('querystring');
