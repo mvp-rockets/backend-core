@@ -1,7 +1,1 @@
-{
-    "queues": {
-        "SampleQueue": "DevSampleQueue",
-        "testing": "testing"
-    },
-    "smsRetrie": 2
-}
+{}

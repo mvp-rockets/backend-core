@@ -1,4 +1,4 @@
-const { logError } = require('@napses/namma-lib/utilities');
+const { logError } = require('lib');
 const config = require('config/config.js');
 
 const standardize = (mobile) => {

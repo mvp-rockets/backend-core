@@ -1,9 +1,8 @@
 const async = require('async');
-const jwt = require('jsonwebtoken');
-const config = require('config/config.js');
 
-const { HTTP_CONSTANT } = require('@napses/namma-lib');
-const { ApiError, logError } = require('@napses/namma-lib/utilities')
+const { ApiError, logError, whenResult } = require('lib');
+const { HTTP_CONSTANT, token } = require('@mvp-rockets/namma-lib');
+
 class Route {
     constructor() {
         this.handlers = {};
@@ -147,7 +146,7 @@ class Route {
                                 result1,
                                 (error, result) => {
                                     if (error) {
-                                        logError("Failed in route", error);
+                                        logError('Failed in route', error);
                                     }
                                 }
                             );
@@ -252,17 +251,20 @@ class PostRequestHandler {
     }
 }
 
-function security(req, res, next) {
-    const token = req.body.token || req.query.token || req.headers['x-access-token'];
-    if (token) {
-        jwt.verify(token, config.jwt_secret, (err, decoded) => {
-            if (err) {
-                next(new ApiError('unauthorized', 'Failed to authenticate token.', HTTP_CONSTANT.UNAUTHORIZED));
-            } else {
+async function security(req, res, next) {
+    const clientToken = req.body.token || req.query.token || req.headers['x-access-token'];
+    if (clientToken) {
+        const decodedTokenResult = await token.decode(clientToken);
+        whenResult(
+            (decoded) => {
                 req.decoded = decoded;
                 next();
+            },
+            (error) => {
+                logError('token verification failed', error);
+                next(new ApiError('unauthorized', 'Failed to authenticate token.', HTTP_CONSTANT.UNAUTHORIZED));
             }
-        });
+        )(decodedTokenResult);
     } else {
         logError('No Token provided', +req.originalUrl);
         next(new ApiError('Forbidden', 'No token provided.', HTTP_CONSTANT.FORBIDDEN));

@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const Result = require('folktale/result');
-const { logError, logInfo } = require('@napses/namma-lib/utilities');
+const { logError, logInfo } = require('lib');
 const config = require('config/config.js');
 
 

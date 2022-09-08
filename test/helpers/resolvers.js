@@ -1,6 +1,6 @@
 const Result = require('folktale/result');
-const { ApiError } = require('@napses/namma-lib/utilities')
-const { HTTP_CONSTANT } = require('@napses/namma-lib');
+const { ApiError } = require('lib')
+const { HTTP_CONSTANT } = require('@mvp-rockets/namma-lib');
 
 const resolveOk = value => Promise.resolve(Result.Ok(value));
 

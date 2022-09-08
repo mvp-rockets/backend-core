@@ -3,8 +3,8 @@
 const R = require('ramda');
 const db = require('db/repository');
 const common = require('helpers/common');
-const { whenResult, doNothing } = require('@napses/namma-lib/utilities')
-const { notEmpty } = require('@napses/namma-lib/validations')
+const { whenResult, doNothing } = require('lib')
+const { notEmpty } = require('validation')
 
 const data = require('./data');
 const dataValueUpdater = require('./update-data-value');

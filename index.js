@@ -6,11 +6,33 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config({ path: `./env/.env.${process.env.NODE_ENV}` });
-const cls = require('cls-hooked');
+const { Logger } = require('@mvp-rockets/namma-lib');
 const config = require('config/config');
+
+Logger.initialize({
+    isEnable: config.awsCloudwatch.enableAwsLogger,
+    type: 'aws',
+    environment: config.env,
+    clsNameSpace: config.clsNameSpace,
+    configurations: {
+        region: config.awsCloudwatch.region,
+        accessKeyId: config.awsCloudwatch.accessKeyId,
+        secretKey: config.awsCloudwatch.secretKey,
+        logGroupName: config.awsCloudwatch.logGroupName,
+        logStreamName: config.awsCloudwatch.logStreamName
+    }
+});
+const cls = require('cls-hooked');
+
 const bodyParser = require('body-parser');
-const { HTTP_CONSTANT } = require('@napses/namma-lib');
-const { ApiError, logInfo, logError } = require('@napses/namma-lib/utilities')
+const { token } = require('@mvp-rockets/namma-lib');
+
+token.initialize(config.jwtSecretKey);
+
+const { ApiError } = require('lib');
+const { logError, logInfo } = require('lib');
+const { HTTP_CONSTANT } = require('@mvp-rockets/namma-lib');
+
 const app = express();
 const server = require('http').createServer(app);
 const Route = require('route');
@@ -19,7 +41,7 @@ const uuid = require('uuid');
 Route.setApp(app);
 
 const allowedOrigins = config.cors.whiteListOrigins;
-const allowedOriginsRegularExpression = allowedOrigins.map((origin) => new RegExp(origin + "$"));
+const allowedOriginsRegularExpression = allowedOrigins.map((origin) => new RegExp(`${origin}$`));
 app.use(cors({ origin: allowedOriginsRegularExpression }));
 
 app.use(bodyParser.json());
@@ -35,7 +57,7 @@ app.use((req, res, next) => {
     });
 });
 
-//HealthCheck endpoints
+// HealthCheck endpoints
 const healthCheckApi = require('resources/health-check-api');
 const healthCheckDbAPi = require('resources/health-check-db-api');
 
@@ -51,23 +73,18 @@ app.use((req, res, next) => {
 
 app.use((error, request, response, next) => {
     const platform = request.headers['x-platform'] || 'unknown-platform';
-
     if (error.constructor === ApiError) {
         logError('Failed to execute the operation', {
-            error: {
-                value: error.error, stack: error.error ? error.error.stack : []
-            },
+            value: error.error,
+            stack: error.error ? error.error.stack : [],
             platform
         });
         if (error.code) { response.status(error.code); }
-
         response.send({
             status: false,
-            errorType: 'api',
             message: error.errorMessage
         });
     } else {
-        console.error(error);
         response.status(501);
         logError('Failed to execute the operation', { value: error, stack: error.stack, platform });
         response.send({
@@ -92,8 +109,8 @@ process.on('SIGTERM', () => {
     logInfo('SIGTERM signal received: closing HTTP server');
     server.close(() => {
         logInfo('HTTP server closed');
-    })
-})
+    });
+});
 
 server.listen(config.apiPort, () => {
     console.log(`Express server listening on Port :- ${config.apiPort}`);
