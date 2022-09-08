@@ -1,7 +1,7 @@
 {
-    "name": "open-sample-api",
+    "name": "sample-api",
     "version": "1.0.0",
-    "description": "open-sample-api",
+    "description": "sample-api",
     "main": "index.js",
     "directories": {
         "test": "test"
