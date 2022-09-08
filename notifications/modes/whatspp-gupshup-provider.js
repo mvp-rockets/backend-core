@@ -1,5 +1,5 @@
 const config = require('config-handler');
-const { logInfo, logError } = require('lib/functional/logger');
+const { logInfo, logError } = require('lib');
 const Result = require('folktale/result');
 const axios = require('axios');
 const qs = require('querystring');

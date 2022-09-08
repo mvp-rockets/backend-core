@@ -1,5 +1,6 @@
 const config = require("config-handler");
-const { logInfo, logError } = require("lib/functional/logger");
+const { logInfo, logError } = require('lib');
+
 const { standardizeMobile } = require("lib/standardize-mobile");
 const request = require("request");
 const Maybe = require("folktale/maybe");

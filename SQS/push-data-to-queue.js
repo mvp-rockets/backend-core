@@ -1,7 +1,7 @@
 const SQS = require('SQS/get-sqs-client.js')();
 const config = require('config/config.js');
 const Result = require('folktale/result');
-const { logInfo, logError } = require('lib/functional/logger');
+const { logInfo, logError } = require('lib');
 
 module.exports.perform = async (data, queueName) => new Promise((resolve) => {
     const messageBody = {

@@ -39,7 +39,8 @@ const secretVariable = {
             ? process.env.WHITE_LIST_ORIGINS.split(',')
             : [],
 
-    }
+    },
+    jwtSecretKey: process.env.JWT_SECRET_KEY
 };
 
 const variables = { ...secretVariable, ...config };

@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 const Result = require('folktale/result');
-const { logInfo, logError } = require('lib/functional/logger');
-
+const { logError, logInfo } = require('lib');
 const config = require('config/config.js');
 
 
