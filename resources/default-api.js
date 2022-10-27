@@ -8,7 +8,7 @@ async function get(req) {
     logInfo('Request to get default api ', {});
 
     const result = Result.Ok({
-        projectName: 'sample-api',
+        projectName: '<namma-api-framework>',
         apiPort: config.apiPort,
         env: config.env
     });

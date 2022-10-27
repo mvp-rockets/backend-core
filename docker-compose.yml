@@ -11,7 +11,6 @@ services:
       - "3000:3000"
     depends_on:
       - db
-      # - sqs
   db:
     container_name: db
     image: postgres:13
@@ -23,19 +22,6 @@ services:
       - "5432:5432"
     volumes:
       - pg-dataset:/var/lib/postgresql/data
-  # sqs:
-  #   image: s12v/eulasticmq
-  #   container_name: sqs
-  #   volumes:
-  #     - ./elasticmq/custom.conf:/etc/elasticmq/elasticmq.conf
-  #   ports:
-  #     - "9324:9324"
-  # cron:
-  #   image: node:16.16.0
-  #   command: sh -c 'npm install && npm run cron --env=dev'
-  #   container_name: cron
-  #   working_dir: /cron
-  #   volumes:
-  #     - .:/cron
+
 volumes:
   pg-dataset:

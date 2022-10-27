@@ -1,7 +1,7 @@
 {
-    "name": "sample-api",
-    "version": "2.0.0",
-    "description": "sample-api",
+    "name": "namma-api-framework",
+    "version": "1.0.0",
+    "description": "",
     "main": "index.js",
     "directories": {
         "test": "test"

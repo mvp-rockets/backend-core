@@ -1,4 +1,5 @@
 const config = require('config');
+const R = require('ramda')
 
 const secretVariable = {
     apiPort: process.env.API_PORT,
@@ -43,5 +44,5 @@ const secretVariable = {
     jwtSecretKey: process.env.JWT_SECRET_KEY
 };
 
-const variables = { ...secretVariable, ...config };
+const variables = R.mergeDeepLeft(secretVariable, config);
 module.exports = variables;
