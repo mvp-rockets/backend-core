@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: SAM Template for Nested application resources
+Transform:
+- AWS::Serverless-2016-10-31
+Resources:
+  SendEmail:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: SendEmail/template.yaml
+    Metadata:
+      SamResourceId: SendEmail
+  SendSms:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: SendSms/template.yaml
+    Metadata:
+      SamResourceId: SendSms

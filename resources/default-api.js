@@ -3,6 +3,7 @@ const { logInfo, respond } = require('lib');
 
 const Result = require('folktale/result');
 const config = require('config/config');
+const AWS = require('aws-sdk');
 
 async function get(req) {
     logInfo('Request to get default api ', {});

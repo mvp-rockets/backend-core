@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: send-email
+Transform:
+- AWS::Serverless-2016-10-31
+Resources:
+  SendEmail:
+    Type: AWS::SQS::Queue
+  SQSPayloadLogger:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: A Lambda function that logs the payload of messages sent to an
+        associated SQS queue.
+      Runtime: nodejs18.x
+      Architectures:
+      - x86_64
+      Handler: src/handlers/sqs-payload-logger.sqsPayloadLoggerHandler
+      Events:
+        SQSQueueEvent:
+          Type: SQS
+          Properties:
+            Queue:
+              Fn::GetAtt:
+              - SendEmail
+              - Arn
+      MemorySize: 128
+      Timeout: 25
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      CodeUri: SQSPayloadLogger
+    Metadata:
+      SamResourceId: SQSPayloadLogger
