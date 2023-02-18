@@ -1,44 +1,47 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: send-email
+Description: >-
+  send-sms
+
 Transform:
 - AWS::Serverless-2016-10-31
+
 Resources:
+  
   CommonLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
       LayerName: CommonLayer
       Description: Dependencies for the blank sample app.
-      ContentUri: CommonLayer
+      ContentUri: ./layers/nodejs/
       CompatibleRuntimes:
-      - nodejs18.x
+        - nodejs18.x  
     Metadata:
       BuildMethod: nodejs18.x
-      SamResourceId: CommonLayer
-  SendEmail:
+
+  SendSMS:
     Type: AWS::SQS::Queue
+  
   SQSPayloadLogger:
     Type: AWS::Serverless::Function
     Properties:
-      Description: A Lambda function that logs the payload of messages sent to an
-        associated SQS queue.
+      Description: A Lambda function that logs the payload of messages sent to an associated SQS queue.
       Runtime: nodejs18.x
       Architectures:
-      - x86_64
-      CodeUri: SQSPayloadLogger
+        - x86_64
+      CodeUri: send-sms/
       Handler: src/handlers/sqs-payload-logger.sqsPayloadLoggerHandler
       Layers:
-      - Ref: CommonLayer
+            - !Ref CommonLayer
       Events:
         SQSQueueEvent:
           Type: SQS
           Properties:
-            Queue:
-              Fn::GetAtt:
-              - SendEmail
-              - Arn
+            Queue: !GetAtt SendSMS.Arn
       MemorySize: 128
-      Timeout: 25
+      Timeout: 25 # Chosen to be less than the default SQS Visibility Timeout of 30 seconds
       Policies:
-      - AWSLambdaBasicExecutionRole
-    Metadata:
-      SamResourceId: SQSPayloadLogger
+        - AWSLambdaBasicExecutionRole
+
+ 
+ 
+  

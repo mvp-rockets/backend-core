@@ -17,6 +17,18 @@ Transform:
 Resources:
   # This is an SQS queue with all default configuration properties. To learn more about the available options, see
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html
+
+  CommonLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: CommonLayer
+      Description: Dependencies for the blank sample app.
+      ContentUri: ./layers/nodejs/
+      CompatibleRuntimes:
+        - nodejs18.x  
+    Metadata:
+      BuildMethod: nodejs18.x
+
   SendEmail:
     Type: AWS::SQS::Queue
   
@@ -29,7 +41,10 @@ Resources:
       Runtime: nodejs18.x
       Architectures:
         - x86_64
+      CodeUri: send-email/
       Handler: src/handlers/sqs-payload-logger.sqsPayloadLoggerHandler
+      Layers:
+            - !Ref CommonLayer
       # This property associates this Lambda function with the SQS queue defined above, so that whenever the queue
       # receives a message, the Lambda function is invoked
       Events:

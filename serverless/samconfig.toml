@@ -3,7 +3,7 @@ version = 0.1
 [dev.deploy]
 [dev.deploy.parameters]
 stack_name = "backend_local"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-ac704052"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1063f089"
 s3_prefix = "backend_local"
 region = "ap-south-1"
 confirm_changeset = true

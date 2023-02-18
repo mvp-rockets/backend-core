@@ -3,6 +3,17 @@ Description: send-sms
 Transform:
 - AWS::Serverless-2016-10-31
 Resources:
+  CommonLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: CommonLayer
+      Description: Dependencies for the blank sample app.
+      ContentUri: CommonLayer
+      CompatibleRuntimes:
+      - nodejs18.x
+    Metadata:
+      BuildMethod: nodejs18.x
+      SamResourceId: CommonLayer
   SendSMS:
     Type: AWS::SQS::Queue
   SQSPayloadLogger:
@@ -13,7 +24,10 @@ Resources:
       Runtime: nodejs18.x
       Architectures:
       - x86_64
+      CodeUri: SQSPayloadLogger
       Handler: src/handlers/sqs-payload-logger.sqsPayloadLoggerHandler
+      Layers:
+      - Ref: CommonLayer
       Events:
         SQSQueueEvent:
           Type: SQS
@@ -26,6 +40,5 @@ Resources:
       Timeout: 25
       Policies:
       - AWSLambdaBasicExecutionRole
-      CodeUri: SQSPayloadLogger
     Metadata:
       SamResourceId: SQSPayloadLogger
