@@ -41,6 +41,8 @@ Resources:
       Timeout: 25 # Chosen to be less than the default SQS Visibility Timeout of 30 seconds
       Policies:
         - AWSLambdaBasicExecutionRole
+        - AmazonRDSDataFullAccess
+        - AWSLambdaVPCAccessExecutionRole
 
  
  

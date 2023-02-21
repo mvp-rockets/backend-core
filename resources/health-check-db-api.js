@@ -2,12 +2,15 @@ const { logInfo } = require('lib');
 
 const { sequelize } = require('models');
 
-module.exports = function (req, res) {
+module.exports = async function (req, res) {
     logInfo('Request to get health-check db api', {});
 
+    const x = await sequelize.authenticate();
+   
     sequelize
         .authenticate()
-        .then(() => {
+        .then((r) => {
+            console.log("skskd", r)
             res.json({
                 isAlive: true
             })

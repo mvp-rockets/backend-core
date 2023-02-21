@@ -40,5 +40,7 @@ Resources:
       Timeout: 25
       Policies:
       - AWSLambdaBasicExecutionRole
+      - AmazonRDSDataFullAccess
+      - AWSLambdaVPCAccessExecutionRole
     Metadata:
       SamResourceId: SQSPayloadLogger
