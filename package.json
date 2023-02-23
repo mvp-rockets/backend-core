@@ -1,6 +1,6 @@
 {
     "name": "namma-api-framework",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "description": "",
     "main": "index.js",
     "directories": {
@@ -29,6 +29,7 @@
     "author": "Yashjeet Luthra <yash@napses.com>",
     "license": "Napses",
     "dependencies": {
+        "@changesets/cli": "^2.26.0",
         "@mvp-rockets/namma-lib": "^1.1.7",
         "app-module-path": "^2.2.0",
         "aws-sdk": "^2.1168.0",
