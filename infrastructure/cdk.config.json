@@ -1,0 +1,12 @@
+{
+  "PROJECT_NAME": "AppName",
+  "ENVIRONMENTS": {
+    "production": {
+      "ENVIRONMENT": "production",
+      "CLS_NAMESPACE": "AppName"
+    }
+  },
+  "SQS": [
+    "sample-sqs-name"
+  ]
+}
