@@ -1,4 +1,4 @@
-# send-email
+# lunchReminder
 
 This project contains source code and supporting files for a serverless application that you can deploy with the AWS Serverless Application Model (AWS SAM) command line interface (CLI). It includes the following files and folders:
 
@@ -66,7 +66,7 @@ Test a single function by invoking it directly with a test event. An event is a 
 Run functions locally and invoke them with the `sam local invoke` command.
 
 ```bash
-my-application$ sam local invoke SQSPayloadLogger --event events/event-sqs.json
+my-application$ sam local invoke ScheduledEventLogger --event events/event-cloudwatch-event.json
 ```
 
 ## Add a resource to your application
@@ -79,10 +79,10 @@ Update `template.yaml` to add a dead-letter queue to your application. In the **
 Resources:
   MyQueue:
     Type: AWS::SQS::Queue
-  SQSPayloadLogger:
+  ScheduledEventLogger:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/sqs-payload-logger.sqsPayloadLoggerHandler
+      Handler: src/handlers/scheduled-event-logger.scheduledEventLogger
       Runtime: nodejs18.x
       DeadLetterQueue:
         Type: SQS
@@ -109,7 +109,7 @@ To simplify troubleshooting, the AWS SAM CLI has a command called `sam logs`. `s
 **NOTE:** This command works for all Lambda functions, not just the ones you deploy using AWS SAM.
 
 ```bash
-my-application$ sam logs -n SQSPayloadLogger --stack-name sam-app --tail
+my-application$ sam logs -n ScheduledEventLogger --stack-name sam-app --tail
 ```
 
 **NOTE:** This uses the logical name of the function within the stack. This is the correct name to use when searching logs inside an AWS Lambda function within a CloudFormation stack, even if the deployed function name varies due to CloudFormation's unique resource name generation.
@@ -127,11 +127,10 @@ my-application$ npm run test
 
 ## Cleanup
 
-To delete the sample application and the bucket that you created, use the AWS CLI.
+To delete the sample application that you created, use the AWS CLI. Assuming you used your project name for the stack name, you can run the following:
 
 ```bash
-my-application$ aws cloudformation delete-stack --stack-name sam-app
-my-application$ aws s3 rb s3://BUCKET_NAME
+aws cloudformation delete-stack --stack-name lunchReminder
 ```
 
 ## Resources

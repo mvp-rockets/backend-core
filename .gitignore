@@ -1,6 +1,7 @@
 node_modules/
 logs/
 coverage/
+serverless/.aws-sam/
 .nyc_output/
 .arcade-single/
 .DS_Store
