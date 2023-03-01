@@ -13,3 +13,5 @@ env/.env.uat
 env/.env.production
 nohup.out
 mockTrueDataServer_pid.txt
+serverless/.aws-sam
+serverless/**/.aws-sam
