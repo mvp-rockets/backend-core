@@ -3,47 +3,53 @@ Description: >-
   send-sms
 
 Transform:
-- AWS::Serverless-2016-10-31
+  - AWS::Serverless-2016-10-31
+
+Parameters:
+  AllSubnets:
+    Type: List<AWS::EC2::Subnet::Id>
+  SecurityGroupIds:
+    Type: List<AWS::EC2::SecurityGroup::Id>
 
 Resources:
-  
   CommonLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
       LayerName: CommonLayer
       Description: Dependencies for the blank sample app.
-      ContentUri: ./layers/nodejs/
+      ContentUri: ../layers/nodejs/
       CompatibleRuntimes:
-        - nodejs18.x  
+        - nodejs18.x
     Metadata:
       BuildMethod: nodejs18.x
 
-  SendSMS:
+  SendSMSQueue:
     Type: AWS::SQS::Queue
-  
-  SQSPayloadLogger:
+
+  SendSMS:
     Type: AWS::Serverless::Function
     Properties:
       Description: A Lambda function that logs the payload of messages sent to an associated SQS queue.
       Runtime: nodejs18.x
       Architectures:
         - x86_64
-      CodeUri: send-sms/
       Handler: src/handlers/sqs-payload-logger.sqsPayloadLoggerHandler
       Layers:
-            - !Ref CommonLayer
+        - !Ref CommonLayer
       Events:
         SQSQueueEvent:
           Type: SQS
           Properties:
-            Queue: !GetAtt SendSMS.Arn
+            Queue: !GetAtt SendSMSQueue.Arn
       MemorySize: 128
       Timeout: 25 # Chosen to be less than the default SQS Visibility Timeout of 30 seconds
       Policies:
         - AWSLambdaBasicExecutionRole
         - AmazonRDSDataFullAccess
         - AWSLambdaVPCAccessExecutionRole
-
- 
- 
-  
+      VpcConfig:
+        SecurityGroupIds: !Ref SecurityGroupIds
+        SubnetIds: !Ref AllSubnets
+    Tags:
+      - Key: "Env"
+        Value: "QA"

@@ -1,0 +1,18 @@
+[
+    {
+        "ParameterKey": "AllSubnets",
+        "ParameterValue": "subnet-0d94d83549cf80c47,subnet-0d2a22a71710348d0"
+    },
+    {
+        "ParameterKey": "SecurityGroupIds",
+        "ParameterValue": "sg-0bfc710b1820e67b3"
+    },
+    {
+        "ParameterKey": "ProjectName",
+        "ParameterValue": "mvp-lite-v2"
+    },
+    {
+        "ParameterKey": "Environment",
+        "ParameterValue": "qa"
+    }
+]
