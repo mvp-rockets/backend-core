@@ -6,5 +6,13 @@
     {
         "ParameterKey": "SecurityGroupIds",
         "ParameterValue": "sg-0bfc710b1820e67b3"
+    },
+    {
+        "ParameterKey": "ProjectName",
+        "ParameterValue": "mvp-lite-v2"
+    },
+    {
+        "ParameterKey": "Environment",
+        "ParameterValue": "qa"
     }
 ]
