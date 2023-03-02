@@ -3,11 +3,14 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { readFileSync } from 'fs';
 import { SQSStack } from '../lib/SQS/sqs-stack';
+import { RdsStack } from '../lib/RDS/rds-stack';
 
 
 interface EnvironmentType {
   ENVIRONMENT: string;
   CLS_NAMESPACE: string;
+  DB_DATABASE_NAME: string;
+  DB_USERNAME: string;
 }
 
 
@@ -45,3 +48,12 @@ sqs.forEach(sqsDetails => {
   }
 )});
 
+
+environmentKeys.forEach(envir=> {
+    const nameForRds = `${ENVIRONMENTS[envir].DB_DATABASE_NAME}${envir}`;
+    new RdsStack(app, `${PROJECT_NAME}-${nameForRds}`,{env: {
+      account: process.env.CDK_DEFAULT_ACCOUNT, 
+      region: process.env.CDK_DEFAULT_REGION 
+    }, dbName: nameForRds, rdsUsername:ENVIRONMENTS[envir].DB_USERNAME,  })
+}
+)

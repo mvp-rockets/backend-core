@@ -3,10 +3,12 @@
   "ENVIRONMENTS": {
     "production": {
       "ENVIRONMENT": "production",
-      "CLS_NAMESPACE": "AppName"
+      "CLS_NAMESPACE": "AppName",
+      "DB_DATABASE_NAME": "sample",
+      "DB_USERNAME": "simplename"
     }
   },
   "SQS": [
-    "sample-sqs-name"
+  
   ]
 }
