@@ -9,11 +9,6 @@ Resources:
     Type: AWS::Serverless::Application
     Properties:
       Location: ./send_email.yaml
-
-    SendEmail:
-      Type: AWS::Serverless::Application
-      Properties:
-        Location: ./send_email.yaml
     
     SendSms:
       Type: AWS::Serverless::Application
