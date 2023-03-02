@@ -9,8 +9,13 @@ Resources:
     Type: AWS::Serverless::Application
     Properties:
       Location: ./send_email.yaml
+    
+    SendSms:
+      Type: AWS::Serverless::Application
+      Properties:
+        Location: ./send_sms.yaml
 
-  SendSms:
-    Type: AWS::Serverless::Application
-    Properties:
-      Location: ./send_sms.yaml
+    LunchReminder:
+      Type: AWS::Serverless::Application
+      Properties:
+        Location: ./lunchReminder.yaml 
