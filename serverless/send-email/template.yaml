@@ -16,6 +16,8 @@ Parameters:
     Type: String
   ProjectName:
     Type: String
+  EmailQueueArn:
+    Type: String
 
 # Transform section specifies one or more macros that AWS CloudFormation uses to process your template
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
@@ -39,15 +41,6 @@ Resources:
     Metadata:
       BuildMethod: nodejs18.x
 
-  SendEmailQueue:
-    Type: AWS::SQS::Queue
-    Properties:
-      Tags:
-        - Key: ProjectName
-          Value: !Ref ProjectName
-        - Key: Environment
-          Value: !Ref Environment
-
   # This is the Lambda function definition associated with the source code: sqs-payload-logger.js. For all available properties, see
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
   SendEmail:
@@ -66,7 +59,7 @@ Resources:
         SQSQueueEvent:
           Type: SQS
           Properties:
-            Queue: !GetAtt SendEmailQueue.Arn
+            Queue: !Ref EmailQueueArn
       MemorySize: 128
       Timeout: 25 # Chosen to be less than the default SQS Visibility Timeout of 30 seconds
       Policies:

@@ -13,7 +13,6 @@ image_repositories = []
 [qa]
 [qa.deploy]
 [qa.deploy.parameters]
-stack_name = "mvp-lite-qa"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-og41xft5z3ou"
 s3_prefix = "mvp-lite-qa"
 region = "ap-south-1"
