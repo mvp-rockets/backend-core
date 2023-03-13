@@ -5,8 +5,6 @@ then
     echo "No argument supplied"
     exit 1
 fi
-# Change to the parent directory
-#cd /path/to/parent/directory
 
 # Loop through all directories in the parent directory
 for dir in */; do
