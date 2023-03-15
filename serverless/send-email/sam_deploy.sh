@@ -6,5 +6,6 @@ then
     exit 1
 fi
 sam build
-SAM_PARAMETERS=$( cat ./config/$1.json | jq -r '.[] | "\(.ParameterKey)=\(.ParameterValue)"' )
-sam deploy --parameter-overrides $SAM_PARAMETERS --config-file ../samconfig.toml --config-env=$1
+STACK_NAME=$( jq '.stack_name' ./config/$1.json | tr -d '"' )
+SAM_PARAMETERS=$( jq '.parameters' ./config/$1.json | jq -r '.[] | "\(.ParameterKey)=\(.ParameterValue)"' )
+sam deploy --stack-name=$STACK_NAME --parameter-overrides $SAM_PARAMETERS --config-file ../samconfig.toml --config-env=$1

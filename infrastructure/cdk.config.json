@@ -1,12 +1,13 @@
 {
-  "PROJECT_NAME": "AppName",
+  "PROJECT_NAME": "mvp-lite-v2",
   "ENVIRONMENTS": {
-    "production": {
-      "ENVIRONMENT": "production",
+    "qa": {
+      "ENVIRONMENT": "qa",
       "CLS_NAMESPACE": "AppName"
     }
   },
   "SQS": [
-    "sample-sqs-name"
+    "SendEmailQueue",
+    "SendSMSQueue"
   ]
 }

@@ -14,6 +14,8 @@ Parameters:
     Type: String
   ProjectName:
     Type: String
+  SMSQueueArn:
+    Type: String
 
 Resources:
   CommonLayer:
@@ -26,15 +28,6 @@ Resources:
         - nodejs18.x
     Metadata:
       BuildMethod: nodejs18.x
-
-  SendSMSQueue:
-    Type: AWS::SQS::Queue
-    Properties:
-      Tags:
-        - Key: ProjectName
-          Value: !Ref ProjectName
-        - Key: Environment
-          Value: !Ref Environment
 
   SendSMS:
     Type: AWS::Serverless::Function
@@ -50,7 +43,7 @@ Resources:
         SQSQueueEvent:
           Type: SQS
           Properties:
-            Queue: !GetAtt SendSMSQueue.Arn
+            Queue: !Ref SMSQueueArn
       MemorySize: 128
       Timeout: 25 # Chosen to be less than the default SQS Visibility Timeout of 30 seconds
       Policies:
@@ -60,6 +53,6 @@ Resources:
       VpcConfig:
         SecurityGroupIds: !Ref SecurityGroupIds
         SubnetIds: !Ref AllSubnets
-    Tags:
-        ProjectName: !Ref ProjectName
-        Environment: !Ref Environment
+      Tags:
+          ProjectName: !Ref ProjectName
+          Environment: !Ref Environment
