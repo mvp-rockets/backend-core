@@ -2,6 +2,7 @@ const async = require('async');
 
 const { ApiError, logError, whenResult } = require('lib');
 const { HTTP_CONSTANT, token } = require('@mvp-rockets/namma-lib');
+const AutoImportApis = require('./utils/autoimport');
 
 class Route {
     constructor() {
@@ -16,6 +17,7 @@ class Route {
 
     setApp(app) {
         this.app = app;
+        new AutoImportApis({ includes: ['resources'] });
     }
 
     withSecurity() {
