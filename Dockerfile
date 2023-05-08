@@ -1,7 +1,7 @@
-FROM node:20.1.0
+FROM node:18.16.0
 
 #Set the working directory of the container to your Dockerfile:
-WORKDIR /backend-core
+WORKDIR /app
 
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
