@@ -1,5 +1,7 @@
 FROM node:18.16.0
 
+ARG NODE_ENV
+
 #Set the working directory of the container to your Dockerfile:
 WORKDIR /app
 
@@ -14,4 +16,4 @@ COPY . .
 EXPOSE 3000
 
 # Start Node.js application
-CMD ["npm","run","server","--env=dev"]
+CMD ["npm","run","server","--env=$NODE_ENV"]
