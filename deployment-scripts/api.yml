@@ -1,0 +1,14 @@
+version: "2"
+services:
+    api:
+        image: 878672029675.dkr.ecr.ap-south-1.amazonaws.com/backend-core-api:latest
+        container_name: backend-core-api
+        restart: always
+        volumes:
+            - .:/api
+        ports:
+            - "3000:3000"
+        env_file:
+            - ${ENV_FILE}
+        environment:
+            - NODE_ENV=dev
