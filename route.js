@@ -121,7 +121,6 @@ class Route {
                 if (err) { next(err); return; }
                 const { functionToBeCalled } = selectedHandler;
                 if (transaction) {
-                    console.log('in trans')
                     try {
                         const { sequelize } = require('./models');
 
