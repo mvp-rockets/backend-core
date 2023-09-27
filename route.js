@@ -139,26 +139,12 @@ class Route {
                                         throw value;
                                     }
                                 });
-
-                                async.applyEach(
-                                    selectedHandler.postRequestHandler.nextSteps,
-                                    result1,
-                                    (error, result) => {
-                                        if (error) {
-                                            logError('Failed in route', error);
-                                        }
+                                const appliedFn = async.applyEach(selectedHandler.postRequestHandler.nextSteps, result1);
+                                appliedFn((error) => {
+                                    if (error) {
+                                        logError('Failed in route', error);
                                     }
-                                );
-
-                                async.applyEach(
-                                    selectedHandler.postRequestHandler.nextSteps,
-                                    result1,
-                                    (error, result) => {
-                                        if (error) {
-                                            logError('Failed in route', error);
-                                        }
-                                    }
-                                );
+                                });
                             });
                     } catch (error) {
                         next(error);
@@ -173,7 +159,8 @@ class Route {
                             next(value);
                         }
                     });
-                    async.applyEach(selectedHandler.postRequestHandler.nextSteps, result1, (error, result) => {
+                    const appliedFn = async.applyEach(selectedHandler.postRequestHandler.nextSteps, result1);
+                    appliedFn((error) => {
                         if (error) {
                             logError('Failed in route', error);
                         }
