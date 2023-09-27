@@ -1,0 +1,1 @@
+require('resources/gcp/apis/get-upload-pre-signed-url-api');
