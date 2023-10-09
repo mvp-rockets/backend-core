@@ -1,7 +1,7 @@
 const { Storage } = require('@google-cloud/storage');
 const config = require('config/config.js');
 
-const gcpBucket = new Storage().bucket(config.bucketName);
+const gcpBucket = new Storage().bucket(config.gcpStorage.bucketName);
 
 const getGcpCloudStorageFile = async (filePath) => {
     return gcpBucket.file(filePath)
@@ -14,8 +14,8 @@ const getPreSignedUrl = async (url) => {
         action: 'read',
         expires: Date.now() + 1 * 60 * 1000, // 1 minutes
     };
-    const [url] = await gcpBucket.file(url).getSignedUrl(options);
-    return url
+    const [signedUrl] = await gcpBucket.file(url).getSignedUrl(options);
+    return signedUrl;
 }
 
 const getUploadPreSignedUrl = async (url) => {
@@ -24,8 +24,8 @@ const getUploadPreSignedUrl = async (url) => {
         action: 'write',
         expires: Date.now() + 15 * 60 * 1000, // 15 minutes
     };
-    const [url] = await gcpBucket.file(url).getSignedUrl(options);
-
+    const [signedUrl] = await gcpBucket.file(url).getSignedUrl(options);
+    return signedUrl;
 }
 
 module.exports = { gcpBucket, getGcpCloudStorageFile, getPreSignedUrl, getUploadPreSignedUrl }
