@@ -13,3 +13,4 @@ env/.env.uat
 env/.env.production
 nohup.out
 mockTrueDataServer_pid.txt
+*.swp
