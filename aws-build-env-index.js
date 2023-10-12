@@ -10,7 +10,7 @@ const perform = async () => {
     try {
         const client = new AWS.SecretsManager(
             {
-                apiVersion: process.env.AWS_SM_API_VERSION,
+                apiVersion: '2017-10-17',
                 region: process.env.AWS_SM_REGION
 
             }
