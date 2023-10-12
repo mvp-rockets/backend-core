@@ -10,7 +10,7 @@ const secretVariable = {
     database: process.env.DB_DATABASE_NAME,
     dialect: process.env.DB_DIALECT,
     seederStorage: process.env.DB_SEEDER_STORAGE,
-    cloudServiceProviderConfig,
+    serviceProviderConfig: 'serviceProviderConfig',
     logType: process.env.LOG_TYPE,
     clsNameSpace: process.env.CLS_NAMESPACE,
     cronitorSecretKey: process.env.CRONITOR_SECRET_KEY,
