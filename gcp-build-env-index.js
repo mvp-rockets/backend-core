@@ -10,10 +10,10 @@ const perform = async () => {
       const client = new SecretManagerServiceClient();
       // Load the service account key file
       const auth = new GoogleAuth({
-        keyFile: config.gcp.keyFile
+        keyFile: config.serviceProviderConfig.gcp.keyFile
       });
       // Get the project ID from the environment variable
-      const projectId = config.gcp.projectName;
+      const projectId = config.serviceProviderConfig.gcp.projectName;
       // Build the parent resource name
       const parent = `projects/${projectId}`;
 

@@ -2,7 +2,7 @@ const config = require('config/config');
 const AWS = require('aws-sdk');
 const Result = require('folktale/result');
 
-const awsS3  = config.awsS3;
+const awsS3  = config.serviceProviderConfig.awsS3;
 const path = require('path');
 const mime = require('mime');
 

@@ -4,7 +4,7 @@ const config = require('config/config');
 module.exports.perform = async () => {
     const { queues } = config;
     const { arn } = config.SQS;
-    const { deadLetterQueue } = config.awsSQS;
+    const { deadLetterQueue } = config.serviceProviderConfig.awsSQS;
     const { url } = config.SQS;
     const deadLetterQueueArn = `${arn}:${deadLetterQueue}`;
     for (const [key, value] of Object.entries(queues)) {
