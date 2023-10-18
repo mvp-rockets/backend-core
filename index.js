@@ -25,6 +25,7 @@ if (config.logType === 'aws') {
         logStreamName: config.serviceProviderConfig.awsCloudwatch.logStreamName
     }
 } else if (config.logType === 'gcp') {
+    loggerParams.type = 'google';
     loggerParams.isEnable = config.serviceProviderConfig.gcp.enableGcpLogger;
     loggerParams.configurations = {
         project: config.serviceProviderConfig.gcp.projectName,
