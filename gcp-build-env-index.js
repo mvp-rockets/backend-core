@@ -19,7 +19,6 @@ const perform = async () => {
 
       // Call the API to list the secrets in the project
       const [secrets] = await client.listSecrets({ parent });
-      console.log('Got secrets from GCP ');
       let secretsString = '';
       for (const secret of secrets) {
         const [version] = await client.accessSecretVersion({
