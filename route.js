@@ -3,6 +3,7 @@ const async = require('async');
 const { ApiError, logError, whenResult } = require('lib');
 const { HTTP_CONSTANT, token } = require('@mvp-rockets/namma-lib');
 const AutoImportApis = require('./utils/autoimport');
+const { defaultTransaction = false } = require('config/config');
 
 class Route {
     constructor() {
@@ -81,22 +82,17 @@ class Route {
             var result = self.getHandler(restHandler.url, restHandler.method);
             const handlersForUrl = result.handler;
             var restHandler = handlersForUrl[0];
-            this.bindToRouter(
-                restHandler.url,
-                restHandler.method,
-                restHandler.preRequestHandler.securityCheck,
-                (req, res, next) => {
-                    self.execute(restHandler.url, restHandler.method, req, res, (error, result) => {
-                        if (error) next(error, result);
-                        else {
-                            res.set('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
-                            res.set('Pragma', 'no-cache');
-                            res.set('Expires', 0);
-                            res.send(result);
-                        }
-                    });
-                }
-            );
+            this.bindToRouter(restHandler.url, restHandler.method, restHandler.preRequestHandler.securityCheck, (req, res, next) => {
+                self.execute(restHandler.transaction, restHandler.url, restHandler.method, req, res, (error, result) => {
+                    if (error) next(error, result);
+                    else {
+                        res.set('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
+                        res.set('Pragma', 'no-cache');
+                        res.set('Expires', 0);
+                        res.send(result);
+                    }
+                });
+            });
         }
     }
 
@@ -112,7 +108,7 @@ class Route {
         }
     }
 
-    execute(url, method, req, res, next) {
+    execute(transaction, url, method, req, res, next) {
         const self = this;
         const result = self.getHandler(url, method);
         if (!result.status) {
@@ -124,49 +120,54 @@ class Route {
             }, async (err, selectedHandler) => {
                 if (err) { next(err); return; }
                 const { functionToBeCalled } = selectedHandler;
-                try {
-                    const { sequelize } = require('./models');
+                if (transaction) {
+                    try {
+                        const { sequelize } = require('./models');
 
-                    await sequelize
-                        .transaction(async (t1) => {
-                            const result1 = await functionToBeCalled(req, res);
-                            result1.matchWith({
-                                Ok: ({
-                                    value
-                                }) => {
-                                    next(null, value);
-                                },
-                                Error: ({
-                                    value
-                                }) => {
-                                    throw value;
-                                }
+                        await sequelize
+                            .transaction(async (t1) => {
+                                const result1 = await functionToBeCalled(req, res);
+                                result1.matchWith({
+                                    Ok: ({
+                                        value
+                                    }) => {
+                                        next(null, value);
+                                    },
+                                    Error: ({
+                                        value
+                                    }) => {
+                                        throw value;
+                                    }
+                                });
+                                const appliedFn = async.applyEach(selectedHandler.postRequestHandler.nextSteps, result1);
+                                appliedFn((error) => {
+                                    if (error) {
+                                        logError('Failed in route', error);
+                                    }
+                                });
                             });
-
-                            async.applyEach(
-                                selectedHandler.postRequestHandler.nextSteps,
-                                result1,
-                                (error, result) => {
-                                    if (error) {
-                                        logError('Failed in route', error);
-                                    }
-                                }
-                            );
-
-                            async.applyEach(
-                                selectedHandler.postRequestHandler.nextSteps,
-                                result1,
-                                (error, result) => {
-                                    if (error) {
-                                        logError('Failed in route', error);
-                                    }
-                                }
-                            );
-                        });
-                } catch (error) {
-                    next(error);
+                    } catch (error) {
+                        next(error);
+                    }
+                } else {
+                    const result1 = await functionToBeCalled(req, res);
+                    result1.matchWith({
+                        Ok: ({ value }) => {
+                            next(null, value);
+                        },
+                        Error: ({ value }) => {
+                            next(value);
+                        }
+                    });
+                    const appliedFn = async.applyEach(selectedHandler.postRequestHandler.nextSteps, result1);
+                    appliedFn((error) => {
+                        if (error) {
+                            logError('Failed in route', error);
+                        }
+                    });
                 }
-            });
+            }
+            );
         }
     }
 }
@@ -213,7 +214,8 @@ class RestHandler {
         return this.postRequestHandler;
     }
 
-    bind() {
+    bind(transaction) {
+        this.transaction = transaction;
         this.peopplRoute.bind(this);
     }
 }
@@ -249,7 +251,13 @@ class PostRequestHandler {
     }
 
     bind() {
-        this.restHandler.bind();
+        this.restHandler.bind(defaultTransaction);
+    }
+    bindWithTransaction() {
+        this.restHandler.bind(true);
+    }
+    bindWithOutTransaction() {
+        this.restHandler.bind(false);
     }
 }
 

@@ -50,12 +50,15 @@ const app = express();
 const server = require('http').createServer(app);
 const Route = require('route');
 const uuid = require('uuid');
+const helmet = require("helmet");
 
 Route.setApp(app);
 
 const allowedOrigins = config.cors.whiteListOrigins;
 const allowedOriginsRegularExpression = allowedOrigins.map((origin) => new RegExp(`${origin}$`));
 app.use(cors({ origin: allowedOriginsRegularExpression }));
+app.use(helmet());
+app.disable('x-powered-by');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
