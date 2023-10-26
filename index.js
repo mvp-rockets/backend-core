@@ -9,22 +9,35 @@ dotenv.config({ path: `./env/.env.${process.env.NODE_ENV}` });
 const { Logger } = require('@mvp-rockets/namma-lib');
 const config = require('config/config');
 
-Logger.initialize({
-    isEnable: config.awsCloudwatch.enableAwsLogger,
-    type: 'aws',
+const loggerParams = {
     environment: config.env,
+    type: config.logType,
     clsNameSpace: config.clsNameSpace,
-    configurations: {
-        region: config.awsCloudwatch.region,
-        accessKeyId: config.awsCloudwatch.accessKeyId,
-        secretKey: config.awsCloudwatch.secretKey,
-        logGroupName: config.awsCloudwatch.logGroupName,
-        logStreamName: config.awsCloudwatch.logStreamName
+}
+
+if (config.logType === 'aws') {
+    loggerParams.isEnable = config.serviceProviderConfig.awsCloudwatch.enableAwsLogger;
+    loggerParams.configurations = {
+        region: config.serviceProviderConfig.awsCloudwatch.region,
+        accessKeyId: config.serviceProviderConfig.awsCloudwatch.accessKeyId,
+        secretKey: config.serviceProviderConfig.awsCloudwatch.secretKey,
+        logGroupName: config.serviceProviderConfig.awsCloudwatch.logGroupName,
+        logStreamName: config.serviceProviderConfig.awsCloudwatch.logStreamName
     }
-});
+} else if (config.logType === 'gcp') {
+    loggerParams.type = 'google';
+    loggerParams.isEnable = config.serviceProviderConfig.gcp.enableGcpLogger;
+    loggerParams.configurations = {
+        project: config.serviceProviderConfig.gcp.projectName,
+        keyFile: config.serviceProviderConfig.gcp.keyFile,
+        logStreamName: config.serviceProviderConfig.gcp.logStreamName
+    }
+}
+
+Logger.initialize(loggerParams);
+
 const cls = require('cls-hooked');
 
-const bodyParser = require('body-parser');
 const { token } = require('@mvp-rockets/namma-lib');
 
 token.initialize(config.jwtSecretKey);

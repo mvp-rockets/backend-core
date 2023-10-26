@@ -2,7 +2,7 @@ const SQS = require('SQS/get-sqs-client')();
 const config = require('config/config');
 
 module.exports.perform = async () => {
-    const { deadLetterQueue } = config.awsSQS;
+    const { deadLetterQueue } = config.serviceProviderConfig.awsSQS;
     const params = {
         QueueName: deadLetterQueue
     };
