@@ -1,0 +1,12 @@
+.nyc_output
+cron-jobs
+elasticmq
+node_modules
+queues-scripts
+coverage
+env/.env*
+test
+connect.sh
+docker-compose.yml
+README.md
+newrelic_agent.log
