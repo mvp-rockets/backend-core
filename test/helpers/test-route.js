@@ -1,9 +1,9 @@
 const Route = require('../../route.js');
 
-module.exports.execute = async function exe(url, method, req, res) {
+module.exports.execute = async function exe(url, method, req, res, transaction) {
     return new Promise((resolve, reject) => {
         try {
-            Route.execute(url, method, req, res, (error, result) => {
+            Route.execute(transaction, url, method, req, res, (error, result) => {
                 if (error) {
                     reject(error);
                 } else {
@@ -17,10 +17,10 @@ module.exports.execute = async function exe(url, method, req, res) {
 };
 
 
-module.exports.executeWithError = async function exe(url, method, req, res) {
+module.exports.executeWithError = async function exe(url, method, req, res, transaction) {
     return new Promise((resolve, reject) => {
         try {
-            Route.execute(url, method, req, res, (error, result) => {
+            Route.execute(transaction, url, method, req, res, (error, result) => {
                 if (error) {
                     resolve(error);
                 } else {
@@ -28,7 +28,7 @@ module.exports.executeWithError = async function exe(url, method, req, res) {
                 }
             });
         } catch (e) {
-            resolve(error);
+            resolve(e);
         }
     });
 };
