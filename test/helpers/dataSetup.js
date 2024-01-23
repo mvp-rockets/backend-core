@@ -33,15 +33,15 @@ const build = function (entity, useValue, name) {
         useValue = useValue != undefined ? withValue(useValue) : withNoValueChange;
     }
     return async function () {
-        const data = await R.composeP(withName(name), useValue, (data) => {
+        const data = await R.composeWith(R.andThen)([withName(name), useValue, (data) => {
             if (entity.update) { return entity.update(data); } return data;
-        }, entity.build)();
+        }, entity.build])();
         return [data, entity];
     };
 };
 
 const buildSingle = function (entity, value) {
-    return R.composeP(getEntity, R.head, addToCache, build(entity, value))();
+    return R.composeWith(R.andThen)([getEntity, R.head, addToCache, build(entity, value)])();
 };
 
 
@@ -119,11 +119,11 @@ var getEntity = function (data) {
 };
 
 
-const createSingle = (entity, value, changeDependency) => R.composeP(
+const createSingle = (entity, value, changeDependency) => R.composeWith(R.andThen)([
     getEntity,
     R.head,
     addToCache,
-    create(entity, value, entity.name, changeDependency)
+    create(entity, value, entity.name, changeDependency)]
 )();
 
 const deleteAssociatedEntities = async (entity, data, changeDependency) => {
