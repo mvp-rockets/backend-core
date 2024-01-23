@@ -18,7 +18,7 @@ module.exports.verifyResultOk = fn => (result) => {
         Error: ({
             value
         }) => {
-            const error = R.contains(value.constructor.name, ['Object', 'Structure'])
+            const error = R.includes(value.constructor.name, ['Object', 'Structure'])
                 ? JSON.stringify(value) : value.toString();
             throw error + new Error().stack;
         }
@@ -30,7 +30,7 @@ module.exports.verifyResultError = fn => (result) => {
         Ok: ({
             value
         }) => {
-            const error = R.contains(value.constructor.name, ['Object', 'Structure'])
+            const error = R.includes(value.constructor.name, ['Object', 'Structure'])
                 ? JSON.stringify(value) : value.toString();
             throw error + new Error().stack;
         },
