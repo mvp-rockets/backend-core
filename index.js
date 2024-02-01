@@ -51,6 +51,8 @@ const server = require('http').createServer(app);
 const Route = require('route');
 const uuid = require('uuid');
 const helmet = require("helmet");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 Route.setApp(app);
 
@@ -60,8 +62,6 @@ app.use(cors({ origin: allowedOriginsRegularExpression }));
 app.use(helmet());
 app.disable('x-powered-by');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
     const namespace = cls.getNamespace(config.clsNameSpace);
