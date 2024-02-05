@@ -54,15 +54,6 @@ const helmet = require("helmet");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-Route.setApp(app);
-
-const allowedOrigins = config.cors.whiteListOrigins;
-const allowedOriginsRegularExpression = allowedOrigins.map((origin) => new RegExp(`${origin}$`));
-app.use(cors({ origin: allowedOriginsRegularExpression }));
-app.use(helmet());
-app.disable('x-powered-by');
-
-
 app.use((req, res, next) => {
     const namespace = cls.getNamespace(config.clsNameSpace);
     const platform = req.headers['x-platform'] || 'unknown-platform';
@@ -72,6 +63,14 @@ app.use((req, res, next) => {
         next();
     });
 });
+
+Route.setApp(app);
+
+const allowedOrigins = config.cors.whiteListOrigins;
+const allowedOriginsRegularExpression = allowedOrigins.map((origin) => new RegExp(`${origin}$`));
+app.use(cors({ origin: allowedOriginsRegularExpression }));
+app.use(helmet());
+app.disable('x-powered-by');
 
 // HealthCheck endpoints
 const healthCheckApi = require('resources/health-check-api');
