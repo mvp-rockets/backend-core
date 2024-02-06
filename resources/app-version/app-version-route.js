@@ -1,0 +1,1 @@
+require('./apis/get-app-version-api')

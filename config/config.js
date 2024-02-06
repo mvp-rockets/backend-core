@@ -20,7 +20,36 @@ const secretVariable = {
             : [],
 
     },
-    jwtSecretKey: process.env.JWT_SECRET_KEY
+    jwtSecretKey: process.env.JWT_SECRET_KEY,
+
+    appVersions: {
+        minAndroidVersionName: process.env.APP_MIN_ANDROID_VERSION,
+        minIosVersionName: process.env.APP_MIN_IOS_VERSION,
+        forceUpdateAndroid: process.env.APP_FORCE_UPDATE_ANDROID,
+        forceUpdateIos: process.env.APP_FORCE_UPDATE_IOS,
+        latestVersionOfAndroid: process.env.ANDROID_LATEST_VERSION,
+        latestVersionOfIos: process.env.IOS_LATEST_VERSION,
+        featuresUpdate: {
+            home: {
+                version: '2.1.0',
+                path: '/home',
+            },
+            login: {
+                version: '2.3.0',
+                path: '/login',
+            },
+            musicContent: {
+                version: '1.9.0',
+                path: '/music',
+            },
+            videoContent: {
+                version: '2.1.0',
+                path: '/video',
+            },
+        },
+    },
+    
+    
 };
 
 const variables = R.mergeDeepLeft(secretVariable, config);
