@@ -15,7 +15,6 @@ const verifyVersion = ({ versionName, config, os }) => {
             features: [],
         };
     }
-
     if (versionName === minVersionOnServer && latestVersionOnServer) {
         return {
             notifyUpdate: true,
@@ -24,19 +23,15 @@ const verifyVersion = ({ versionName, config, os }) => {
             features: Object.values(config[versionKey]?.featuresUpdate || {}).map(featureInfo => featureInfo.path),
         };
     }
-
     // Check if the user version is older than the latest version
     if (latestVersionOnServer) {
         const [serverMajorVersion, serverMinorVersion] = latestVersionOnServer.split('.').map(val => Number(val));
         const [majorVersion, minorVersion] = versionName.split('.').map(val => Number(val));
 
         if (serverMajorVersion > majorVersion || (serverMajorVersion === majorVersion && serverMinorVersion > minorVersion)) {
-            // User is on a version older than the latest, notify to update without forcing
          const featureVersions = Object.entries(config[versionKey]?.featuresUpdate ?? {})
          .filter(([feature, featureInfo]) => featureInfo?.version > versionName)
           .map(([feature, featureInfo]) => featureInfo?.path);
-
-            
             return {
                 notifyUpdate: true,
                 latestVersion: latestVersionOnServer,
@@ -45,7 +40,6 @@ const verifyVersion = ({ versionName, config, os }) => {
             };
         }
     }
-
     return {
         notifyUpdate: false,
         latestVersion: latestVersionOnServer,
@@ -70,6 +64,4 @@ const updateAppVersion = ({ os, versionName, config }) => {
         });
     }
 };
-
-
 module.exports.perform = async ({ os, versionName, config }) => updateAppVersion({ os, versionName, config });
