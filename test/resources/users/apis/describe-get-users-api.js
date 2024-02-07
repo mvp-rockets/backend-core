@@ -28,7 +28,8 @@ describe('Get users api', () => {
         };
         result = {
             count: 1,
-            rows: [
+            rows: 
+            [
                 {
                     name: 'check',
                     email: 'check@gmail.com'

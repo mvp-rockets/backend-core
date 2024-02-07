@@ -35,7 +35,7 @@ describe.only('Check Version Service', () => {
         };
     });
 
-    context('sucess updated for version ios',  () => {
+    context('sucess updated for version android',  () => {
     it('should respond with no update when user is on the latest version', async () => {
         versionData.versionName = '3.1.0';
         versionData.config.appVersions.latestVersionOfAndroid = '3.1.0';
@@ -47,7 +47,7 @@ describe.only('Check Version Service', () => {
             expect(result.features).to.eql([]);
         })(checkVersionServiceResponse);
     });
-
+  
     it('should respond with no update when user is on the minimum version and the latest version is not released', async () => {
         const checkVersionServiceResponse = await CheckVersionService.perform(versionData);
         verifyResultOk((result) => {
@@ -171,6 +171,18 @@ describe.only('Check Version Service', () => {
     });
     
 
+    it('should respond with no update notification when user on latest version and latest version available', async () => {
+        versionData.config.appVersions.latestVersionOfAndroid = '3.1.0';
+        versionData.versionName = '3.1.0';
+        const checkVersionServiceResponse = await CheckVersionService.perform(versionData);
+        verifyResultOk((result) => {
+            expect(result.notifyUpdate).to.equal(false);
+            expect(result.latestVersion).to.equal(versionData.config.appVersions.latestVersionOfAndroid);
+            expect(result.forceUpdate).to.equal(false);
+            expect(result.features).to.eql([]);
+        })(checkVersionServiceResponse);
+    });
+
 })
 
     context('sucess updated for version ios',  () => {
@@ -203,7 +215,6 @@ describe.only('Check Version Service', () => {
             versionData.config.appVersions.latestVersionOfIos = '3.1.0';
             const checkVersionServiceResponse = await CheckVersionService.perform(versionData);
             verifyResultOk((result) => {
-                console.log(result)
                 expect(result.notifyUpdate).to.equal(true);
                 expect(result.latestVersion).to.equal(versionData.config.appVersions.latestVersionOfIos);
                 expect(result.forceUpdate).to.equal(true);
@@ -272,6 +283,19 @@ describe.only('Check Version Service', () => {
             const checkVersionServiceResponse = await CheckVersionService.perform(versionData);
             verifyResultOk((result) => {
                 expect(result.notifyUpdate).to.equal(true);
+                expect(result.latestVersion).to.equal(versionData.config.appVersions.latestVersionOfIos);
+                expect(result.forceUpdate).to.equal(false);
+                expect(result.features).to.eql([]);
+            })(checkVersionServiceResponse);
+        });
+
+        it('should respond with no update notification when user on latest version and latest version available', async () => {
+            versionData.os="ios";
+            versionData.config.appVersions.latestVersionOfIos = '3.1.0';
+            versionData.versionName = '3.1.0';
+            const checkVersionServiceResponse = await CheckVersionService.perform(versionData);
+            verifyResultOk((result) => {
+                expect(result.notifyUpdate).to.equal(false);
                 expect(result.latestVersion).to.equal(versionData.config.appVersions.latestVersionOfIos);
                 expect(result.forceUpdate).to.equal(false);
                 expect(result.features).to.eql([]);

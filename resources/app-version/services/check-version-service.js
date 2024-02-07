@@ -6,15 +6,6 @@ const verifyVersion = ({ versionName, config, os }) => {
     const minVersionOnServer = os === 'android' ? config[versionKey].minAndroidVersionName : config[versionKey].minIosVersionName;
     const latestVersionOnServer = os === 'android' ? config[versionKey].latestVersionOfAndroid : config[versionKey].latestVersionOfIos;
 
-    // Check if the user is on the minimum version and there is no latest version released yet
-    if (versionName === minVersionOnServer && !config[versionKey].latestVersionOfAndroid && !config[versionKey].latestVersionOfIos) {
-        return {
-            notifyUpdate: false,
-            latestVersion: minVersionOnServer,
-            forceUpdate: false,
-            features: [],
-        };
-    }
     if (versionName === minVersionOnServer && latestVersionOnServer) {
         return {
             notifyUpdate: true,
@@ -51,6 +42,7 @@ const verifyVersion = ({ versionName, config, os }) => {
 const updateAppVersion = ({ os, versionName, config }) => {
     const versionKey = 'appVersions';
     const latestVersionOnServer = os === 'android' ? config[versionKey].latestVersionOfAndroid : config[versionKey].latestVersionOfIos;
+    const minVersionOnServer = os === 'android' ? config[versionKey].minAndroidVersionName : config[versionKey].minIosVersionName;
 
     if (latestVersionOnServer) {
         const result = verifyVersion({ versionName, config, os });
@@ -58,7 +50,7 @@ const updateAppVersion = ({ os, versionName, config }) => {
     } else {
         return Result.Ok({
             notifyUpdate: false,
-            latestVersion: latestVersionOnServer ? latestVersionOnServer : versionName, 
+            latestVersion: latestVersionOnServer ? latestVersionOnServer : minVersionOnServer, 
             forceUpdate: false,
             features: [],
         });
