@@ -10,7 +10,7 @@ const verifyVersion = ({ versionName, config, os }) => {
     if (versionName === minVersionOnServer && !config[versionKey].latestVersionOfAndroid && !config[versionKey].latestVersionOfIos) {
         return {
             notifyUpdate: false,
-            latestVersion: versionName,
+            latestVersion: minVersionOnServer,
             forceUpdate: false,
             features: [],
         };
