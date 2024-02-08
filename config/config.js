@@ -20,7 +20,20 @@ const secretVariable = {
             : [],
 
     },
-    jwtSecretKey: process.env.JWT_SECRET_KEY
+    jwtSecretKey: process.env.JWT_SECRET_KEY,
+    azure: {
+        clientId: process.env.AZURE_AD_CLIENT_ID,
+        tenantId: process.env.AZURE_AD_TENANT_ID,
+        issuer: process.env.AZURE_AD_ISSUER,
+        jwksUri: process.env.AZURE_AD_JWKS_URI,
+    },
+    google: {
+        clientId: process.env.GOOGLE_CLIENT_ID,
+    },
+    redis: {
+        url: process.env.REDIS_URL,
+        password: process.env.REDIS_PASSWORD
+    }
 };
 
 const variables = R.mergeDeepLeft(secretVariable, config);

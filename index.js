@@ -72,13 +72,6 @@ app.use(cors({ origin: allowedOriginsRegularExpression }));
 app.use(helmet());
 app.disable('x-powered-by');
 
-// HealthCheck endpoints
-const healthCheckApi = require('resources/health-check-api');
-const healthCheckDbAPi = require('resources/health-check-db-api');
-
-app.get('/health-check-api', healthCheckApi);
-app.get('/health-check-db', healthCheckDbAPi);
-
 require('./api-routes');
 
 app.use((req, res, next) => {

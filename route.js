@@ -1,9 +1,10 @@
 const async = require('async');
 
 const { ApiError, logError, whenResult } = require('lib');
-const { HTTP_CONSTANT, token } = require('@mvp-rockets/namma-lib');
+const { HTTP_CONSTANT } = require('@mvp-rockets/namma-lib');
 const AutoImportApis = require('./utils/autoimport');
 const { defaultTransaction = false } = require('config/config');
+const TokenVerifier = require('lib/token-verifier');
 
 class Route {
     constructor() {
@@ -264,7 +265,8 @@ class PostRequestHandler {
 async function security(req, res, next) {
     const clientToken = req.body.token || req.query.token || req.headers['x-access-token'];
     if (clientToken) {
-        const decodedTokenResult = await token.decode(clientToken);
+        const response = await TokenVerifier.verify({ clientToken, type: 'google' });
+
         whenResult(
             (decoded) => {
                 req.decoded = decoded;
@@ -274,7 +276,7 @@ async function security(req, res, next) {
                 logError('token verification failed', error);
                 next(new ApiError('unauthorized', 'Failed to authenticate token.', HTTP_CONSTANT.UNAUTHORIZED));
             }
-        )(decodedTokenResult);
+        )(response);
     } else {
         logError('No Token provided', +req.originalUrl);
         next(new ApiError('Forbidden', 'No token provided.', HTTP_CONSTANT.FORBIDDEN));

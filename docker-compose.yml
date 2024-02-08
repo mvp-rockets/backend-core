@@ -3,7 +3,7 @@ services:
   api:
     image: node:20.11.0
     command: sh -c 'npm install && npm run server --env=dev'
-    container_name: api
+    container_name: backend_core_api
     working_dir: /app
     volumes:
       - .:/app
@@ -12,7 +12,7 @@ services:
     depends_on:
       - db
   db:
-    container_name: db
+    container_name: backend_core_db
     image: postgres:13
     restart: always
     environment:
