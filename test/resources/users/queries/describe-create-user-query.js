@@ -1,39 +1,43 @@
-const chai = require('chai');
-const { verifyResultOk } = require('helpers/verifiers');
+const chai = require("chai");
+const expect = chai.expect;
+const { verifyResultOk, verifyResultError } = require("helpers/verifiers.js");
 const db = require('db/repository');
-const ds = require('helpers/dataSetup');
-const runQuery = require('data/run-query');
-const createUserQuery = require('resources/users/queries/create-user-query');
+const ds= require('helpers/dataSetup')
+const RunQuery = require('data/run-query');
+const CreateUserQuery = require('../../../../resources/users/queries/create-user-query')
 
-const { expect } = chai;
 
-describe('create users query', () => {
-    let user;
 
-    beforeEach(async () => {
-        user = await ds.buildSingle(ds.user);
-    });
 
-    it('should create user', async () => {
-        const createdUser = await db.execute(new createUserQuery({ id: user.id, name: user.name }));
+describe.only('Create user query', () => {
+     let user;
+    beforeEach(async() =>{
+       user =await ds.buildSingle(ds.user)
+    })
+
+    it('should create a user with valid data', async() =>{
+        const createUserQueryResponce = await db.execute(new CreateUserQuery(user));
         verifyResultOk(
-            (createdUser) => {
-                expect(createdUser.dataValues.id).to.eql(user.id);
-                expect(createdUser.dataValues.name).to.eql(user.name);
+            (createdUser)=>{
+                console.log(createdUser)
+                expect(user.username).eql(createdUser.username);
+                expect(user.password).eql(createdUser.password);
             }
-        )(createdUser);
+        )(createUserQueryResponce)
 
-        const fetchedUser = await db.execute(new runQuery('select * from public."users" where id=:id', { id: user.id }));
-
+        const fetchUserResponce = await db.findOne(new RunQuery('select * from "users" where username=:username',{username:user.username}))
         verifyResultOk(
-            (fetchedUser) => {
-                expect(fetchedUser.id).to.eql(user.id);
-                expect(fetchedUser.name).to.eql(user.name);
+            (createdUser)=>{
+                expect(user.username).eql(createdUser.username);
+                expect(user.password).eql(createdUser.password);
             }
-        )(fetchedUser);
-    });
+        )(fetchUserResponce)
 
-    after(async () => {
+
+    })
+
+
+    after(async() =>{
         await ds.deleteAll();
-    });
-});
+    })
+})

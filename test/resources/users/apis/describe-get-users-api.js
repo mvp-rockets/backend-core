@@ -1,69 +1,89 @@
-const { HTTP_CONSTANT } = require('@mvp-rockets/namma-lib');
-const { ApiError } = require('lib')
-const chai = require('chai');
-const sinon = require('sinon');
-const sinonChai = require('sinon-chai');
-const TestRoutes = require('helpers/test-route');
-const db = require('db/repository');
-const {
-    resolveOk,
-    resolveError
-} = require('helpers/resolvers');
-const { verifyArgs } = require('helpers/verifiers');
-const GetUsersQuery = require('resources/users/queries/get-users-query');
-
+const chai = require("chai");
+const sinon = require("sinon");
+const sinonChai = require("sinon-chai");
 const { expect } = chai;
+const TestRoutes = require("helpers/test-route");
 chai.use(sinonChai);
+const uuid = require("uuid");
+const db = require("db/repository");
+const {
+  resolveError,
+  validationError,
+  resolveDbResult,
+  resolveOk,
+} = require("helpers/resolvers");
+const { verifyArgs } = require("helpers/verifiers");
+const GetAllUsersQuery = require("resources/users/queries/get-users-query");
 
-describe('Get users api', () => {
-    const sandbox = sinon.createSandbox();
-    let req;
-    let res;
-    let result;
-    beforeEach(() => {
-        res = {
-            setHeader: sandbox.spy(),
-            send: sandbox.spy(),
-            status: sandbox.spy(() => res)
-        };
-        result = {
-            count: 1,
-            rows: 
-            [
-                {
-                    name: 'check',
-                    email: 'check@gmail.com'
-                }
-            ]
-        };
+describe("describe get allusers api", () => {
+  let sandbox = sinon.createSandbox();
+  let req, res;
+  beforeEach(() => {
+    
+    req = {};
+    res = {
+      setHeader: sandbox.spy(),
+      send: sandbox.spy(),
+      status: sandbox.spy(() => {
+        return res;
+      }),
+    };
+  });
+
+  it("should get all users with correct api", async () => {
+    sandbox
+    .mock(db)
+    .expects("find")
+    .withArgs(new GetAllUsersQuery())
+    .returns(
+      resolveOk([
+        {
+          username: "dheeraj",
+          password: "dheeraj123",
+        },
+        {
+            username: "neeraj",
+            password: "neeraj1234",
+          },
+      ])
+    );
+
+    const response = await TestRoutes.execute("/users", "Get", req, res);
+ 
+
+    expect(response).to.be.eql({
+      status: true,
+      message: "Successfully get users!",
+      entity:[ {
+        username: "dheeraj",
+        password: "dheeraj123",
+      },
+      {
+        username: "neeraj",
+        password: "neeraj1234",
+      },
+    ]
     });
+  });
 
-    it('should return users for a valid request', async () => {
-        sandbox
-            .mock(db)
-            .expects('find')
-            .withArgs(verifyArgs((query) => {
-                expect(query).to.be.instanceOf(GetUsersQuery);
-            }))
-            .returns(resolveOk(result));
+  it("should not get users when wrong api provided", async () => {
+    sandbox
+    .mock(db)
+    .expects("find")
+    .withArgs(new GetAllUsersQuery())
+    .returns(resolveError("Users not Found."));
 
-        const response = await TestRoutes.execute('/users', 'Get', req, res);
-        expect(response).to.eql(
-            {
-                status: true,
-                message: 'Successfully get users!',
-                entity: result
-            }
-        );
-    });
+  const response = await TestRoutes.executeWithError("/users", "Get", req, res);
 
-    it('should return error when something goes wrong', async () => {
-        sandbox.stub(db, 'find').returns(resolveError('Something went wrong'));
-        const response = await TestRoutes.executeWithError('/users', 'Get', req, res);
-        expect(response).to.eql(new ApiError('Something went wrong', 'Failed to get users!', HTTP_CONSTANT.INTERNAL_SERVER_ERROR));
-    });
+  expect(response).to.be.eql({
+    code:500,
+    error: 'Users not Found.',
+    errorMessage: 'Failed to get users!',
+    errorDescription: 'Internal Server Error'
+  });
 
-    afterEach(() => {
-        sandbox.verifyAndRestore();
-    });
+});
+  afterEach(() => {
+    sandbox.verifyAndRestore();
+  });
 });

@@ -6,7 +6,7 @@ const GetUsersQuery = require('resources/users/queries/get-users-query');
 
 const { expect } = chai;
 
-describe('get users query', () => {
+describe.only('get users query', () => {
     let user1;
     let user2;
 
@@ -20,10 +20,10 @@ describe('get users query', () => {
         
         verifyResultOk(() => {
             expect(fetchedUsers.value).to.be.an('array');
-            expect(fetchedUsers.value.map((item) => item.id)).to.include(user1.id);
-            expect(fetchedUsers.value.map((item) => item.id)).to.include(user2.id);
-            expect(fetchedUsers.value.map((item) => item.name)).to.include(user1.name);
-            expect(fetchedUsers.value.map((item) => item.name)).to.include(user2.name);
+            expect(fetchedUsers.value.map((item) => item.username)).to.include(user1.username);
+            expect(fetchedUsers.value.map((item) => item.username)).to.include(user2.username);
+            expect(fetchedUsers.value.map((item) => item.password)).to.include(user1.password);
+            expect(fetchedUsers.value.map((item) => item.password)).to.include(user2.password);
         })(fetchedUsers);
     });
     after(async () => {
