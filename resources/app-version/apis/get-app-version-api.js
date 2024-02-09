@@ -1,7 +1,7 @@
 const Route = require('route');
 const { respond, logInfo } = require('lib');
 const config = require('config/config');
-const CheckVersionService = require('../services/check-version-service');
+const CheckVersionService = require('resources/app-version/services/check-version-service');
 
 const post = async (req) => {
     const {

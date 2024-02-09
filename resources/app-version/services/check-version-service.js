@@ -14,15 +14,23 @@ const verifyVersion = ({ versionName, config, os }) => {
             features: Object.values(config[versionKey]?.featuresUpdate || {}).map(featureInfo => featureInfo.path),
         };
     }
-    // Check if the user version is older than the latest version
-    if (latestVersionOnServer) {
-        const [serverMajorVersion, serverMinorVersion] = latestVersionOnServer.split('.').map(val => Number(val));
-        const [majorVersion, minorVersion] = versionName.split('.').map(val => Number(val));
 
-        if (serverMajorVersion > majorVersion || (serverMajorVersion === majorVersion && serverMinorVersion > minorVersion)) {
-         const featureVersions = Object.entries(config[versionKey]?.featuresUpdate ?? {})
-         .filter(([feature, featureInfo]) => featureInfo?.version > versionName)
-          .map(([feature, featureInfo]) => featureInfo?.path);
+    if (latestVersionOnServer) {
+        const [serverMajorVersion, serverMinorVersion, serverPatchVersion] = latestVersionOnServer.split('.').map(val => Number(val));
+        const [majorVersion, minorVersion, patchVersion] = versionName.split('.').map(val => Number(val));
+
+        if (serverMajorVersion > majorVersion || 
+            (serverMajorVersion === majorVersion && serverMinorVersion > minorVersion) ||
+            (serverMajorVersion === majorVersion && serverMinorVersion === minorVersion && serverPatchVersion > patchVersion)) {
+            const featureVersions = Object.entries(config[versionKey]?.featuresUpdate ?? {})
+                .filter(([feature, featureInfo]) => {
+                    const [featureMajorVersion, featureMinorVersion, featurePatchVersion] = featureInfo.version.split('.').map(val => Number(val));
+                    return (featureMajorVersion > majorVersion ||
+                        (featureMajorVersion === majorVersion && featureMinorVersion > minorVersion) ||
+                        (featureMajorVersion === majorVersion && featureMinorVersion === minorVersion && featurePatchVersion > patchVersion));
+                })
+                .map(([feature, featureInfo]) => featureInfo.path);
+
             return {
                 notifyUpdate: true,
                 latestVersion: latestVersionOnServer,
@@ -31,6 +39,7 @@ const verifyVersion = ({ versionName, config, os }) => {
             };
         }
     }
+
     return {
         notifyUpdate: false,
         latestVersion: latestVersionOnServer,

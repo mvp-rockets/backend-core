@@ -3,7 +3,7 @@ const expect = chai.expect;
 const { verifyResultOk, verifyResultError } = require("helpers/verifiers.js");
 const CheckVersionService = require('resources/app-version/services/check-version-service');
 
-describe.only('Check Version Service', () => {
+describe('Check Version Service', () => {
     let versionData;
 
     beforeEach(() => {
@@ -35,7 +35,7 @@ describe.only('Check Version Service', () => {
         };
     });
 
-    context('sucess updated for version android',  () => {
+    context('success updated for version android',  () => {
     it('should respond with no update when user is on the latest version', async () => {
         versionData.versionName = '3.1.0';
         versionData.config.appVersions.latestVersionOfAndroid = '3.1.0';

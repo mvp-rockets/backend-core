@@ -11,13 +11,12 @@ async function post(req) {
         password: req.body.password
     };
    
-    logInfo('Request to get users api ', { data: data});
+    logInfo('Request to create users api ', { data: data});
 
     const response = await composeResult(
         withArgs(db.execute, new CreateUserQuery(data)),
         CreateUserValidations.validate
     )(data);
-    console.log(response);
    
     return respond(response, 'Successfully create users!', 'Failed to create users!');
 }

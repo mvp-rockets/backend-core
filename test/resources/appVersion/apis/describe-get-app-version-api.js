@@ -12,7 +12,7 @@ const {
 } = require("helpers/resolvers");
 const checkVersionService = require("resources/app-version/services/check-version-service");
 
-describe.only("describe mobile appVersion api", () => {
+describe("describe mobile appVersion api", () => {
   let sandbox = sinon.createSandbox();
   let req, res;
   beforeEach(() => {

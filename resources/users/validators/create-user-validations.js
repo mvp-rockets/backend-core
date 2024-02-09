@@ -4,7 +4,7 @@ const {
     shouldBeUuid,
     isEmail,
     isMobileNumber,
-  } = require("../../../validation");
+  } = require("validation");
   
   const rule = {
 

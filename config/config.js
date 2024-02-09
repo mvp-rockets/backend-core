@@ -31,19 +31,19 @@ const secretVariable = {
         latestVersionOfIos: process.env.IOS_LATEST_VERSION,
         featuresUpdate: {
             home: {
-                version: '2.1.0',
+                version: '2.1.10',
                 path: '/home',
             },
             login: {
-                version: '2.3.0',
+                version: '2.1.11',
                 path: '/login',
             },
             musicContent: {
-                version: '1.9.0',
+                version: '2.1.13',
                 path: '/music',
             },
             videoContent: {
-                version: '2.1.0',
+                version: '2.1.10',
                 path: '/video',
             },
         },
