@@ -33,7 +33,31 @@ const secretVariable = {
     redis: {
         url: process.env.REDIS_URL,
         password: process.env.REDIS_PASSWORD
-    }
+    },
+    appVersions: {
+        minAndroidVersionName: process.env.APP_MIN_ANDROID_VERSION,
+        minIosVersionName: process.env.APP_MIN_IOS_VERSION,
+        latestVersionOfAndroid: process.env.ANDROID_LATEST_VERSION,
+        latestVersionOfIos: process.env.IOS_LATEST_VERSION,
+        featuresUpdate: {
+            home: {
+                version: '2.2.10',
+                path: '/home',
+            },
+            login: {
+                version: '2.3.3',
+                path: '/login',
+            },
+            musicContent: {
+                version: '1.9.2',
+                path: '/music',
+            },
+            videoContent: {
+                version: '2.2.4',
+                path: '/video',
+            },
+        },
+    },
 };
 
 const variables = R.mergeDeepLeft(secretVariable, config);
