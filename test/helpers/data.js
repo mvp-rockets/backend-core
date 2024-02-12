@@ -16,7 +16,7 @@ const user = {
     name: "user",
     create: (user) => [new CreateUserQuery(user)],
     build: () => entity("user"),
-    delete: (user) => [new deleteEntityById(user.username, "users")],
+    delete: (user) => [new deleteEntityById(user.id, "User")],
   };
   
 

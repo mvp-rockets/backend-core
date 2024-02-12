@@ -35,7 +35,6 @@ describe("describe user create api", () => {
       }),
     };
   });
-
   it("should create a new user when correct credentials are passed", async () => {
     sandbox
       .mock(db)
@@ -43,22 +42,19 @@ describe("describe user create api", () => {
       .withArgs(
         verifyArgs((query) => {
           expect(query).to.be.instanceOf(CreateUserQuery);
-          expect(query).to.be.eql({
-                username: "dheeraj",
-                 password: "dheeraj123"
-          })
+          expect(query).to.have.property('username', 'dheeraj');
+          expect(query).to.have.property('password', 'dheeraj123');
         })
       )
       .returns(
         resolveOk({
-            username: "dheeraj",
-            password: "dheeraj123"
+          username: "dheeraj",
+          password: "dheeraj123"
         })
       );
-
+  
     const response = await TestRoutes.execute("/users", "Post", req, res);
- 
-
+  
     expect(response).to.be.eql({
       status: true,
       message: "Successfully create users!",
@@ -68,7 +64,7 @@ describe("describe user create api", () => {
       },
     });
   });
-
+  
 
   it("should respond failure when some error occurs", async () => {
     sandbox

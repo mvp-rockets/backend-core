@@ -25,25 +25,23 @@ const secretVariable = {
     appVersions: {
         minAndroidVersionName: process.env.APP_MIN_ANDROID_VERSION,
         minIosVersionName: process.env.APP_MIN_IOS_VERSION,
-        forceUpdateAndroid: process.env.APP_FORCE_UPDATE_ANDROID,
-        forceUpdateIos: process.env.APP_FORCE_UPDATE_IOS,
         latestVersionOfAndroid: process.env.ANDROID_LATEST_VERSION,
         latestVersionOfIos: process.env.IOS_LATEST_VERSION,
         featuresUpdate: {
             home: {
-                version: '2.1.10',
+                version: '2.2.10',
                 path: '/home',
             },
             login: {
-                version: '2.1.11',
+                version: '2.3.3',
                 path: '/login',
             },
             musicContent: {
-                version: '2.1.13',
+                version: '1.9.2',
                 path: '/music',
             },
             videoContent: {
-                version: '2.1.10',
+                version: '2.2.4',
                 path: '/video',
             },
         },

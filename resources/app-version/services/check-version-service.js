@@ -14,7 +14,6 @@ const verifyVersion = ({ versionName, config, os }) => {
             features: Object.values(config[versionKey]?.featuresUpdate || {}).map(featureInfo => featureInfo.path),
         };
     }
-
     if (latestVersionOnServer) {
         const [serverMajorVersion, serverMinorVersion, serverPatchVersion] = latestVersionOnServer.split('.').map(val => Number(val));
         const [majorVersion, minorVersion, patchVersion] = versionName.split('.').map(val => Number(val));
