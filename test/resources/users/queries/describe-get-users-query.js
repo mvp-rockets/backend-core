@@ -20,10 +20,10 @@ describe('get users query', () => {
         
         verifyResultOk(() => {
             expect(fetchedUsers.value).to.be.an('array');
-            expect(fetchedUsers.value.map((item) => item.id)).to.include(user1.id);
-            expect(fetchedUsers.value.map((item) => item.id)).to.include(user2.id);
-            expect(fetchedUsers.value.map((item) => item.name)).to.include(user1.name);
-            expect(fetchedUsers.value.map((item) => item.name)).to.include(user2.name);
+            expect(fetchedUsers.value.map((item) => item.username)).to.include(user1.username);
+            expect(fetchedUsers.value.map((item) => item.username)).to.include(user2.username);
+            expect(fetchedUsers.value.map((item) => item.password)).to.include(user1.password);
+            expect(fetchedUsers.value.map((item) => item.password)).to.include(user2.password);
         })(fetchedUsers);
     });
     after(async () => {
