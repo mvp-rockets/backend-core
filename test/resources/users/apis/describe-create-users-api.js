@@ -14,7 +14,6 @@ const {
 } = require("helpers/resolvers");
 const { verifyArgs } = require("helpers/verifiers");
 const CreateUserQuery = require("resources/users/queries/create-user-query");
-const createUserValidations= require('resources/users/validators/create-user-validations')
 
 describe("describe user create api", () => {
   let sandbox = sinon.createSandbox();

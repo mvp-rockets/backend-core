@@ -12,7 +12,6 @@ const {
   resolveDbResult,
   resolveOk,
 } = require("helpers/resolvers");
-const { verifyArgs } = require("helpers/verifiers");
 const GetAllUsersQuery = require("resources/users/queries/get-users-query");
 
 describe("describe get allusers api", () => {
