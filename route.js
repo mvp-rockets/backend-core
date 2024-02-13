@@ -4,6 +4,7 @@ const { ApiError, logError, whenResult } = require('lib');
 const { HTTP_CONSTANT, token } = require('@mvp-rockets/namma-lib');
 const AutoImportApis = require('./utils/autoimport');
 const { defaultTransaction = false } = require('config/config');
+const { rateLimitMiddleware } = require('./lib/rate-limiting');
 
 class Route {
     constructor() {
@@ -75,6 +76,11 @@ class Route {
     }
 
     bind(restHandler) {
+             const withRateLimit = (req, res, next) => {
+                rateLimitMiddleware(req, res, () => {
+                    restHandler.preRequestHandler.securityCheck(req, res, next); 
+                });
+            };
         var self = this;
         var result = this.addToCache(restHandler.url, restHandler);
         if (!result.alreadyExist) {
@@ -82,7 +88,7 @@ class Route {
             var result = self.getHandler(restHandler.url, restHandler.method);
             const handlersForUrl = result.handler;
             var restHandler = handlersForUrl[0];
-            this.bindToRouter(restHandler.url, restHandler.method, restHandler.preRequestHandler.securityCheck, (req, res, next) => {
+            this.bindToRouter(restHandler.url, restHandler.method,withRateLimit,(req, res, next) => {
                 self.execute(restHandler.transaction, restHandler.url, restHandler.method, req, res, (error, result) => {
                     if (error) next(error, result);
                     else {
