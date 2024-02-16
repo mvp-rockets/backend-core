@@ -54,6 +54,10 @@ const helmet = require("helmet");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const allowedOrigins = config.cors.whiteListOrigins;
+const allowedOriginsRegularExpression = allowedOrigins.map((origin) => new RegExp(`${origin}$`));
+app.use(cors({ origin: allowedOriginsRegularExpression }));
+
 app.use((req, res, next) => {
     const namespace = cls.getNamespace(config.clsNameSpace);
     const platform = req.headers['x-platform'] || 'unknown-platform';
@@ -66,9 +70,6 @@ app.use((req, res, next) => {
 
 Route.setApp(app);
 
-const allowedOrigins = config.cors.whiteListOrigins;
-const allowedOriginsRegularExpression = allowedOrigins.map((origin) => new RegExp(`${origin}$`));
-app.use(cors({ origin: allowedOriginsRegularExpression }));
 app.use(helmet());
 app.disable('x-powered-by');
 

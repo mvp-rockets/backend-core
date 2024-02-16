@@ -34,6 +34,14 @@ const secretVariable = {
         url: process.env.REDIS_URL,
         password: process.env.REDIS_PASSWORD
     },
+    smtp: {
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
+        username: process.env.SMTP_USERNAME,
+        password: process.env.SMTP_PASSWORD,
+        emailFrom: process.env.SMTP_EMAIL_FROM
+    },
+    nextAuthSecretPass: 'some_secret',
     appVersions: {
         minAndroidVersionName: process.env.APP_MIN_ANDROID_VERSION,
         minIosVersionName: process.env.APP_MIN_IOS_VERSION,

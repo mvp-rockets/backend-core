@@ -52,8 +52,8 @@ const sendNotification = R.curry(async (userNotificationDetails, modes) => {
         [R.T, Result.Ok('No action needed')]
     ])(mode.name))(modes);
 
-    const response = Promise.all(allResult);
-    return Result.Ok(modes);
+    const response = await Promise.all(allResult);
+    return response.map((d) => d instanceof Result.Error).filter((val) => val).length ? Result.Error(response) : Result.Ok(modes);
 });
 
 const getFCMMessage = R.curry((data, details) => {
