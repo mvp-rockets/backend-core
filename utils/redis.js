@@ -6,14 +6,18 @@ const { redis } = require('config/config');
 let client;
 async function startRedis() {
     try {
-        client = createClient({ url: redis.url, password: redis.password });
+        let url = `redis://${redis.host}:${redis.port}`;
+        if (redis.username && redis.password) {
+            url = `redis://${redis.username}:${redis.password}@${redis.host}:${redis.port}`;
+        }
+        client = createClient({ url });
         await client.connect();
 
         client.on('error', (err) => {
-            console.log(`Could not establish a connection with redis. ${err}`);
+            console.log(`Error occured during connection with redis. ${err}`);
         });
         client.on('connect', () => {
-            console.log('Connected to redis successfully');
+            console.log('Connected to redis successfully :)');
         });
     } catch (err) {
         console.log(`Could not establish a connection with redis. ${err}`);
