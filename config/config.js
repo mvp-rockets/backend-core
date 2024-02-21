@@ -31,8 +31,11 @@ const secretVariable = {
         clientId: process.env.GOOGLE_CLIENT_ID,
     },
     redis: {
-        url: process.env.REDIS_URL,
-        password: process.env.REDIS_PASSWORD
+        host: process.env.REDIS_HOST,
+        port: process.env.REDIS_PORT,
+        username: process.env.REDIS_USERNAME,
+        password: process.env.REDIS_PASSWORD,
+        expiryTime: 1500
     },
     smtp: {
         host: process.env.SMTP_HOST,
@@ -40,6 +43,12 @@ const secretVariable = {
         username: process.env.SMTP_USERNAME,
         password: process.env.SMTP_PASSWORD,
         emailFrom: process.env.SMTP_EMAIL_FROM
+    },
+    awsCognito: {
+        region: process.env.AWS_COGNITO_REGION,
+        clientId: process.env.AWS_COGNITO_CLIENT_ID,
+        userPoolId: process.env.AWS_COGNITO_USER_POOL_ID,
+        domain: process.env.AWS_COGNITO_DOMAIN
     },
     nextAuthSecretPass: 'some_secret',
     appVersions: {

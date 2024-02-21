@@ -74,6 +74,7 @@ app.use(helmet());
 app.disable('x-powered-by');
 
 require('./api-routes');
+require('./passport')(app);
 
 app.use((req, res, next) => {
     const err = new ApiError('Not Found', 'Resource Not Found!', HTTP_CONSTANT.NOT_FOUND);
