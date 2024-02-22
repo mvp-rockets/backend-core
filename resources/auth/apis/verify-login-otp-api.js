@@ -21,7 +21,7 @@ async function login(req) {
             )(),
             async () => Result.Ok(await bcrypt.compare(otp, user.mlVerificationToken))
         )(),
-        () => db.executeWithValue(new GetOneUserByConditionQuery({ email })),
+        () => db.executeWithValue(new GetOneUserByConditionQuery({ email: email.toLowerCase() })),
     )();
 
     return respond(response, "Verified otp successfully!", "failed to verify otp!");

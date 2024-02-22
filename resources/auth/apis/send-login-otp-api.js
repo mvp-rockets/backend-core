@@ -10,7 +10,7 @@ const bcrypt = require('bcryptjs');
 async function post(req) {
     const { email, } = req.body;
 
-    logInfo('Request to create magic link verification token for user api ', { email });
+    logInfo('Request to send login otp api ', { email });
 
     let hashedOTP;
     const response = await composeResult(
