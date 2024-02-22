@@ -20,6 +20,7 @@ async function startRedis() {
             console.log('Connected to redis successfully :)');
         });
     } catch (err) {
+        client = {}
         console.log(`Could not establish a connection with redis. ${err}`);
 
     }
