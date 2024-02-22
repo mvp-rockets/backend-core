@@ -17,13 +17,13 @@ async function post(req) {
             }
             return InitiateAuth.initiateAuth({ email })
         },
-        async () => db.executeWithValue(new CreateOrFindUserQuery({
+        () => db.executeWithValue(new CreateOrFindUserQuery({
             where: { email: email.toLowerCase() },
             defaults: { id: uuid.v4(), email: email.toLowerCase() }
         })),
     )();
 
-    return respond(result, 'Successfully auth started logging in with phone!', 'Failed to login with phone!');
+    return respond(result, 'Successfully auth started logging in with email!', 'Failed to login with email!');
 }
 
 Route.withOutSecurity().noAuth().post('/login-with-cognito-email-otp', post).bind();

@@ -2,7 +2,7 @@ const Models = require('models');
 
 
 module.exports = class GetOneUserByConditionQuery {
-    constructor(where = {}) {
+    constructor(where) {
         this.where = where
     }
 
