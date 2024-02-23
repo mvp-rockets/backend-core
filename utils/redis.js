@@ -1,5 +1,5 @@
 const { createClient } = require('redis');
-const { ApiError, logError } = require('lib');
+const { ApiError, logError, logInfo } = require('lib');
 const Result = require('folktale/result');
 const { redis } = require('config/config');
 
@@ -14,14 +14,14 @@ async function startRedis() {
         await client.connect();
 
         client.on('error', (err) => {
-            console.log(`Error occured during connection with redis. ${err}`);
+            logError(`Error occured during connection with redis. ${err}`);
         });
         client.on('connect', () => {
-            console.log('Connected to redis successfully :)');
+            logError('Connected to redis successfully :)');
         });
     } catch (err) {
         client = {}
-        console.log(`Could not establish a connection with redis. ${err}`);
+        logError(`Could not establish a connection with redis. ${err}`);
 
     }
 }
@@ -142,7 +142,7 @@ module.exports.createIndex = async (name, schema, type) => {
 
         if (idxList.includes(name)) {
             const res = await ft.dropIndex(name);
-            console.log('Dropping existing index', res);
+            logInfo('Dropping existing index', res);
         }
 
         const value = await ft.create(name, schema, type);
@@ -164,7 +164,6 @@ module.exports.searchRedisData = async (index, search, opts = {}) => {
         logError('redis search error', {
             err: err.message
         });
-        console.log('ERROR', err);
         return Result.Error(null);
     }
 };
@@ -201,7 +200,6 @@ module.exports.aggregate = async (index, search, opts = {}) => {
         logError('redis aggrregate error', {
             err: err.message
         });
-        console.log('ERROR', err);
         return Result.Error(null);
     }
 };
