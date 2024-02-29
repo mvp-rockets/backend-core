@@ -1,1 +1,1 @@
-docker exec -it api bash
+docker exec -it backend_core_api bash

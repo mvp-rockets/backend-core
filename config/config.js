@@ -21,7 +21,36 @@ const secretVariable = {
 
     },
     jwtSecretKey: process.env.JWT_SECRET_KEY,
-
+    azure: {
+        clientId: process.env.AZURE_AD_CLIENT_ID,
+        tenantId: process.env.AZURE_AD_TENANT_ID,
+        issuer: process.env.AZURE_AD_ISSUER,
+        jwksUri: process.env.AZURE_AD_JWKS_URI,
+    },
+    google: {
+        clientId: process.env.GOOGLE_CLIENT_ID,
+    },
+    redis: {
+        host: process.env.REDIS_HOST,
+        port: process.env.REDIS_PORT,
+        username: process.env.REDIS_USERNAME,
+        password: process.env.REDIS_PASSWORD,
+        expiryTime: 1500
+    },
+    smtp: {
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
+        username: process.env.SMTP_USERNAME,
+        password: process.env.SMTP_PASSWORD,
+        emailFrom: process.env.SMTP_EMAIL_FROM
+    },
+    awsCognito: {
+        region: process.env.AWS_COGNITO_REGION,
+        clientId: process.env.AWS_COGNITO_CLIENT_ID,
+        userPoolId: process.env.AWS_COGNITO_USER_POOL_ID,
+        domain: process.env.AWS_COGNITO_DOMAIN
+    },
+    nextAuthSecretPass: 'some_secret',
     appVersions: {
         minAndroidVersionName: process.env.APP_MIN_ANDROID_VERSION,
         minIosVersionName: process.env.APP_MIN_IOS_VERSION,
@@ -46,8 +75,6 @@ const secretVariable = {
             },
         },
     },
-    
-    
 };
 
 const variables = R.mergeDeepLeft(secretVariable, config);

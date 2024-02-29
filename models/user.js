@@ -19,16 +19,26 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             allowNull: false,
             defaultValue: DataTypes.UUIDV4,
-          },
-          username: {
+        },
+        email: {
             type: DataTypes.STRING,
-            allowNull: false,
             unique: true,
-          },
-          password:{
-            type:DataTypes.STRING,
-            allowNull:false
-          },
+        },
+        username: {
+            type: DataTypes.STRING,
+            unique: true,
+        },
+        password: {
+            type: DataTypes.STRING,
+        },
+        mlVerificationToken: {
+            type: DataTypes.STRING,
+            field: 'ml_verifcation_token'
+        },
+        mlVerificationTokenExp: {
+            type: DataTypes.DATE,
+            field: 'ml_verifcation_token_exp'
+        },
     }, {
         sequelize,
         modelName: 'User',

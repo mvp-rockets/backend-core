@@ -4,7 +4,7 @@ const { logError, logInfo } = require('lib');
 const config = require('config/config.js');
 
 
-module.exports.send = mailOptions => new Promise((resolve, reject) => {
+module.exports.send = mailOptions => new Promise((resolve) => {
     logInfo('Sending email', {
         to: mailOptions.to,
         from: '',
@@ -13,17 +13,17 @@ module.exports.send = mailOptions => new Promise((resolve, reject) => {
     });
 
     const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+        host: config.smtp.host,
+        port: Number(config.smtp.port),
+        secure: false,
         auth: {
-            user: config.email.no_reply.user,
-            pass: config.email.no_reply.password
+            user: config.smtp.username,
+            pass: config.smtp.password
         }
     });
 
     transporter.sendMail({
-        from: config.email.no_reply.user,
+        from: config.smtp.emailFrom,
         to: mailOptions.to,
         subject: mailOptions.subject,
         html: mailOptions.html

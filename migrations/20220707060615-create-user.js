@@ -8,14 +8,24 @@ module.exports = {
         allowNull: false,
         defaultValue: DataTypes.UUIDV4,
       },
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
       username: {
         type: DataTypes.STRING,
-        allowNull: false,
         unique: true,
       },
       password:{
         type:DataTypes.STRING,
-        allowNull:false
+      },
+      mlVerificationToken:{
+        type:DataTypes.STRING,
+        field: 'ml_verifcation_token'
+      },
+      mlVerificationTokenExp:{
+        type:DataTypes.DATE,
+        field: 'ml_verifcation_token_exp'
       },
       createdAt: {
         allowNull: false,

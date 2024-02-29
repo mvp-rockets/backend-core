@@ -12,6 +12,35 @@ module.exports.execute = async (query) => new Promise((resolve) => {
             resolve(Result.Error(error));
         });
 });
+
+module.exports.executeWithValue = async (query, messageError) => new Promise((resolve) => {
+    query
+        .get()
+        .then((data) => {
+            if (!data) {
+                logError("Repository failed on executeWithValue", { query: query.constructor.name, error: messageError || 'Not found' });
+                resolve(Result.Error(new ApiError('api error', messageError || 'Not found', 404)));
+                return;
+            }
+            resolve(Result.Ok(data));
+        })
+        .catch((error) => {
+            logError("Repository failed on executeWithValue", { query: query.constructor.name, error: error });
+            resolve(Result.Error(error));
+        });
+});
+
+module.exports.perform = async query => new Promise((resolve) => {
+    query
+        .then((data) => {
+            resolve(Result.Ok(data));
+        })
+        .catch((error) => {
+            logError("Repository failed on perform", { error: error });
+            resolve(Result.Error(error));
+        });
+});
+
 module.exports.create = async (query) => new Promise((resolve) => {
     query
         .get()

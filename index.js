@@ -54,6 +54,10 @@ const helmet = require("helmet");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const allowedOrigins = config.cors.whiteListOrigins;
+const allowedOriginsRegularExpression = allowedOrigins.map((origin) => new RegExp(`${origin}$`));
+app.use(cors({ origin: allowedOriginsRegularExpression }));
+
 app.use((req, res, next) => {
     const namespace = cls.getNamespace(config.clsNameSpace);
     const platform = req.headers['x-platform'] || 'unknown-platform';
@@ -66,20 +70,11 @@ app.use((req, res, next) => {
 
 Route.setApp(app);
 
-const allowedOrigins = config.cors.whiteListOrigins;
-const allowedOriginsRegularExpression = allowedOrigins.map((origin) => new RegExp(`${origin}$`));
-app.use(cors({ origin: allowedOriginsRegularExpression }));
 app.use(helmet());
 app.disable('x-powered-by');
 
-// HealthCheck endpoints
-const healthCheckApi = require('resources/health-check-api');
-const healthCheckDbAPi = require('resources/health-check-db-api');
-
-app.get('/health-check-api', healthCheckApi);
-app.get('/health-check-db', healthCheckDbAPi);
-
 require('./api-routes');
+require('./passport')(app);
 
 app.use((req, res, next) => {
     const err = new ApiError('Not Found', 'Resource Not Found!', HTTP_CONSTANT.NOT_FOUND);
