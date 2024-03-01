@@ -13,7 +13,7 @@ services:
       - db
   db:
     container_name: backend_core_db
-    image: postgres:13
+    image: postgres:15
     restart: always
     environment:
       POSTGRES_USER: root
