@@ -5,10 +5,11 @@ module.exports = {
         mocha: true
     },
     extends: 'airbnb-base',
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
     parserOptions: {
         ecmaVersion: 2015,
-        sourceType: 'module'
+        sourceType: 'module',
+        requireConfigFile: false
     },
     settings: {
         'import/resolver': {
@@ -31,8 +32,8 @@ module.exports = {
         'class-methods-use-this': 'off',
         'no-multi-str': 'off',
         'no-underscore-dangle': 'off',
-        "import/no-unresolved": 'off',
-        "no-plusplus": 'off',
+        'import/no-unresolved': 'off',
+        'no-plusplus': 'off',
         indent: [
             'error',
             4
