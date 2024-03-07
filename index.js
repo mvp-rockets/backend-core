@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: `./env/.env.${process.env.NODE_ENV}` });
 const { Logger } = require('@mvp-rockets/namma-lib');
 const config = require('config/config');
+const cls = require('cls-hooked');
 const namespace = cls.createNamespace(config.clsNameSpace);
 
 const loggerParams = {
@@ -36,8 +37,6 @@ if (config.logType === 'aws') {
 }
 
 Logger.initialize(loggerParams);
-
-const cls = require('cls-hooked');
 
 const { token } = require('@mvp-rockets/namma-lib');
 

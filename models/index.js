@@ -5,10 +5,10 @@ const Sequelize = require('sequelize');
 
 const basename = path.basename(__filename);
 
-const cls = require('cls-hooked');
 const config = require('config/config');
 
 if (config.app?.useGlobalTransaction) {
+  const cls = require('cls-hooked');
   const namespace = cls.getNamespace(config.clsNameSpace);
   Sequelize.useCLS(namespace);
 }
