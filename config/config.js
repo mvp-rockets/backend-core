@@ -1,15 +1,23 @@
 const config = require('config');
-const R = require('ramda')
+const R = require('ramda');
 
 const secretVariable = {
     apiPort: process.env.API_PORT,
     env: process.env.ENVIRONMENT,
-    host: process.env.DB_HOST,
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE_NAME,
-    dialect: process.env.DB_DIALECT,
-    seederStorage: process.env.DB_SEEDER_STORAGE,
+    db: {
+      host: process.env.DB_HOST,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE_NAME,
+      dialect: 'postgres',
+      seederStorage: 'sequelize',
+      pool: {
+        max: 100,
+        min: 0,
+        idle: 10000,
+        evict: 10000
+      },
+    },
     serviceProviderConfig: 'serviceProviderConfig',
     logType: process.env.LOG_TYPE,
     clsNameSpace: process.env.CLS_NAMESPACE,
@@ -18,7 +26,6 @@ const secretVariable = {
         whiteListOrigins: process.env.WHITE_LIST_ORIGINS
             ? process.env.WHITE_LIST_ORIGINS.split(',')
             : [],
-
     },
     jwtSecretKey: process.env.JWT_SECRET_KEY,
     azure: {

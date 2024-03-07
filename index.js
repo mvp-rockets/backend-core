@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: `./env/.env.${process.env.NODE_ENV}` });
 const { Logger } = require('@mvp-rockets/namma-lib');
 const config = require('config/config');
+const namespace = cls.createNamespace(config.clsNameSpace);
 
 const loggerParams = {
     environment: config.env,
@@ -59,7 +60,6 @@ const allowedOriginsRegularExpression = allowedOrigins.map((origin) => new RegEx
 app.use(cors({ origin: allowedOriginsRegularExpression }));
 
 app.use((req, res, next) => {
-    const namespace = cls.getNamespace(config.clsNameSpace);
     const platform = req.headers['x-platform'] || 'unknown-platform';
     namespace.run(() => {
         namespace.set('traceId', uuid.v4());
