@@ -124,6 +124,6 @@ process.on('SIGTERM', () => {
     });
 });
 
-// server.listen(config.apiPort, () => {
-//     console.log(`Express server listening on Port :- ${config.apiPort}`);
-// });
+server.listen(config.apiPort, () => {
+    console.log(`Express server listening on Port :- ${config.apiPort}`);
+});
