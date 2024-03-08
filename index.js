@@ -94,7 +94,7 @@ app.use((error, request, response, next) => {
             message: error.errorMessage
         });
     } else {
-        response.status(501);
+        response.status(HTTP_CONSTANT.NOT_IMPLEMENTED);
         logError('Failed to execute the operation', { value: error, stack: error.stack, platform });
         response.send({
             status: false,
