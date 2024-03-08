@@ -121,6 +121,15 @@ process.on('SIGTERM', () => {
     });
 });
 
+// FIXME:  Change this to common function for closing db, redis connections
+process.on('SIGINT', function() {
+   db.stop(function(err) {
+     process.exit(err ? 1 : 0)
+   })
+})
+
 server.listen(config.apiPort, () => {
     console.log(`Express server listening on Port :- ${config.apiPort}`);
+    // Here we send the ready signal to PM2
+    process.send('ready')
 });
