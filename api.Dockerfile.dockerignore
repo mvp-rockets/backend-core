@@ -10,3 +10,14 @@ connect.sh
 docker-compose.yml
 README.md
 newrelic_agent.log
+data/**
+Photos.code-workspace
+logs/**
+.idea/**
+.vscode/**
+tmp/**
+museum.yaml
+bin/**
+data/
+.DS_Store
+.git

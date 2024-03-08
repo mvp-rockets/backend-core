@@ -5,19 +5,18 @@ const Sequelize = require('sequelize');
 
 const basename = path.basename(__filename);
 
-const cls = require('cls-hooked');
 const config = require('config/config');
-const namespace = cls.createNamespace(config.clsNameSpace);
-Sequelize.useCLS(namespace);
+
+if (config.app?.useGlobalTransaction) {
+  const cls = require('cls-hooked');
+  const namespace = cls.getNamespace(config.clsNameSpace);
+  Sequelize.useCLS(namespace);
+}
 
 const db = {};
 const dbConfig = {
-    host: config.host,
-    username: config.username,
-    password: config.password,
-    database: config.database,
-    dialect: config.dialect,
-    seederStorage: config.seederStorage
+  logging: process.env.NODE_ENV === "dev",
+  ...config.db
 };
 const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, dbConfig);
 

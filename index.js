@@ -9,6 +9,8 @@ dotenv.config({ path: `./env/.env.${process.env.NODE_ENV}` });
 const { Logger } = require('@mvp-rockets/namma-lib');
 const config = require('config/config');
 require('utils/socket');
+const cls = require('cls-hooked');
+const namespace = cls.createNamespace(config.clsNameSpace);
 
 const loggerParams = {
     environment: config.env,
@@ -37,8 +39,6 @@ if (config.logType === 'aws') {
 
 Logger.initialize(loggerParams);
 
-const cls = require('cls-hooked');
-
 const { token } = require('@mvp-rockets/namma-lib');
 
 token.initialize(config.jwtSecretKey);
@@ -61,7 +61,6 @@ const allowedOriginsRegularExpression = allowedOrigins.map((origin) => new RegEx
 app.use(cors({ origin: allowedOriginsRegularExpression }));
 
 app.use((req, res, next) => {
-    const namespace = cls.getNamespace(config.clsNameSpace);
     const platform = req.headers['x-platform'] || 'unknown-platform';
     namespace.run(() => {
         namespace.set('traceId', uuid.v4());
@@ -97,7 +96,7 @@ app.use((error, request, response, next) => {
             message: error.errorMessage
         });
     } else {
-        response.status(501);
+        response.status(HTTP_CONSTANT.NOT_IMPLEMENTED);
         logError('Failed to execute the operation', { value: error, stack: error.stack, platform });
         response.send({
             status: false,
@@ -124,6 +123,15 @@ process.on('SIGTERM', () => {
     });
 });
 
+// FIXME:  Change this to common function for closing db, redis connections
+process.on('SIGINT', function() {
+   db.stop(function(err) {
+     process.exit(err ? 1 : 0)
+   })
+})
+
 server.listen(config.apiPort, () => {
     console.log(`Express server listening on Port :- ${config.apiPort}`);
+    // Here we send the ready signal to PM2
+    process.send('ready')
 });
