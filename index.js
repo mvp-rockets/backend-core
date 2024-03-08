@@ -8,14 +8,15 @@ const dotenv = require('dotenv');
 dotenv.config({ path: `./env/.env.${process.env.NODE_ENV}` });
 const { Logger } = require('@mvp-rockets/namma-lib');
 const config = require('config/config');
+require('utils/socket');
 const cls = require('cls-hooked');
 const namespace = cls.createNamespace(config.clsNameSpace);
 
 const loggerParams = {
     environment: config.env,
     type: config.logType,
-    clsNameSpace: config.clsNameSpace,
-}
+    clsNameSpace: config.clsNameSpace
+};
 
 if (config.logType === 'aws') {
     loggerParams.isEnable = config.serviceProviderConfig.awsCloudwatch.enableAwsLogger;
@@ -25,7 +26,7 @@ if (config.logType === 'aws') {
         secretKey: config.serviceProviderConfig.awsCloudwatch.secretKey,
         logGroupName: config.serviceProviderConfig.awsCloudwatch.logGroupName,
         logStreamName: config.serviceProviderConfig.awsCloudwatch.logStreamName
-    }
+    };
 } else if (config.logType === 'gcp') {
     loggerParams.type = 'google';
     loggerParams.isEnable = config.serviceProviderConfig.gcp.enableGcpLogger;
@@ -33,7 +34,7 @@ if (config.logType === 'aws') {
         project: config.serviceProviderConfig.gcp.projectName,
         keyFile: config.serviceProviderConfig.gcp.keyFile,
         logStreamName: config.serviceProviderConfig.gcp.logStreamName
-    }
+    };
 }
 
 Logger.initialize(loggerParams);
@@ -50,7 +51,8 @@ const app = express();
 const server = require('http').createServer(app);
 const Route = require('route');
 const uuid = require('uuid');
-const helmet = require("helmet");
+const helmet = require('helmet');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

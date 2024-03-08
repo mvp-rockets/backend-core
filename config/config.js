@@ -3,6 +3,7 @@ const R = require('ramda');
 
 const secretVariable = {
     apiPort: process.env.API_PORT,
+    socketPort: process.env.SOCKET_PORT,
     env: process.env.ENVIRONMENT,
     db: {
       host: process.env.DB_HOST,
@@ -25,17 +26,18 @@ const secretVariable = {
     cors: {
         whiteListOrigins: process.env.WHITE_LIST_ORIGINS
             ? process.env.WHITE_LIST_ORIGINS.split(',')
-            : [],
+            : []
+
     },
     jwtSecretKey: process.env.JWT_SECRET_KEY,
     azure: {
         clientId: process.env.AZURE_AD_CLIENT_ID,
         tenantId: process.env.AZURE_AD_TENANT_ID,
         issuer: process.env.AZURE_AD_ISSUER,
-        jwksUri: process.env.AZURE_AD_JWKS_URI,
+        jwksUri: process.env.AZURE_AD_JWKS_URI
     },
     google: {
-        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientId: process.env.GOOGLE_CLIENT_ID
     },
     redis: {
         host: process.env.REDIS_HOST,
@@ -66,22 +68,22 @@ const secretVariable = {
         featuresUpdate: {
             home: {
                 version: '2.2.10',
-                path: '/home',
+                path: '/home'
             },
             login: {
                 version: '2.3.3',
-                path: '/login',
+                path: '/login'
             },
             musicContent: {
                 version: '1.9.2',
-                path: '/music',
+                path: '/music'
             },
             videoContent: {
                 version: '2.2.4',
-                path: '/video',
-            },
-        },
-    },
+                path: '/video'
+            }
+        }
+    }
 };
 
 const variables = R.mergeDeepLeft(secretVariable, config);
