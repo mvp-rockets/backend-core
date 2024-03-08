@@ -2,6 +2,15 @@
     "name": "namma-api-framework",
     "version": "3.1.2",
     "description": "",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/mvp-rockets/backend-core.git"
+    },
+    "bugs": {
+      "url": "https://github.com/mvp-rockets/backend-core/issues"
+    },
+    "author": "Napses",
+    "license": "MIT",
     "main": "index.js",
     "directories": {
         "test": "test"
@@ -27,8 +36,6 @@
         "coverage:bitbucket": "NODE_ENV=test nyc --reporter=lcov ./node_modules/.bin/mocha --recursive --exit --config ./test/.mocharc.js",
         "build:env": "node build-env-index.js"
     },
-    "author": "Yashjeet Luthra <yash@napses.com>",
-    "license": "Napses",
     "dependencies": {
         "@changesets/cli": "^2.27.1",
         "@google-cloud/pubsub": "^4.1.1",
