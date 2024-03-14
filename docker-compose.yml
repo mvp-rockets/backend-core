@@ -11,8 +11,9 @@ services:
       - "3000:3000"
       - "4000:4000"
     depends_on:
-      db:
-        condition: service_healthy
+      - redis
+      - queue
+      - db
   db:
     container_name: backend_core_db
     image: postgres:15
@@ -38,6 +39,12 @@ services:
     command: redis-server --save 20 1 --loglevel warning
     volumes: 
       - cache:/data
+  queue:
+      image: s12v/elasticmq
+      volumes:
+        - ./elasticmq/custom.conf:/etc/elasticmq/elasticmq.conf
+      ports:
+        - "9324:9324"
 
 volumes:
   pg-dataset:
