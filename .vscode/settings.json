@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "namma"
-    ]
+    ],
+    "yaml.schemas": {
+        "https://www.artillery.io/schema.json": []
+    }
 }
