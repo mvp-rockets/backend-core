@@ -11,7 +11,8 @@ const serviceProvider = {
         access_key_id: process.env.AWS_S3_ACCESS_KEY_ID,
         secret_access_key: process.env.AWS_S3_SECRET_ACCESS_KEY,
         region: process.env.AWS_S3_REGION,
-        bucketName: process.env.AWS_S3_BUCKET_NAME
+        bucketName: process.env.AWS_S3_BUCKET_NAME,
+        cloudFrontUrl: process.env.AWS_CLOUDFRONT_URL
     },
     awsSQS: {
         accessKeyId: process.env.AWS_SQS_ACCESS_KEY_ID,
@@ -19,6 +20,7 @@ const serviceProvider = {
         region: process.env.AWS_SQS_REGION,
         url: process.env.AWS_SQS_URL,
         arn: process.env.AWS_SQS_ARN,
-        deadLetterQueue: process.env.AWS_SQS_DEAD_LETTER_QUEUE
+        deadLetterQueue: process.env.AWS_SQS_DEAD_LETTER_QUEUE,
+        queues: {}
     }
 }
