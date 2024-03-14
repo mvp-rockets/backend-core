@@ -64,7 +64,9 @@ app.use((req, res, next) => {
     const platform = req.headers['x-platform'] || 'unknown-platform';
     namespace.run(() => {
         namespace.set('traceId', uuid.v4());
-        logInfo(`${req.method} ${req.originalUrl}`, { ...req.body, platform });
+        logInfo(`${req.method} ${req.originalUrl}`, {
+            ...req.query, ...req.body, platform
+        });
         next();
     });
 });
@@ -93,7 +95,8 @@ app.use((error, request, response, next) => {
         if (error.code) { response.status(error.code); }
         response.send({
             status: false,
-            message: error.errorMessage
+            error: error?.error,
+            message: error?.errorMessage
         });
     } else {
         response.status(HTTP_CONSTANT.NOT_IMPLEMENTED);
