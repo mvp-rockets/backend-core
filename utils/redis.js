@@ -17,7 +17,7 @@ async function startRedis() {
             logError(`Error occured during connection with redis. ${err}`);
         });
         client.on('connect', () => {
-            logError('Connected to redis successfully :)');
+            logInfo('Connected to redis successfully :)');
         });
     } catch (err) {
         client = {}
@@ -164,6 +164,7 @@ module.exports.searchRedisData = async (index, search, opts = {}) => {
         logError('redis search error', {
             err: err.message
         });
+        console.log('ERROR', err);
         return Result.Error(null);
     }
 };
@@ -200,6 +201,7 @@ module.exports.aggregate = async (index, search, opts = {}) => {
         logError('redis aggrregate error', {
             err: err.message
         });
+        console.log('ERROR', err);
         return Result.Error(null);
     }
 };
