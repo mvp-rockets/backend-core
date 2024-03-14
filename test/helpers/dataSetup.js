@@ -3,8 +3,8 @@
 const R = require('ramda');
 const db = require('db/repository');
 const common = require('helpers/common');
-const { whenResult, doNothing } = require('lib')
-const { notEmpty } = require('validation')
+const { whenResult, doNothing } = require('lib');
+const { notEmpty } = require('validation');
 
 const data = require('./data');
 const dataValueUpdater = require('./update-data-value');
@@ -16,7 +16,7 @@ const factory = async function () {
         throw new Error('factory requires at least one argument');
     }
     const init = Array.prototype.slice.call(arguments);
-    const all = R.map(async need => await need(), init);
+    const all = R.map(async (need) => await need(), init);
     const allEntities = await Promise.all(all);
     cache = cache.concat(allEntities);
     return R.compose(
@@ -90,8 +90,8 @@ const create = (entity, value, name, changeDependency) => {
         const promises = R.map(db.execute, entity.create(R.head(data)[name]));
         const result = await Promise.all(promises);
 
-        whenResult(createdEntity => R.head(data)[name].created_by_factory = true)(result[0]);
-        whenResult(doNothing, e => console.trace(entity.name, e))(result[0]);
+        whenResult((createdEntity) => R.head(data)[name].created_by_factory = true)(result[0]);
+        whenResult(doNothing, (e) => console.trace(entity.name, e))(result[0]);
         whenResult(doNothing, (e) => {
             throw e;
         })(result[0]);
@@ -206,7 +206,7 @@ const keyify = (obj, prefix = '') => Object.keys(obj).reduce((res, el) => {
 
 var withValue = R.curry((value, entity) => R.mergeDeepRight(entity, value));
 
-var withNoValueChange = data => data;
+var withNoValueChange = (data) => data;
 
 const retriveNestedEntity = (name, object) => {
     const foundProperty = R.has(name, object);
