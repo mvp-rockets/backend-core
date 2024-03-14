@@ -2,7 +2,7 @@ version: '3'
 services:
   api:
     image: node:20.11.1
-    command: sh -c 'npm install && npm run server --env=dev'
+    command: bash -c 'npm install && npm run server --env=dev'
     container_name: backend_core_api
     working_dir: /app
     volumes:
@@ -23,6 +23,10 @@ services:
       POSTGRES_PASSWORD: root
     ports:
       - "5432:5432"
+    command: >
+      -c ssl=on
+      -c ssl_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+      -c ssl_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
     volumes:
       - pg-dataset:/var/lib/postgresql/data
     healthcheck:

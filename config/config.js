@@ -18,6 +18,12 @@ const secretVariable = {
         idle: 10000,
         evict: 10000
       },
+      dialectOptions: {
+        "ssl": {
+            "require": true,
+            "rejectUnauthorized": false
+        }
+      },
     },
     serviceProviderConfig: 'serviceProviderConfig',
     logType: process.env.LOG_TYPE,
@@ -53,6 +59,11 @@ const secretVariable = {
         password: process.env.SMTP_PASSWORD,
         emailFrom: process.env.SMTP_EMAIL_FROM
     },
+    mailgun: {
+        apiKey: process.env.MAIL_GUN_API_KEY,
+        domain: process.env.MAIL_GUN_DOMAIN,
+        senderEmail: process.env.MAIL_GUN_SENDER_EMAIL
+    },
     awsCognito: {
         region: process.env.AWS_COGNITO_REGION,
         clientId: process.env.AWS_COGNITO_CLIENT_ID,
@@ -60,6 +71,10 @@ const secretVariable = {
         domain: process.env.AWS_COGNITO_DOMAIN
     },
     nextAuthSecretPass: 'some_secret',
+    firebase: {
+        serviceKey: process.env.FIREBASE_SERVICE_KEY,
+        databaseUrl: process.env.FIREBASE_DATABASE_URL
+    },
     appVersions: {
         minAndroidVersionName: process.env.APP_MIN_ANDROID_VERSION,
         minIosVersionName: process.env.APP_MIN_IOS_VERSION,
