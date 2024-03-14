@@ -1,7 +1,7 @@
 version: '3'
 services:
   api:
-    image: node:20.11.0
+    image: node:20.11.1
     command: sh -c 'npm install && npm run server --env=dev'
     container_name: backend_core_api
     working_dir: /app
@@ -32,7 +32,7 @@ services:
       retries: 10
 
   redis:
-    image: redis:6.2-alpine
+    image: redis:6.2
     restart: always
     ports:
       - '6379:6379'
