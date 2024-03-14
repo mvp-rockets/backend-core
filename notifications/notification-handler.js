@@ -1,7 +1,7 @@
 const { logInfo } = require('lib');
 const SMS = require('notifications/modes/sms');
 const WhatsApp = require('notifications/modes/whatsapp');
-const Mailer = require('notifications/modes/mailer');
+const Mailer = require('notifications/modes/mailer'); // or mailgun
 const Fcm = require('notifications/modes/fcm');
 const R = require('ramda');
 const { whenResult } = require('lib');
