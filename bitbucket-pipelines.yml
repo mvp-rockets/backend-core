@@ -1,4 +1,4 @@
-image: node:20.11.0
+image: node:20.11
 pipelines:
   default:
     - step:
@@ -14,6 +14,7 @@ pipelines:
           - npm run test:ci
         services:
           - postgres
+          - redis
 definitions:
   services:
     postgres:
@@ -21,3 +22,5 @@ definitions:
       variables:
         POSTGRES_USER: "root"
         POSTGRES_PASSWORD: "root"
+    redis:
+      image: redis

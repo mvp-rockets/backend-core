@@ -1,10 +1,12 @@
 const AWS = require('aws-sdk');
 const fs = require('fs').promises;
 
-AWS.config.update({
-    accessKeyId: process.env.AWS_SM_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SM_SECRET_ACCESS_KEY_ID
-});
+if (process.env.AWS_SM_ACCESS_KEY_ID) {
+    AWS.config.update({
+        accessKeyId: process.env.AWS_SM_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SM_SECRET_ACCESS_KEY_ID
+    });
+}
 
 const perform = async () => {
     try {

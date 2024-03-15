@@ -1,5 +1,5 @@
-const SQS = require('SQS/get-sqs-client.js')();
-const config = require('config/config.js');
+const SQS = require('SQS/get-sqs-client')();
+const config = require('config/config').serviceProviderConfig.awsSQS;
 
 module.exports.perform = async () => {
     const { queues } = config;

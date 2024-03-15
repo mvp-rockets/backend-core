@@ -15,7 +15,7 @@ module.exports.send = mailOptions => new Promise((resolve) => {
     const transporter = nodemailer.createTransport({
         host: config.smtp.host,
         port: Number(config.smtp.port),
-        secure: false,
+        secure: true,
         auth: {
             user: config.smtp.username,
             pass: config.smtp.password

@@ -3,14 +3,16 @@ const { logInfo, respond } = require('lib');
 
 const Result = require('folktale/result');
 const config = require('config/config');
+const npmPackage = require('../package.json');
 
 async function get(req) {
     logInfo('Request to get default api ', {});
 
     const result = Result.Ok({
-        projectName: '<namma-api-framework>',
+        projectName: npmPackage.name,
         apiPort: config.apiPort,
-        env: config.env
+        env: config.env,
+	version: npmPackage.version
     });
 
     return respond(result, 'Successfully get default api!', 'Failed to get default api!');

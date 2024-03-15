@@ -9,6 +9,7 @@ const { ApiError } = require('lib')
 const { resolveOk, resolveError } = require("helpers/resolvers");
 
 const CheckDbHealthService = require('resources/healthz/services/check-db-health-service');
+const redis = require('utils/redis');
 
 describe("Get health server api", () => {
     const sandbox = sinon.createSandbox();
@@ -44,7 +45,7 @@ describe("Get health server api", () => {
         expect(response).to.eql({
             status: true,
             message: "Successfully checked server health api!",
-            entity: { isAlive: undefined },
+            entity: { isAlive: true },
         });
     });
 

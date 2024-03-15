@@ -1,8 +1,8 @@
 version: '3'
 services:
   api:
-    image: node:20.11.0
-    command: sh -c 'npm install && npm run server --env=dev'
+    image: node:20.11.1
+    command: bash -c 'npm install && npm run server --env=dev'
     container_name: backend_core_api
     working_dir: /app
     volumes:
@@ -11,8 +11,9 @@ services:
       - "3000:3000"
       - "4000:4000"
     depends_on:
-      db:
-        condition: service_healthy
+      - redis
+      - queue
+      - db
   db:
     container_name: backend_core_db
     image: postgres:15
@@ -22,6 +23,10 @@ services:
       POSTGRES_PASSWORD: root
     ports:
       - "5432:5432"
+    command: >
+      -c ssl=on
+      -c ssl_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+      -c ssl_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
     volumes:
       - pg-dataset:/var/lib/postgresql/data
     healthcheck:
@@ -31,13 +36,19 @@ services:
       retries: 10
 
   redis:
-    image: redis:6.2-alpine
+    image: redis:6.2
     restart: always
     ports:
       - '6379:6379'
     command: redis-server --save 20 1 --loglevel warning
     volumes: 
       - cache:/data
+  queue:
+      image: s12v/elasticmq
+      volumes:
+        - ./elasticmq/custom.conf:/etc/elasticmq/elasticmq.conf
+      ports:
+        - "9324:9324"
 
 volumes:
   pg-dataset:

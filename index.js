@@ -64,7 +64,9 @@ app.use((req, res, next) => {
     const platform = req.headers['x-platform'] || 'unknown-platform';
     namespace.run(() => {
         namespace.set('traceId', uuid.v4());
-        logInfo(`${req.method} ${req.originalUrl}`, { ...req.body, platform });
+        logInfo(`${req.method} ${req.originalUrl}`, {
+            ...req.query, ...req.body, platform
+        });
         next();
     });
 });
@@ -93,7 +95,8 @@ app.use((error, request, response, next) => {
         if (error.code) { response.status(error.code); }
         response.send({
             status: false,
-            message: error.errorMessage
+            error: error?.error,
+            message: error?.errorMessage
         });
     } else {
         response.status(HTTP_CONSTANT.NOT_IMPLEMENTED);
@@ -116,19 +119,19 @@ process.on('uncaughtException', (error) => {
     logError('uncaughtException', { error });
 });
 
-process.on('SIGTERM', () => {
-    logInfo('SIGTERM signal received: closing HTTP server');
+function shutdown( signal ) {
+	console.info( `[${signal}] shutting down...` );
+   
     server.close(() => {
         logInfo('HTTP server closed');
+        db.stop(function(err) {
+            process.exit(err ? 1 : 0)
+        })    
     });
-});
+}
 
-// FIXME:  Change this to common function for closing db, redis connections
-process.on('SIGINT', function() {
-   db.stop(function(err) {
-     process.exit(err ? 1 : 0)
-   })
-})
+process.on( 'SIGINT', () => shutdown( 'SIGINT' ) )
+process.on( 'SIGTERM', () => shutdown( 'SIGTERM' ) )
 
 server.listen(config.apiPort, () => {
     console.log(`Express server listening on Port :- ${config.apiPort}`);

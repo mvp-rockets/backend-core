@@ -11,7 +11,8 @@ const {
 	numeric,
 	shouldBeUuid,
 	isTimestamp,
-	validate
+	validate,
+	optional
 } = require('@mvp-rockets/namma-lib/validations');
 
 const isValidUrl = (url) => {
@@ -21,7 +22,6 @@ const isValidUrl = (url) => {
 		return false;
 	}
 }
-
 module.exports = {
 	isBoolean,
 	hasLengthOf,
@@ -36,5 +36,6 @@ module.exports = {
 	shouldBeUuid,
 	isTimestamp,
 	validate,
-	isValidUrl
+	isValidUrl,
+	optional
 };

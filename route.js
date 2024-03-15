@@ -1,3 +1,10 @@
+/* eslint max-classes-per-file: ["error", 4] */
+/* eslint-disable block-scoped-var */
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-new */
+/* eslint-disable max-classes-per-file */
 const async = require('async');
 
 const { ApiError, logError, whenResult } = require('lib');
@@ -5,6 +12,7 @@ const { HTTP_CONSTANT } = require('@mvp-rockets/namma-lib');
 const AutoImportApis = require('./utils/autoimport');
 const { defaultTransaction = false } = require('config/config');
 const TokenVerifier = require('lib/token-verifier');
+const cls = require('cls-hooked');
 
 class Route {
     constructor() {
@@ -157,6 +165,7 @@ class Route {
                             next(null, value);
                         },
                         Error: ({ value }) => {
+                            // FIXME: throw value?
                             next(value);
                         }
                     });
@@ -270,6 +279,11 @@ async function security(req, res, next) {
         whenResult(
             (decoded) => {
                 req.decoded = decoded;
+                const namespace = cls.getNamespace(config.clsNameSpace);
+                namespace.run(() => {
+                    namespace.set('userId', decoded.id);
+                    namespace.set('sessionId', decoded?.sessionId);
+                });
                 next();
             },
             (error) => {
