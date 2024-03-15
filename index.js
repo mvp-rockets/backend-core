@@ -119,19 +119,19 @@ process.on('uncaughtException', (error) => {
     logError('uncaughtException', { error });
 });
 
-process.on('SIGTERM', () => {
-    logInfo('SIGTERM signal received: closing HTTP server');
+function shutdown( signal ) {
+	console.info( `[${signal}] shutting down...` );
+   
     server.close(() => {
         logInfo('HTTP server closed');
+        db.stop(function(err) {
+            process.exit(err ? 1 : 0)
+        })    
     });
-});
+}
 
-// FIXME:  Change this to common function for closing db, redis connections
-process.on('SIGINT', function() {
-   db.stop(function(err) {
-     process.exit(err ? 1 : 0)
-   })
-})
+process.on( 'SIGINT', () => shutdown( 'SIGINT' ) )
+process.on( 'SIGTERM', () => shutdown( 'SIGTERM' ) )
 
 server.listen(config.apiPort, () => {
     console.log(`Express server listening on Port :- ${config.apiPort}`);
