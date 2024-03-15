@@ -9,7 +9,7 @@ async function get(req) {
     logInfo('Request to get default api ', {});
 
     const result = Result.Ok({
-        projectName: '<namma-api-framework>',
+        projectName: npmPackage.name,
         apiPort: config.apiPort,
         env: config.env,
 	version: npmPackage.version
