@@ -15,7 +15,7 @@ if (config.app?.useGlobalTransaction) {
 
 const db = {};
 const dbConfig = {
-  logging: process.env.NODE_ENV === "dev",
+  logging: process.env.APP_ENV === "dev",
   ...config.db
 };
 const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, dbConfig);
