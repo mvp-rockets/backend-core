@@ -2,6 +2,6 @@ const cronitor = require('crons/cronitor-client.js');
 const cron = require('cron');
 cronitor.wraps(cron);
 
-cronitor.schedule('SendWelcomeEmail', '*/2 * * * *', function() {
-    console.log('Sending welcome email to new sign ups every five minutes.');
+cronitor.schedule('TestCronJob', '*/2 * * * *', function() {
+    console.log('Test Cron Job running every 5 mins');
 });
