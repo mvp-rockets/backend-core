@@ -1,12 +1,5 @@
+#!/usr/bin/env node
 const AWS = require('aws-sdk');
-
-if (process.env.AWS_EC2_ACCESS_KEY_ID && process.env.AWS_EC2_SECRET_ACCESS_KEY_ID && process.env.AWS_EC2_REGION) {
-  AWS.config.update({
-      accessKeyId: process.env.AWS_EC2_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_EC2_SECRET_ACCESS_KEY_ID,
-      region: process.env.AWS_EC2_REGION
-  });
-}
 
 const perform = async () => {
     const params = {
@@ -46,9 +39,20 @@ const perform = async () => {
     });
 };
 
-let mode = "instance"
+let mode = "instance";
 if (process.argv.length > 2 && process.argv[2] === "ip") {
   mode = "ip"; 
+}
+
+if (process.env.APP_ENV == "vagrant") {
+    ['192.168.56.20', '192.168.56.30'].map((ip) => console.log(ip));
+
+    process.exit(0);
+}
+
+if (!process.env.AWS_EC2_TARGET_GROUP_ARN) {
+    console.error("Missing AWS_EC2_TARGET_GROUP_ARN");
+    process.exit(1);
 }
 
 perform(mode);

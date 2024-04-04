@@ -1,22 +1,24 @@
 const AWS = require('aws-sdk');
 const fs = require('fs').promises;
 
+const awsConfig = {
+  apiVersion: '2017-10-17'
+};
+
 if (process.env.AWS_SM_ACCESS_KEY_ID) {
-    AWS.config.update({
-        accessKeyId: process.env.AWS_SM_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SM_SECRET_ACCESS_KEY_ID
-    });
+  awsConfig.accessKeyId = process.env.AWS_SM_ACCESS_KEY_ID;
+  awsConfig.secretAccessKey = process.env.AWS_SM_SECRET_ACCESS_KEY_ID;
+}
+if (process.env.AWS_ENDPOINT) {
+  awsConfig.endpoint = process.env.AWS_ENDPOINT;
+}
+if (process.env.AWS_SM_REGION) {
+  awsConfig.region = process.env.AWS_SM_REGION;
 }
 
 const perform = async () => {
     try {
-        const client = new AWS.SecretsManager(
-            {
-                apiVersion: '2017-10-17',
-                region: process.env.AWS_SM_REGION
-
-            }
-        );
+        const client = new AWS.SecretsManager(awsConfig);
         const SecretId = process.env.AWS_SM_SECRET_ID;
         client.getSecretValue({ SecretId }, async (err, data) => {
             if (err) {
@@ -30,7 +32,7 @@ const perform = async () => {
                 Object.keys(secretsJSON).forEach((key) => {
                     secretsString += `${key}=${secretsJSON[key]}\n`;
                 });
-                await fs.writeFile(`env/.env.${process.env.NODE_ENV}`, secretsString);
+                await fs.writeFile(`env/.env.${process.env.APP_ENV}`, secretsString);
                 await fs.writeFile('.env', secretsString);
                 process.exit(0);
             }
