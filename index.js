@@ -5,9 +5,10 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
-dotenv.config({ path: `./env/.env.${process.env.NODE_ENV}` });
+dotenv.config({ path: `./env/.env.${process.env.APP_ENV}` });
 const { Logger } = require('@mvp-rockets/namma-lib');
 const config = require('config/config');
+
 require('utils/socket');
 const cls = require('cls-hooked');
 const namespace = cls.createNamespace(config.clsNameSpace);
@@ -112,20 +113,23 @@ app.use((error, request, response, next) => {
 process.on('unhandledRejection', (error) => {
     console.log(error);
     logError('unhandledRejection', { error });
+    //shutdown('EXCEPTION', error);
 });
 
 process.on('uncaughtException', (error) => {
     console.log(error);
     logError('uncaughtException', { error });
+    //shutdown('EXCEPTION', error);
 });
 
-function shutdown( signal ) {
+function shutdown( signal, error ) {
 	console.info( `[${signal}] shutting down...` );
    
+    // FIXME: Handle error state gracefully. Check if db and redis are still alive before closing them
     server.close(() => {
         logInfo('HTTP server closed');
         db.stop(function(err) {
-            process.exit(err ? 1 : 0)
+            process.exit(err || error ? 1 : 0)
         })    
     });
 }
@@ -136,5 +140,5 @@ process.on( 'SIGTERM', () => shutdown( 'SIGTERM' ) )
 server.listen(config.apiPort, () => {
     console.log(`Express server listening on Port :- ${config.apiPort}`);
     // Here we send the ready signal to PM2
-    process.send('ready')
+    process.send('ready');
 });
