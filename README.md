@@ -62,7 +62,7 @@ To execute test cases connect to the container and execute below commends
 ```
 npm run test:watch                            Run all the test cases and wait for the changes
 npm run test                                  Run all the test cases and exit
-
+docker-compose -p tests run -p 3000 --rm web npm run test:watch
 ```
 
 ## 7. Health check apis

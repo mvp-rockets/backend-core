@@ -1,6 +1,6 @@
 'use strict';
 
-require('dotenv').config({ path: `./env/.env.${process.env.NODE_ENV}` });    // don't forget to require dotenv
+require('dotenv').config({ path: `./env/.env.${process.env.APP_ENV}` });    // don't forget to require dotenv
 
 const path = require('path');
 

@@ -14,3 +14,4 @@ env/.env.production
 nohup.out
 mockTrueDataServer_pid.txt
 *.swp
+volume/

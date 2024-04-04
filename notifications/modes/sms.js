@@ -6,7 +6,7 @@ const ProxyService = require('proxy/services/proxy-service.js');
 
 const axios = require('axios');
 const sendSms = ((consumerSms) => {
-    logInfo('sending sms from twilio', { consumerSms });
+    logInfo('sending sms from kaleyra', { consumerSms });
     return new Promise((resolve) => {
         axios({
             method: 'get',
@@ -36,7 +36,7 @@ module.exports.send = async (details) => {
     const consumerSms = new ConsumerSms(details.mobile, details.message, details.template_id);
     logInfo('Request to send sms', { consumerSms });
     console.log("sms", consumerSms);
-    if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test') {
+    if (['dev', 'ci', 'test', 'vagrant'].includes(process.env.APP_ENV)) {
         return ProxyService.send({ response: { status: true, message: 'sent data to twilio sms' } });
     }
     const result = await sendSms(consumerSms);
