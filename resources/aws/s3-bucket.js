@@ -9,21 +9,21 @@ const { logError } = require('@mvp-rockets/namma-lib/utilities');
 const { bucketAcl } = require('config/config');
 const cloudFrontFolders = {};
 
+const awsConfig = {
+  region: awsS3.region,
+  params: {
+    Bucket: awsS3.bucketName
+  }
+};
 if (awsS3.access_key_id && awsS3.secret_access_key) {
-    AWS.config.update({
-        accessKeyId: awsS3.access_key_id,
-        secretAccessKey: awsS3.secret_access_key,
-    });
+  awsConfig.accessKeyId = awsS3.access_key_id;
+  awsConfig.secretAccessKey = awsS3.secret_access_key;
 }
-AWS.config.update({
-    region: awsS3.region
-});
+if (awsS3.endpoint) {
+  awsConfig.endpoint = awsS3.endpoint;
+}
 
-const s3Bucket = new AWS.S3({
-    params: {
-        Bucket: awsS3.bucketName
-    }
-});
+const s3Bucket = new AWS.S3(awsConfig);
 
 const getSignedUrl = (fileKey) => new Promise((resolve, reject) => {
     const params = {
