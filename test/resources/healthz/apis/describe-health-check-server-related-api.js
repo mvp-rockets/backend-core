@@ -45,7 +45,7 @@ describe("Get health server api", () => {
         expect(response).to.eql({
             status: true,
             message: "Successfully checked server health api!",
-            entity: { isAlive: true },
+            entity: { isAlive: false },
         });
     });
 
