@@ -7,7 +7,7 @@ const perform = async () => {
         CreateDeadLetterQueues.perform();
         return;
     } catch (ex) {
-        console.log('Create queues failed', ex);
+        console.error('Create queues failed', ex);
     }
 };
 

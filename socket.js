@@ -144,7 +144,7 @@ class Socket {
                                 });
                             });
                     } catch (error) {
-                        console.log(error);
+                        console.error(error);
                         next(error);
                     }
                 } else {
@@ -167,7 +167,7 @@ class Socket {
                             }
                         });
                     } catch (error) {
-                        console.log(error);
+                        console.error(error);
                         next(error);
                     }
                 }

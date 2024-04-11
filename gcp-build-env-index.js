@@ -33,7 +33,7 @@ const perform = async () => {
 
     listSecrets();
   } catch (error) {
-    console.log('error from gcp secret', err);
+    console.error('error from gcp secret', err);
     process.exit(1);
   }
 };

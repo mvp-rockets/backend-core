@@ -111,13 +111,13 @@ app.use((error, request, response, next) => {
 });
 
 process.on('unhandledRejection', (error) => {
-    console.log(error);
+    console.error(error);
     logError('unhandledRejection', { error });
     //shutdown('EXCEPTION', error);
 });
 
 process.on('uncaughtException', (error) => {
-    console.log(error);
+    console.error(error);
     logError('uncaughtException', { error });
     //shutdown('EXCEPTION', error);
 });

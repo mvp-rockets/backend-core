@@ -13,7 +13,7 @@ module.exports.perform = async () => {
         };
         SQS.setQueueAttributes(params, (err, data) => {
             if (err) {
-                console.log('Error', err);
+                console.error('Error', err);
             } else {
                 console.log('Success', data.ResponseMetadata);
             }

@@ -46,13 +46,13 @@ if (config.cronitorSecretKey) {
 require('crons/jobs/test-cron')
 
 process.on('unhandledRejection', (error) => {
-    console.log('unhandledRejection', { error });
+    console.error('unhandledRejection', { error });
     logError('Cron index unhandledRejection', { error });
     process.exit(1);
 });
 
 process.on('uncaughtException', (error) => {
-    console.log('uncaughtException', { error });
+    console.error('uncaughtException', { error });
     logError('Cron index uncaughtException', { error });
     process.exit(1);
 });

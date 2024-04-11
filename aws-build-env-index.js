@@ -22,7 +22,7 @@ const perform = async () => {
         const SecretId = process.env.AWS_SM_SECRET_ID;
         client.getSecretValue({ SecretId }, async (err, data) => {
             if (err) {
-                console.log('error from aws secret', err);
+                console.error('error from aws secret', err);
                 process.exit(1);
             } else {
                 console.log('Got secrets from AWS ');
@@ -38,7 +38,7 @@ const perform = async () => {
             }
         });
     } catch (error) {
-        console.log('error while make connection to aws secret', error);
+        console.error('error while make connection to aws secret', error);
         process.exit(1);
     }
 };

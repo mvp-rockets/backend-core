@@ -150,8 +150,8 @@ const deleteAssociatedEntities = async (entity, data, changeDependency) => {
                 await db.execute(entityToDelete);
             });
         } catch (e) {
-            console.log(entity.name);
-            console.log(e);
+            console.error(entity.name);
+            console.error(e);
         }
         if (entity.dependency) {
             const deleteResult = R.map((dependent) => {

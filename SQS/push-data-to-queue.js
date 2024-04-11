@@ -15,7 +15,7 @@ module.exports.perform = async (data, queueName) => new Promise((resolve) => {
     };
     SQS.sendMessage(params, (err, data) => {
         if (err) {
-            console.log('error', err);
+            console.error('error', err);
             logError('Pushed to queue failed', { message: err.message });
             resolve(Result.Error(err));
         } else {

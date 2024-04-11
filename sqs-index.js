@@ -41,13 +41,13 @@ token.initialize(config.jwtSecretKey);
 const { logError } = require('lib');
 
 process.on('unhandledRejection', (error) => {
-    console.log('unhandledRejection', { error });
+    console.error('unhandledRejection', { error });
     logError('SQS index unhandledRejection', { error });
     process.exit(1);
 });
 
 process.on('uncaughtException', (error) => {
-    console.log('uncaughtException', { error });
+    console.error('uncaughtException', { error });
     logError('SQS index uncaughtException', { error });
     process.exit(1);
 });
