@@ -1,6 +1,6 @@
 const path = require('path');
 require('app-module-path').addPath(path.join(__dirname, '..'));
-const CreateQueues = require('SQS/create-queues.js');
+const CreateQueues = require('sqs/create-queues.js');
 
 const perform = async () => {
     try {

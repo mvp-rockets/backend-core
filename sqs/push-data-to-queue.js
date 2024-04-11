@@ -1,4 +1,4 @@
-const SQS = require('SQS/get-sqs-client')();
+const SQS = require('sqs/get-sqs-client')();
 const config = require('config/config').serviceProviderConfig.awsSQS;
 const Result = require('folktale/result');
 const { logInfo, logError } = require('lib');

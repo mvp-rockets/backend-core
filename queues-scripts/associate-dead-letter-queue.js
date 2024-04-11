@@ -1,6 +1,6 @@
 const path = require('path');
 require('app-module-path').addPath(path.join(__dirname, '..'));
-const AssociateDeadLetterQueues = require('SQS/associate-dead-letter-queue.js');
+const AssociateDeadLetterQueues = require('sqs/associate-dead-letter-queue.js');
 
 
 const perform = async () => {
