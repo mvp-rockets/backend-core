@@ -25,7 +25,7 @@ const secretVariable = {
         }
       },
     },
-    serviceProviderConfig: 'serviceProviderConfig',
+    serviceProviderConfig: <%- cloudProvider.config _%>,
     logType: process.env.LOG_TYPE,
     clsNameSpace: process.env.CLS_NAMESPACE,
     cronitorSecretKey: process.env.CRONITOR_SECRET_KEY,
