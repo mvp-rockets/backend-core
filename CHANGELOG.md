@@ -1,7 +1,6 @@
-# namma-api-framework
 
-## 3.0.0
+## 1.0.0
 
 ### Major Changes
 
-- Sample feature
+- Basic API [generated](https://github.com/mvp-rockets/namma-generate) using the [MVP Rockets Boilerplate](https://github.com/mvp-rockets/backend-core) template.
