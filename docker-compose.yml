@@ -72,12 +72,14 @@ services:
       #- HOSTNAME_EXTERNAL=localstack
       - DEFAULT_REGION=ap-south-1
       - LOCALSTACK_AUTH_TOKEN=${LOCALSTACK_AUTH_TOKEN- }
+    env_file: .docker-env
     volumes:
       #- "/path/to/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh"
-      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "${LOCALSTACK_VOLUME_DIR:-localstack-data}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
 
 volumes:
   pg-dataset:
+  localstack-data:
   cache:
     driver: local
