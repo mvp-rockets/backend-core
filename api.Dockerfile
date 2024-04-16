@@ -1,4 +1,4 @@
-FROM node:20.11.1
+FROM node:20.12.2
 ARG NODE_ENV
 # Create app directory
 WORKDIR /usr/src/app
