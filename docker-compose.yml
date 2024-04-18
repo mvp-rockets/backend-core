@@ -3,7 +3,7 @@ services:
     #image: node:20.12.2
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: api.Dockerfile
       args:
         USER_ID: ${USER_ID:-0}
         GROUP_ID: ${GROUP_ID:-0}
