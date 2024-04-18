@@ -75,6 +75,10 @@ const secretVariable = {
         serviceKey: process.env.FIREBASE_SERVICE_KEY,
         databaseUrl: process.env.FIREBASE_DATABASE_URL
     },
+    newrelic: {
+        appName: process.env.NEW_RELIC_APP_NAME,
+        licenseKey: process.env.NEW_RELIC_LICENSE_KEY
+    },
     appVersions: {
         minAndroidVersionName: process.env.APP_MIN_ANDROID_VERSION,
         minIosVersionName: process.env.APP_MIN_IOS_VERSION,

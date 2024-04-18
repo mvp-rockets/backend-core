@@ -48,6 +48,11 @@ const { ApiError } = require('lib');
 const { logError, logInfo } = require('lib');
 const { HTTP_CONSTANT } = require('@mvp-rockets/namma-lib');
 
+if (config.newrelic?.licenseKey) {
+  console.log('New Relic is enabled');
+  require('newrelic');
+}
+
 const app = express();
 const server = require('http').createServer(app);
 const Route = require('route');

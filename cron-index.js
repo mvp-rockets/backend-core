@@ -40,6 +40,11 @@ token.initialize(config.jwtSecretKey);
 
 const { logError } = require('lib');
 
+if (config.newrelic?.licenseKey) {
+  console.log('New Relic is enabled');
+  require('newrelic');
+}
+
 if (config.cronitorSecretKey) {
     require('crons/heartbeat');
 }

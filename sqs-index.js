@@ -40,6 +40,11 @@ token.initialize(config.jwtSecretKey);
 
 const { logError } = require('lib');
 
+if (config.newrelic?.licenseKey) {
+  console.log('New Relic is enabled');
+  require('newrelic');
+}
+
 process.on('unhandledRejection', (error) => {
     console.error('unhandledRejection', { error });
     logError('SQS index unhandledRejection', { error });
