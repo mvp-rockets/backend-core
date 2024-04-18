@@ -1,18 +1,32 @@
-FROM node:20.12.2
+FROM node:20.12.2 AS build-env
 
-ARG USER_ID=1000
-ARG GROUP_ID=1000
+RUN apt-get update && apt-get install -y --no-install-recommends dumb-init=1.2.5 \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
-RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
-    userdel -f node &&\
-    if getent group node ; then groupdel node; fi &&\
-    groupadd -g ${GROUP_ID} node &&\
-    useradd -l -u ${USER_ID} -g node node &&\
-    install -d -m 0755 -o node -g node /home/node &&\
-    chown --changes --silent --no-dereference --recursive \
-          --from=0:0 ${USER_ID}:${GROUP_ID} \
-        /home/node \
-        /app \
-;fi
+ENV NODE_ENV production
+USER node
+WORKDIR /app
+COPY --chown=node:node package*.json /app
+
+RUN npm ci --omit=dev
+
+#FROM gcr.io/distroless/nodejs20-debian11
+FROM node:20.12.2-bookworm-slim
+RUN apt-get update && apt-get upgrade -y \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+ENV NODE_ENV production
+
+COPY --from=build-env /usr/bin/dumb-init /usr/bin/dumb-init
 
 USER node
+WORKDIR /app
+COPY --chown=node:node --from=build-env /app /app
+COPY --chown=node:node . /app
+
+EXPOSE 3000 4000
+#CMD ["dumb-init", "node", "index.js"]
+CMD ["node", "index.js"]
+

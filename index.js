@@ -111,13 +111,13 @@ app.use((error, request, response, next) => {
 });
 
 process.on('unhandledRejection', (error) => {
-    console.error(error);
+    console.error("UnhandledRejection: ", error);
     logError('unhandledRejection', { error });
     //shutdown('EXCEPTION', error);
 });
 
 process.on('uncaughtException', (error) => {
-    console.error(error);
+    console.error("UnCaughtException: ", error);
     logError('uncaughtException', { error });
     //shutdown('EXCEPTION', error);
 });
@@ -128,14 +128,18 @@ function shutdown( signal, error ) {
     // FIXME: Handle error state gracefully. Check if db and redis are still alive before closing them
     server.close(() => {
         logInfo('HTTP server closed');
-        db.stop(function(err) {
-            process.exit(err || error ? 1 : 0)
-        })    
+        process.exit(0);
+        //db.stop(function(err) {
+        //    process.exit(err || error ? 1 : 0)
+        //})    
     });
 }
 
 process.on( 'SIGINT', () => shutdown( 'SIGINT' ) )
 process.on( 'SIGTERM', () => shutdown( 'SIGTERM' ) )
+
+// In case we are running under docker
+process.send = process.send || function () {};
 
 server.listen(config.apiPort, () => {
     console.log(`Express server listening on Port :- ${config.apiPort}`);

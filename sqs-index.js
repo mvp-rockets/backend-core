@@ -58,6 +58,17 @@ function handleHealthZ() {
 
 process.on("SIGUSR1", () => handleHealthZ);
 
+function shutdown( signal, error ) {
+	console.info( `[${signal}] shutting down...` );
+   
+  // FIXME: Handle error state gracefully. Check if db and redis are still alive before closing them
+  // Check if there is any cron job running before shutting down
+  process.exit(0);
+}
+
+process.on( 'SIGINT', () => shutdown( 'SIGINT' ) )
+process.on( 'SIGTERM', () => shutdown( 'SIGTERM' ) )
+
 process.send = process.send || function () {};
 // Here we send the ready signal to PM2
 process.send('ready');
