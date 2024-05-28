@@ -1,7 +1,7 @@
 const Result = require('folktale/result');
 
 const verifyVersion = ({ versionName, config, os }) => {
-    const versionKey = 'appVersions';
+    const versionKey = 'customerAppVersions';
 
     const minVersionOnServer = os === 'android' ? config[versionKey].minAndroidVersionName : config[versionKey].minIosVersionName;
     const latestVersionOnServer = os === 'android' ? config[versionKey].latestVersionOfAndroid : config[versionKey].latestVersionOfIos;
@@ -14,11 +14,35 @@ const verifyVersion = ({ versionName, config, os }) => {
             features: Object.values(config[versionKey]?.featuresUpdate || {}).map(featureInfo => featureInfo.path),
         };
     }
+    const [majorVersion, minorVersion, patchVersion] = versionName.split('.').map(val => Number(val));
+
+    if (minVersionOnServer) {
+        const [minServerMajorVersion, minServerMinorVersion, minServerPatchVersion] = minVersionOnServer.split('.').map(val => Number(val));
+
+        if (minServerMajorVersion > majorVersion ||
+            (minServerMajorVersion === majorVersion && minServerMinorVersion > minorVersion) ||
+            (minServerMajorVersion === majorVersion && minServerMinorVersion === minorVersion && minServerPatchVersion > patchVersion)) {
+            const featureVersions = Object.entries(config[versionKey]?.featuresUpdate ?? {})
+                .filter(([feature, featureInfo]) => {
+                    const [featureMajorVersion, featureMinorVersion, featurePatchVersion] = featureInfo.version.split('.').map(val => Number(val));
+                    return (featureMajorVersion > majorVersion ||
+                        (featureMajorVersion === majorVersion && featureMinorVersion > minorVersion) ||
+                        (featureMajorVersion === majorVersion && featureMinorVersion === minorVersion && featurePatchVersion > patchVersion));
+                })
+                .map(([feature, featureInfo]) => featureInfo.path);
+
+            return {
+                notifyUpdate: true,
+                latestVersion: latestVersionOnServer,
+                forceUpdate: true,
+                features: featureVersions,
+            };
+        }
+    }
+
     if (latestVersionOnServer) {
         const [serverMajorVersion, serverMinorVersion, serverPatchVersion] = latestVersionOnServer.split('.').map(val => Number(val));
-        const [majorVersion, minorVersion, patchVersion] = versionName.split('.').map(val => Number(val));
-
-        if (serverMajorVersion > majorVersion || 
+        if (serverMajorVersion > majorVersion ||
             (serverMajorVersion === majorVersion && serverMinorVersion > minorVersion) ||
             (serverMajorVersion === majorVersion && serverMinorVersion === minorVersion && serverPatchVersion > patchVersion)) {
             const featureVersions = Object.entries(config[versionKey]?.featuresUpdate ?? {})
@@ -48,7 +72,7 @@ const verifyVersion = ({ versionName, config, os }) => {
 };
 
 const updateAppVersion = ({ os, versionName, config }) => {
-    const versionKey = 'appVersions';
+    const versionKey = 'customerAppVersions';
     const latestVersionOnServer = os === 'android' ? config[versionKey].latestVersionOfAndroid : config[versionKey].latestVersionOfIos;
     const minVersionOnServer = os === 'android' ? config[versionKey].minAndroidVersionName : config[versionKey].minIosVersionName;
 
@@ -58,7 +82,7 @@ const updateAppVersion = ({ os, versionName, config }) => {
     } else {
         return Result.Ok({
             notifyUpdate: false,
-            latestVersion: latestVersionOnServer ? latestVersionOnServer : minVersionOnServer, 
+            latestVersion: latestVersionOnServer ? latestVersionOnServer : minVersionOnServer,
             forceUpdate: false,
             features: [],
         });
