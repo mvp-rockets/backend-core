@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+# check=error=true
 FROM node:20.12.2 AS build-env
 
 RUN apt-get update && apt-get install -y --no-install-recommends dumb-init=1.2.5 \
