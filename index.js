@@ -5,6 +5,12 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
+require('dnscache')({
+    enable: true,
+    ttl: 300, // Time-to-live for cached entries 
+    cachesize: 1000 // Maximum number of entries to cache
+});
+
 dotenv.config({ path: `./env/.env.${process.env.APP_ENV}` });
 const { Logger } = require('@mvp-rockets/namma-lib');
 const config = require('config/config');
