@@ -77,8 +77,21 @@ services:
       - "${LOCALSTACK_VOLUME_DIR:-localstack-data}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
 
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@pgadmin.com 
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
 volumes:
   pg-dataset:
+  pgadmin-data: 
   localstack-data:
   cache:
     driver: local
